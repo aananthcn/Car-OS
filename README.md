@@ -1,29 +1,20 @@
-# NammaAUTOSAR
-This project repo is created to learn and also establish a free and open source AUTOSAR stack that enables the new engineers to learn it practically. This should create more quality engineers for the Industry that paid me Salary for the last 23 years.
+# Car-OS.Zephyr
+The Car here stands for <u>C</u>lassic <u>a</u>utosa<u>r</u>. And the OS.Zephyr means Operating System software on top of Zephyr RTOS. This means Car-OS runs on top of Zephyr, which is akin to Android on top of Linux. 
 
 <br>
+This work is a fork from [Car-OS.Zephyr](https://github.com/aananthcn/Car-OS.Zephyr). To know more about the history of it, please have a look.
 
-What is NammaAUTOSAR?
----
-
-NammaAUTOSAR is a intended to provide a free to use with no liability licensed (MIT) software, writen against AUTOSAR specification R2020-11. This is created to learn AUTOSAR standards practically. And therefore setting a path towards learning as well as teaching AUTOSAR core skills.
-
-What is Namma? **Namma means "our" in Tamil and Kannada**. We used to say "Avan namma friendu" in Tamil. Which means "he is our friend". So, this is (y)our AUTOSAR stack, free to use, modify, learn but with no liability.
-
-**Start date: 27 June 2021, Sunday**<br>
-Motivation to create an OS came from Ashokkumar Narayanan (one of my best buddies in Visteon Chennai).
+This project is created this way for 3 reasons:
+ * Zephyr OS supports variety of boards and therefore this project can easily support any hardware with little effort.
+ * People working on this project can focus on new ideas or on AUTOSAR specs than re-doing what Zephyr OS team had done it.
+ * [Linux Foundation is making effort to get Safety (SIL3) certification](https://www.zephyrproject.org/update-safety-standard-compliance/). So this work could/will be used on Cars one day.
 
 
 <br><br>
 
-Getting Started
-===
+# Getting Started
 
-Prerequisites - SOFTWARE:
-----
-* Ubuntu 20.04 OS (either on Linux or on WSL2 inside Windows)
-  * Install following packages inside Ubuntu
-    * `apt install gcc-arm-none-eabi qemu-system-arm gdb-multiarch python3`
+## Prerequisites - Windows
 * Windows 10 + MSYS2
   * Follow the instructions given in "Installation" section in https://www.msys2.org/
   * Install following packages by starting the **MSYS2 MSYS** terminal:
@@ -37,9 +28,16 @@ Prerequisites - SOFTWARE:
 
 <br>
 
-Development Setup - HARDWARE:
+## Prerequisites - Linux:
+* Ubuntu 20.04 OS (either on Linux or on WSL2 inside Windows)
+  * Install following packages inside Ubuntu
+    * `apt install gcc-arm-none-eabi qemu-system-arm gdb-multiarch python3`
+
+<br><br>
+
+# Development Setup - HARDWARE:
 ----
-![Pi Pico Development Setup](docs/namma-autosar-dev-setup.png?raw=true "Title")
+![Pi Pico Development Setup](docs/rpi-pico-dev-setup.png?raw=true "Title")
 
 * Raspberry Pi Pico with pins soldered => [check this link](https://robocraze.com/products/raspberry-pi-pico-with-headers-and-micro-usb-cable)
 * Cytron Maker Pi Pico Base => [check this link](https://robu.in/product/cytron-maker-pi-pico-base-without-pico/)
@@ -68,17 +66,17 @@ If all steps above are successfull you are now ready to continue your contributi
 
 Cloning the Repo - Fresh Start
 ===
-As NammaAUTOSAR uses git submodules, please use the following command to clone the main and submodules
-* `git clone --recurse-submodules -j4 https://github.com/aananthcn/NammaAUTOSAR.git`
+As Car-OS.Zephyr uses git submodules, please use the following command to clone the main and submodules
+* `git clone --recurse-submodules -j4 https://github.com/aananthcn/Car-OS.Zephyr.git`
 
 <br>
 
-Starting the NammaAUTOSAR GUI
+Starting the Car-OS.Zephyr GUI
 ===
-* To start the NammaAUTOSAR Builder GUI, first open the **MSYS2 MINGW64** terminal
+* To start the Car-OS.Zephyr Builder GUI, first open the **MSYS2 MINGW64** terminal
 * Navigate to the cloned repository
 * Run this command in the **MSYS2 MINGW64** terminal: `python tools/autosar-gui.py`
-* **NammaAUTOSAR Builder** GUI will open
+* **Car-OS.Zephyr Builder** GUI will open
 
 
 <br>
@@ -123,7 +121,7 @@ Code Generation
 
 ![image](https://user-images.githubusercontent.com/61110156/201702795-53388e7c-2f6d-419f-aefd-8f6f7f6b61b2.png)
 
-* Close the NammaAUTOSAR Builder GUI
+* Close the Car-OS.Zephyr Builder GUI
 
 <br>
 
