@@ -1,8 +1,7 @@
-# Car-OS.Zephyr
-The Car here stands for <u>C</u>lassic <u>a</u>utosa<u>r</u>. And the OS.Zephyr means Operating System software on top of Zephyr RTOS. This means Car-OS runs on top of Zephyr, which is akin to Android on top of Linux. 
+# Car-OS
+The Car here stands for <u>C</u>lassic <u>a</u>utosa<u>r</u>. This runs on top of Car-OS.Zephyr project. Refer [Car-OS.Zephyr](https://github.com/aananthcn/autosar_os-zephyr) for more details. 
 
-<br>
-This work is a fork from [Car-OS.Zephyr](https://github.com/aananthcn/Car-OS.Zephyr). To know more about the history of it, please have a look.
+This work is a fork from [NammaAUTOSAR](https://github.com/aananthcn/NammaAUTOSAR). To know more about the history of it, please have a look.
 
 This project is created this way for 3 reasons:
  * Zephyr OS supports variety of boards and therefore this project can easily support any hardware with little effort.
@@ -35,21 +34,6 @@ This project is created this way for 3 reasons:
 
 <br><br>
 
-# Development Setup - HARDWARE:
-----
-![Pi Pico Development Setup](docs/rpi-pico-dev-setup.png?raw=true "Title")
-
-* Raspberry Pi Pico with pins soldered => [check this link](https://robocraze.com/products/raspberry-pi-pico-with-headers-and-micro-usb-cable)
-* Cytron Maker Pi Pico Base => [check this link](https://robu.in/product/cytron-maker-pi-pico-base-without-pico/)
-* DTech FTDI USB to TTL Serial Converter => [Amazon: PL2303TA chip](https://amzn.eu/d/eYsRoTC)
-  * Note for Win11: Install driver from this link [prolific-driverinstaller-v1200](https://www.driverscloud.com/en/services/GetInformationDriver/72590-84992/delock-pl2303-prolific-driverinstaller-v1200zip)
-* Any debugger with SWD pin interface support => [check this link](https://in.rsdelivers.com/product/segger/80800-j-link-base/segger-j-link-base-emulator/1311319)
-  * Also planning to support ELF to UF2 image conversion so that developers can flash the image and use print statements to see the debug output.
-  * For SWD, buy 20 pin JTAG cable and cut & crimp it for SWD => [check this link](https://robu.in/product/2-54mm-pitch-20-pin-jtag-isp-avr-cable/)
-* 2 x Grove 4-pin => [check this link](https://www.fabtolab.com/grove-universal-cable?search=grove%204%20pin)
-* ENC28J60 Ethernet LAN controller => [check this link](https://robocraze.com/products/enc28j60-ethernet-lan-module)
-
-<br><br>
 
 Getting / Pulling the latest changes
 ===
