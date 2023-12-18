@@ -30,7 +30,7 @@ AR=${COMPILER}ar
 RANLIB=${COMPILER}ranlib
 OBJCOPY=${COMPILER}objcopy
 
-TARGET := NammaAutosar
+TARGET := libCar_OS.la
 
 # AUTOSAR SoftWare Components list
 autosar_swc_s := $(OS_PATH) $(ECUM_PATH) \
@@ -53,6 +53,7 @@ LIB_GCC_A_PATH=/usr/lib/gcc/arm-none-eabi/${CC_VERS}/thumb/v6-m/nofp/
 endif
 GCC_LDFLAGS := -L${LIB_GCC_A_PATH} -lgcc 
 
+LDFLAGS := -g -relocatable
 
 # Build all AUTOSAR SWCs
 $(autosar_swc_s):
@@ -66,12 +67,13 @@ $(TARGET): $(autosar_swc_s)
 	@echo ╔════════════════════╗
 	@echo ║ LINKING OBJECTS... ║
 	@echo ╚════════════════════╝
-	$(LD) ${LDFLAGS} $(LA_OBJS) -o ${TARGET}.elf -T $(LINK_DEF_F) -Map=${TARGET}.map ${GCC_LDFLAGS}
-	$(OBJCOPY) -O binary ${TARGET}.elf ${TARGET}.bin
+#	$(LD) ${LDFLAGS} $(LA_OBJS) -o ${TARGET}.elf -T $(LINK_DEF_F) -Map=${TARGET}.map ${GCC_LDFLAGS}
+	$(LD) ${LDFLAGS} -o $@ $(LA_OBJS)
+#	$(OBJCOPY) -O binary ${TARGET}.elf ${TARGET}.bin
 	@echo ""
-	@echo ╔══════════════════════════════╗
-	@echo ║ NammaAUTOSAR Build Complete! ║
-	@echo ╚══════════════════════════════╝
+	@echo ╔════════════════════════════════════════════╗
+	@echo ║ Build Complete! libCar-OS.la is generated. ║
+	@echo ╚════════════════════════════════════════════╝
 
 # Clean Target
 clean:
@@ -79,4 +81,4 @@ clean:
 	do							\
 		$(MAKE) --directory=$$d ROOT_DIR=$(CWD) clean;	\
 	done
-	$(RM) ${TARGET}.elf ${TARGET}.bin ${TARGET}.map
+	$(RM) ${TARGET}
