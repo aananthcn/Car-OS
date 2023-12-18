@@ -115,7 +115,10 @@ def generate_headerfile(lin_src_path, lin_configs):
 
 def generate_code(gui, lin_configs):
     cwd = os.getcwd()
-    lin_src_path = search.find_dir("Lin", cwd+"/submodules/MCAL/")
+    if os.path.exists(cwd+"/car-os"):
+        lin_src_path = search.find_dir("Lin", cwd+"/car-os/submodules/MCAL/")
+    else:
+        lin_src_path = search.find_dir("Lin", cwd+"/submodules/MCAL/")
     generate_headerfile(lin_src_path, lin_configs)
     generate_sourcefile(lin_src_path, lin_configs)
     uc_cgen.create_source(gui) # calling uc_cgen.create_source() is a work-around. This will be corrected later.

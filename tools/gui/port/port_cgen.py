@@ -89,7 +89,10 @@ def generate_sourcefile(port_src_path, pins, port_info):
 
 def generate_code(gui):
     cwd = os.getcwd()
-    port_src_path = search.find_dir("Port", cwd+"/submodules/MCAL/")
+    if os.path.exists(cwd+"/car-os"):
+        port_src_path = search.find_dir("Port", cwd+"/car-os/submodules/MCAL/")
+    else:
+        port_src_path = search.find_dir("Port", cwd+"/submodules/MCAL/")
     pins, port_info, port_gen = arxml_port.parse_arxml(gui.arxml_file)
     generate_headerfile(port_src_path, pins, port_info)
     generate_sourcefile(port_src_path, pins, port_info)

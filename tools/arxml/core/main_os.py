@@ -24,7 +24,10 @@ import xml.etree.ElementTree as ET
 
 
 # Let us use the System Generator functions to parse ARXML and Generate code
-sys.path.insert(0, os.getcwd()+"/tools/arxml")
+if os.path.exists(os.getcwd()+"/car-os"):
+   sys.path.insert(0, os.getcwd()+"/car-os/tools/arxml")
+else:
+   sys.path.insert(0, os.getcwd()+"/tools/arxml")
 
 import arxml.os.export_os as exp_os
 import arxml.os.arxml_os as arxml_os

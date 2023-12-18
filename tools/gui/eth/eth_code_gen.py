@@ -320,7 +320,10 @@ def generate_macphy_files(eth_src_path, eth_configs):
 
 def generate_code(gui, eth_configs):
     cwd = os.getcwd()
-    eth_src_path = search.find_dir("Eth", cwd+"/submodules/MCAL/")
+    if os.path.exists(os.getcwd()+"/car-os"):
+        eth_src_path = search.find_dir("Eth", cwd+"/car-os/submodules/MCAL/")
+    else:
+        eth_src_path = search.find_dir("Eth", cwd+"/submodules/MCAL/")
     generate_headerfile(eth_src_path, eth_configs)
     generate_sourcefile(eth_src_path, eth_configs)
     generate_macphy_files(eth_src_path, eth_configs)

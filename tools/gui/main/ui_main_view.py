@@ -23,8 +23,12 @@ import sys
 
 
 # Let us use the System Generator functions to parse OIL and Generate code
-sys.path.insert(0, os.getcwd()+"/tools/os_builder")
-sys.path.insert(0, os.getcwd()+"/tools/arxml")
+if os.path.exists(os.getcwd()+"/car-os"):
+    sys.path.insert(0, os.getcwd()+"/car-os/tools/os_builder")
+    sys.path.insert(0, os.getcwd()+"/car-os/tools/arxml")
+else:
+    sys.path.insert(0, os.getcwd()+"/tools/os_builder")
+    sys.path.insert(0, os.getcwd()+"/tools/arxml")
 
 import os_builder.scripts.System_Generator as sg
 import os_builder.scripts.oil as oil
@@ -154,7 +158,10 @@ FileMenu = None
 # I/O stuffs
 OIL_FileName = None
 RecentFiles = os.getcwd()+"/.filelist"
-ToolsPath = os.getcwd()+"/tools"
+if os.path.exists(os.getcwd()+"/car-os"):
+    ToolsPath = os.getcwd()+"/car-os/tools"
+else:
+    ToolsPath = os.getcwd()+"/tools"
 
 
 # UI Stuffs - View
@@ -185,6 +192,8 @@ def open_oil_file(fpath):
     init_dir = os.getcwd()
     if os.path.exists(os.getcwd()+"/cfg/oil-files"):
         init_dir = os.getcwd()+"/cfg/oil-files"
+    elif os.path.exists(os.getcwd()+"/car-os/cfg/oil-files"):
+        init_dir = os.getcwd()+"/car-os/cfg/oil-files"
 
     if fpath == None:
         filename = filedialog.askopenfilename(initialdir=init_dir)
@@ -213,10 +222,15 @@ def save_project():
 
     os_view.backup_os_gui_before_save()
 
+    if os.path.exists(os.getcwd()+"/car-os"):
+        init_dir = os.getcwd()+"/car-os/output/arxml"
+    else:
+        init_dir = os.getcwd()+"/output/arxml"
+
     # Export if the input file OIL file.
     if OIL_FileName != None:
         file_exts = [('ARXML Files', '*.arxml')]
-        saved_filename = filedialog.asksaveasfile(initialdir=os.getcwd()+"/output/arxml", filetypes = file_exts, defaultextension = file_exts)
+        saved_filename = filedialog.asksaveasfile(initialdir=init_dir, filetypes = file_exts, defaultextension = file_exts)
         if saved_filename == None:
             messagebox.showinfo(Gui.title, "File to save is not done correctly, saving aborted!")
             return
@@ -281,9 +295,14 @@ def generate_code():
 
 def save_as_arxml():
     global Gui
+
+    if os.path.exists(os.getcwd()+"/car-os"):
+        init_dir = os.getcwd()+"/car-os/output/arxml"
+    else:
+        init_dir = os.getcwd()+"/output/arxml"
     
     file_exts = [('ARXML Files', '*.arxml')]
-    saved_filename = filedialog.asksaveasfile(initialdir=os.getcwd()+"/output/arxml", filetypes = file_exts, defaultextension = file_exts)
+    saved_filename = filedialog.asksaveasfile(initialdir=init_dir, filetypes = file_exts, defaultextension = file_exts)
     if saved_filename == None:
         messagebox.showinfo(Gui.title, "File to save is not done correctly, saving aborted!")
         return
@@ -301,6 +320,8 @@ def open_arxml_file(fpath):
     init_dir = os.getcwd()
     if os.path.exists(os.getcwd()+"/cfg/arxml"):
         init_dir = os.getcwd()+"/cfg/arxml"
+    elif os.path.exists(os.getcwd()+"/car-os/cfg/arxml"):
+        init_dir = os.getcwd()+"/car-os/cfg/arxml"
 
     if fpath == None:
         filename = filedialog.askopenfilename(initialdir=init_dir)

@@ -52,9 +52,12 @@ Child_Frame = None
 Canvas = None
 Gui = None
 
-AppLayerPath = os.getcwd()+"/submodules/AL/"
-AppsJsonFile = AppLayerPath+"/applications.json"
 
+if os.path.exists(os.getcwd()+"/car-os"):
+    AppLayerPath = os.getcwd()+"/car-os/submodules/AL/"
+else:
+    AppLayerPath = os.getcwd()+"/submodules/AL/"
+AppsJsonFile = AppLayerPath+"/applications.json"
 
 
 # Show app configuration window

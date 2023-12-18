@@ -413,7 +413,10 @@ def generate_headerfile(ethif_src_path, ethif_configs):
 
 def generate_code(gui, ethif_configs):
     cwd = os.getcwd()
-    ethif_src_path = search.find_dir("EthIf", cwd+"/submodules/ECU-AL/")
+    if os.path.exists(cwd+"/car-os"):
+        ethif_src_path = search.find_dir("EthIf", cwd+"/car-os/submodules/ECU-AL/")
+    else:
+        ethif_src_path = search.find_dir("EthIf", cwd+"/submodules/ECU-AL/")
 
     generate_headerfile(ethif_src_path, ethif_configs)
     generate_sourcefile(ethif_src_path, ethif_configs)
