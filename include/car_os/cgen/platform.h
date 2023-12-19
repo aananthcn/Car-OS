@@ -5,6 +5,7 @@
 
 #include <rp2040.h>
 #include <platform_rp2040.h>
+#include <config_rp2040.h>
 
 
 #endif
