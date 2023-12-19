@@ -21,7 +21,7 @@
 import os
 import sys
 
-from gui.main.ui_main_view import NammaAUTOSAR_Builder
+from gui.car_os.main_view import NammaAUTOSAR_Builder
 
 
 def main(fpath, ftype):

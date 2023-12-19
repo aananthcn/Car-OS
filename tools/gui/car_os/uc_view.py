@@ -23,7 +23,7 @@ import tkinter as tk
 from tkinter import ttk
 
 #import gui.lib.asr_view as asr_view
-import gui.main.ui_uc_cgen as uc_cgen
+import gui.car_os.uc_cgen as uc_cgen
 import arxml.mcu.arxml_mcu as arxml_mcu
 
 import gui.lib.window as window

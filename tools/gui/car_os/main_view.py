@@ -41,14 +41,14 @@ from tkinter import ttk
 from tkinter import filedialog
 
 import gui.os.os_view as os_view
-import gui.main.ui_uc_view as uc_view
+import gui.car_os.uc_view as uc_view
 import gui.lib.asr_view as a_view
 
 import arxml.core.lib as lib
 
 
 # Temporary work-around -- for non OS modules, the code is generated from Mcu Code Generator
-import gui.main.ui_uc_cgen as uc_cgen
+import gui.car_os.uc_cgen as uc_cgen
 import gui.app.app_gen as app_gen
 
 
