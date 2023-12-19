@@ -5,40 +5,29 @@
 
 INCLUDE tools/os_builder/src/sg_stack.lds
 
+/* Flash Memory: 2 MB */
+/*/
+    BOOT_STG2     = 0x10000000;
+    ROM_START    = 0x10000100;
+    ROM_SIZE     = 0x00200000;
+/*/
+
+/* RAM Memory: 256kB + 4kB + 4kB = 264kB */
+/*/
+    RAM_START    = 0x20000000;
+    RAM_SIZE     = 0x00042000;
+/*/
+
 MEMORY
 {
     FLASH(rx)       : ORIGIN = 0x10000000, LENGTH = 2048k
-    RAM(rwx)        : ORIGIN =  0x20000000, LENGTH = 256k
-    SCRATCH_X(rwx)  : ORIGIN = 0x20040000, LENGTH = 4k
-    SCRATCH_Y(rwx)  : ORIGIN = 0x20041000, LENGTH = 4k
+    RAM(rwx)        : ORIGIN = 0x20000000, LENGTH = 264k
 }
 
-/* Flash Memory: 2 MB */
-/*
-BOOT_STG2     = 0x10000000;
-ROM_START    = 0x10000100;
-ROM_SIZE     = 0x00200000;
-*/
-/* RAM Memory: 256kB + 4kB + 4kB = 264kB */
-/*
-RAM_START    = 0x20000000;
-RAM_SIZE     = 0x00042000;
-*/
 
-ENTRY(_Reset_handler)
+ENTRY(StartOS)
 SECTIONS
 {
-    /* Stage 2 Booloader for Raspbery Pi Pico (RP2040) */
-    .boot2 : {
-        _boot_stage2_start = .;
-        KEEP (*(.boot2))
-        _boot_stage2_end = .;
-    } > FLASH
-
-    ASSERT(_boot_stage2_end - _boot_stage2_start == 256,
-        "ERROR: Pico second stage bootloader must be 256 bytes in size")
-
-    /* Other CODE SEGMENTS -- place vectors.o first?? */
     .text : {
         _vectors_start = .;
         KEEP (*(.vectors))
@@ -90,19 +79,4 @@ SECTIONS
     _bss_size = _bss_end - _bss_start;
 
     . = ALIGN(8);
-    /* OS SCRATCH PAD AREA */
-    . = . + 64;
-    _os_scratch_pad = .;
-    
-    /* USER STACK MEMORY */
-    . = . + _TASK_STACK_SIZE; /* user stack memory */
-    _user_stack_top = .;
-
-    /* OS STACK MEMORY */
-    . = . + _OS_STACK_SIZE; /* user stack memory */
-    _os_stack_top = .;
-
-    /* IRQ STACK MEMORY */
-    . = . + _IRQ_STACK_SIZE; /* 4kB of irq stack memory */
-    _irq_stack_top = .;
 }

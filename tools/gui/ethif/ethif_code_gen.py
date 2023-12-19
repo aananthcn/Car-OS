@@ -26,7 +26,7 @@ import utils.search as search
 # import gui.ethif.ethif_ctrlcfg as ethif_cc
 
 # Temporary work-around
-import gui.main.ui_uc_cgen as uc_cgen
+import gui.car_os.uc_cgen as uc_cgen
 
 
 #EthIfGeneral

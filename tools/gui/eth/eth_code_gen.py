@@ -26,7 +26,7 @@ import utils.search as search
 import gui.eth.eth_ctrlcfg as eth_cc
 
 # Temporary work-around
-import gui.main.ui_uc_cgen as uc_cgen
+import gui.car_os.uc_cgen as uc_cgen
 
 
 EthGeneralCfgType_str = "\n\ntypedef struct {\n\
@@ -309,7 +309,7 @@ def generate_macphy_files(eth_src_path, eth_configs):
     hf.write("#define NAMMA_AUTOSAR_MACPHY_H\n\n")
 
     if macphy_device:
-        mf.write("include ${CWD}"+macphy_relpath+"/"+macphy_device+"/"+macphy_device+".mk\n\n")
+        mf.write("include ${CAR_OS_PATH}"+macphy_relpath+"/"+macphy_device+"/"+macphy_device+".mk\n\n")
         hf.write("#include <"+macphy_device+"/"+macphy_device+".h>\n\n")
 
     hf.write("#endif\n")

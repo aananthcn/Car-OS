@@ -100,6 +100,7 @@ def update_or_clone_app(app_id, gui):
 
     # generate code to build
     app_gen.create_source(app_name, gui)
+    print("Car-OS applications update completed!")
 
  
     

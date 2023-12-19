@@ -33,8 +33,15 @@ OBJCOPY=${COMPILER}objcopy
 TARGET := libCar_OS.la
 
 # AUTOSAR SoftWare Components list
+# autosar_swc_s := $(OS_PATH) $(ECUM_PATH) \
+# 	$(MCU_STARTUP_PATH) $(MCU_PATH) \
+# 	$(DIO_PATH) $(PORT_PATH) $(SPI_PATH) \
+# 	$(LIN_PATH) $(ETH_PATH) $(ETHIF_PATH) \
+# 	$(TCPIP_PATH) \
+# 	$(APP_LIST)
+
 autosar_swc_s := $(OS_PATH) $(ECUM_PATH) \
-	$(MCU_STARTUP_PATH) $(MCU_PATH) \
+	$(MCU_PATH) \
 	$(DIO_PATH) $(PORT_PATH) $(SPI_PATH) \
 	$(LIN_PATH) $(ETH_PATH) $(ETHIF_PATH) \
 	$(TCPIP_PATH) \
@@ -57,28 +64,22 @@ LDFLAGS := -g -relocatable
 
 # Build all AUTOSAR SWCs
 $(autosar_swc_s):
-	$(MAKE) --directory=$@ ROOT_DIR=$(CWD) COMPILER=$(COMPILER)
+	$(MAKE) --directory=$@ CAR_OS_PATH=$(CAR_OS_PATH) COMPILER=$(COMPILER)
 
 
 # The Main Target. Here LA_OBJS is constructed by uc_cgen.py python script. This
 # script is a temporary work-around, will be moved to the right script later.
 $(TARGET): $(autosar_swc_s)
 	@echo ""
-	@echo ╔════════════════════╗
-	@echo ║ LINKING OBJECTS... ║
-	@echo ╚════════════════════╝
-#	$(LD) ${LDFLAGS} $(LA_OBJS) -o ${TARGET}.elf -T $(LINK_DEF_F) -Map=${TARGET}.map ${GCC_LDFLAGS}
+	@echo "LINKING OBJECTS... "
 	$(LD) ${LDFLAGS} -o $@ $(LA_OBJS)
-#	$(OBJCOPY) -O binary ${TARGET}.elf ${TARGET}.bin
 	@echo ""
-	@echo ╔════════════════════════════════════════════╗
-	@echo ║ Build Complete! libCar-OS.la is generated. ║
-	@echo ╚════════════════════════════════════════════╝
+	@echo "Build Complete! libCar-OS.la is generated."
 
 # Clean Target
 clean:
-	for d in $(autosar_swc_s); 				\
-	do							\
-		$(MAKE) --directory=$$d ROOT_DIR=$(CWD) clean;	\
+	for d in $(autosar_swc_s);                                           \
+	do                                                                   \
+		$(MAKE) --directory=$$d CAR_OS_PATH=$(CAR_OS_PATH) clean;    \
 	done
 	$(RM) ${TARGET}
