@@ -67,7 +67,7 @@ $(autosar_swc_s):
 	$(MAKE) --directory=$@ CAR_OS_PATH=$(CAR_OS_PATH) COMPILER=$(COMPILER)
 
 
-# The Main Target. Here LA_OBJS is constructed by uc_cgen.py python script. This
+# The Main Target. Here LA_OBJS is constructed by main_cgen.py python script. This
 # script is a temporary work-around, will be moved to the right script later.
 $(TARGET): $(autosar_swc_s)
 	@echo ""

@@ -26,7 +26,7 @@ import utils.search as search
 import gui.eth.eth_ctrlcfg as eth_cc
 
 # Temporary work-around
-import gui.car_os.uc_cgen as uc_cgen
+import gui.car_os.main_cgen as main_cgen
 
 
 EthGeneralCfgType_str = "\n\ntypedef struct {\n\
@@ -327,5 +327,5 @@ def generate_code(gui, eth_configs):
     generate_headerfile(eth_src_path, eth_configs)
     generate_sourcefile(eth_src_path, eth_configs)
     generate_macphy_files(eth_src_path, eth_configs)
-    uc_cgen.create_source(gui) # calling uc_cgen.create_source() is a work-around. This will be corrected later.
+    main_cgen.create_source(gui) # calling main_cgen.create_source() is a work-around. This will be corrected later.
     

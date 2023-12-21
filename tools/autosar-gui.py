@@ -21,12 +21,12 @@
 import os
 import sys
 
-from gui.car_os.main_view import NammaAUTOSAR_Builder
+from gui.car_os.main_view import Car_OS_Builder
 
 
 def main(fpath, ftype):
     # Create the main window
-    Gui = NammaAUTOSAR_Builder()
+    Gui = Car_OS_Builder()
 
     # setup initial view (AUTOSAR view is the default, now)
     Gui.init_view_setup(fpath, ftype)
@@ -50,7 +50,7 @@ if __name__ == '__main__':
         filepath = sys.argv[sys.argv.index("-f") + 1]
         filepath = os.path.abspath(filepath)
         filepath = filepath.replace(os.sep, '/')
-        # set source code generation path
+        # TODO: set source code generation path, this should be changed for Car-OS
         srcpath = filepath.split("NammaAUTOSAR")[0]+"NammaAUTOSAR/tools/src"
         sg.set_source_file_path(srcpath)
     if "-t" in sys.argv:
