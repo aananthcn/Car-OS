@@ -143,6 +143,9 @@ def create_source(gui):
     paths_mk.write("CAR_OS_PATH := "+car_os_path+"\n")
     paths_mk.write("CAR_OS_INC_PATH := "+car_os_path+"/include\n")
 
+    zephyr_path = gui.zephyr_path.replace("\\", "/")
+    paths_mk.write("ZEPHYR_INSTALL_PATH := "+zephyr_path+"/zephyr/include/zephyr\n")
+
     car_os_board_path = search.find_dir("boards", car_os_path).replace("\\", "/")
     car_os_soc_path = car_os_board_path+"/"+gui.uc_info.micro
     paths_mk.write("CAR_OS_BOARD_PATH := "+car_os_soc_path+"\n")
@@ -190,7 +193,6 @@ def create_source(gui):
     os_builder_path = search.find_dir("os_builder", car_os_path).replace("\\", "/")
     paths_mk.write("OS_BUILDER_PATH := "+os_builder_path+"\n")
     swc_paths.append(os_path)
-    paths_mk.write("\n\n")
 
 
     # Link Archive File Path Definitions
@@ -201,6 +203,7 @@ def create_source(gui):
     objs_list = []
 
     # Start writing the link archive file paths
+    paths_mk.write("\n\n")
     paths_mk.write("# Link Archive File Path Definitions\n")
     for lib in libs_list:
         objname = lib.split("/")[-1].split(".")[0].upper()

@@ -3,6 +3,7 @@
 # Makefile Paths Definitions
 CAR_OS_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os
 CAR_OS_INC_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/include
+ZEPHYR_INSTALL_PATH := E:/zephyrproject/zephyr/include/zephyr
 CAR_OS_BOARD_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/boards/rp2040
 MCU_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Mcu
 ECUM_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/EcuM

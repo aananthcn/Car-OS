@@ -101,6 +101,7 @@ class Car_OS_Builder:
     
     # General Attributes
     arxml_file = None
+    zephyr_path = None
     config_loaded = False
     
     # Graphical Attributes
@@ -116,7 +117,7 @@ class Car_OS_Builder:
         Gui = self
         self.main_view = MainView()
         self.main_view.tk_root.title(self.title + " [uninitialized]")
-        recentfiles = get_recent_files()
+        recentfiles = get_project_info_recentf()
         add_menus(self.main_view.tk_root, recentfiles)
         if os.name == 'nt':
             self.main_view.tk_root.state("zoomed")
@@ -395,6 +396,46 @@ def textBox():
 
 
 
+def update_project_info_zephyrd(filepath):
+    global ProjectInfoFile
+
+    proj_data = None
+    if ProjectInfoFile == None:
+        print("Error: ProjectInfoFile is not initialized")
+        return
+
+    if os.path.exists(ProjectInfoFile):
+        with open(ProjectInfoFile, "r") as jfile:
+            try:
+                proj_data = json.load(jfile)
+            except ValueError:
+                print("Decoding json ("+ProjectInfoFile+") failed in update_project_info_recentf()!")
+                proj_data = {}
+            jfile.close()
+
+    if os.path.exists(filepath):
+        proj_data["zephyr_path"] = filepath
+        with open(ProjectInfoFile, "w") as jfile:
+            json.dump(proj_data, jfile)
+
+
+
+def get_project_info_zephyrd():
+    zephyrd = None
+    if os.path.exists(ProjectInfoFile):
+        with open(ProjectInfoFile, "r") as jfile:
+            try:
+                proj_data = json.load(jfile)
+                zephyrd = proj_data["zephyr_path"]
+            except ValueError:
+                print("Decoding json ("+ProjectInfoFile+") failed in get_project_info_recentf()!")
+                zephyrd = None
+            jfile.close()
+
+    return zephyrd
+
+
+
 def update_project_info_recentf(filepath):
     global ProjectInfoFile
 
@@ -428,12 +469,7 @@ def update_project_info_recentf(filepath):
 
 
 
-def update_project_info_zephyrd(filepath):
-    print("hi")
-
-
-
-def get_recent_files():
+def get_project_info_recentf():
     file_list = None
     if os.path.exists(ProjectInfoFile):
         with open(ProjectInfoFile, "r") as jfile:
@@ -441,7 +477,7 @@ def get_recent_files():
                 proj_data = json.load(jfile)
                 file_list = proj_data["recent_files"]
             except ValueError:
-                print("Decoding json ("+ProjectInfoFile+") failed in get_recent_files()!")
+                print("Decoding json ("+ProjectInfoFile+") failed in get_project_info_recentf()!")
                 file_list = None
             jfile.close()
 
