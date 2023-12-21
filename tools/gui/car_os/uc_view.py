@@ -22,8 +22,8 @@
 import tkinter as tk
 from tkinter import ttk
 
-#import gui.lib.asr_view as asr_view
-import gui.car_os.uc_cgen as uc_cgen
+#import gui.car_os.asr_view as asr_view
+import gui.car_os.main_cgen as main_cgen
 import arxml.mcu.arxml_mcu as arxml_mcu
 
 import gui.lib.window as window
@@ -178,7 +178,7 @@ class UcConfig_View:
         label.grid(row=6, column=0, sticky="e")
 
         # Save Button
-        # saveb = tk.Button(self.scrollw.mnf, width=10, text="Save Configs", command=lambda:uc_cgen.create_source(self.gui),
+        # saveb = tk.Button(self.scrollw.mnf, width=10, text="Save Configs", command=lambda:main_cgen.create_source(self.gui),
         saveb = tk.Button(self.scrollw.mnf, width=10, text="Save Configs", command=self.save_configs,
                     bg="#206020", fg='white')
         saveb.grid(row=7, column=1)
@@ -214,5 +214,5 @@ class UcConfig_View:
             self.gui.asr_blocks["uC"].update_label(self.gui, new_label)
 
         # generate code (i.e., update arxml and other artifacts)
-        uc_cgen.create_source(self.gui)
+        main_cgen.create_source(self.gui)
 
