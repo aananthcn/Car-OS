@@ -23,8 +23,8 @@ OS_BUILDER_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/tools/os_builder
 
 
 # Link Archive File Path Definitions
-LIBMCU := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Mcu/libMcu.la
-LIBECUM := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/EcuM/libEcuM.la
+LIBMCU := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Mcu/libMcu.a
+LIBECUM := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/EcuM/libEcuM.a
 LIBPORT := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Port/libPort.la
 LIBDIO := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Dio/libDio.la
 LIBSPI := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Spi/libSpi.la
