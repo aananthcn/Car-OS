@@ -1,10 +1,12 @@
 # Car-OS
-The Car here stands for <u>C</u>lassic <u>a</u>utosa<u>r</u>. This runs on top of Car-OS.Zephyr project. Refer [Car-OS.Zephyr](https://github.com/aananthcn/autosar_os-zephyr) for more details. 
+The Car here stands for <u>C</u>lassic <u>a</u>utosa<u>r</u>. This runs on top of Car-OS.Zephyr project. Refer [Car-OS.Zephyr](https://github.com/aananthcn/autosar_os-zephyr) for more details. This work is a fork from [NammaAUTOSAR](https://github.com/aananthcn/NammaAUTOSAR). To know more about the history of it, please have a look.
 
-This work is a fork from [NammaAUTOSAR](https://github.com/aananthcn/NammaAUTOSAR). To know more about the history of it, please have a look.
+If you invoke `python car-os/tools/autosar-gui.py` from terminal and you get the GUI as shown below. And this is referred as Car-OS Builder.<br>
+<img src="docs/Car-OS_UI.png"  width=960 height=540>
 
-This project is created this way for 3 reasons:
+This project is created this way for following reasons:
  * Zephyr OS supports variety of boards and therefore this project can easily support any hardware with little effort.
+ * And, MCAL will use Zephyr RTOS's standard interfaces. So, no business of updating MCALs ($$ savings) across micros, henceforth.
  * People working on this project can focus on new ideas or on AUTOSAR specs than re-doing what Zephyr OS team had done it.
  * [Linux Foundation is making effort to get Safety (SIL3) certification](https://www.zephyrproject.org/update-safety-standard-compliance/). So this work could/will be used on Cars one day.
 
@@ -41,7 +43,7 @@ Getting / Pulling the latest changes
   * `git pull`
   * `git submodule update --recursive --remote`
 * After this, do not forget to pull the applications (apps are loosely coupled) manually as below
-  * `cd submodules/AL/NammaTestApp`
+  * `cd submodules/AL/Car_Os_TestApp`
   * `git pull`
 
 If all steps above are successfull you are now ready to continue your contribution.
@@ -86,15 +88,15 @@ Configuration
 
 <br><br>
 
-Importing NammaTestApp
+Importing Car_Os_TestApp
 ===
 * Click on **Applications** (1) and wait for the clone operation to complete.
 * Mention how many number of applications you want to import. In this case, I have given as 1
-* Provide the **NammaTestApp** repository path in the App 0 - `https://github.com/aananthcn/NammaTestApp.git`
+* Provide the **Car_Os_TestApp** repository path in the App 0 - `https://github.com/aananthcn/Car_Os_TestApp.git`
 
 ![image](https://user-images.githubusercontent.com/61110156/201701405-ca438c64-213a-4328-83c3-a1bc4ccc4ead.png)
 
-* This will automatically import the NammaTestApp into respective folder
+* This will automatically import the Car_Os_TestApp into respective folder
 
 <br><br>
 

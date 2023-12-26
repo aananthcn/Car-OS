@@ -30,7 +30,7 @@ AR=${COMPILER}ar
 RANLIB=${COMPILER}ranlib
 OBJCOPY=${COMPILER}objcopy
 
-TARGET := libCar_OS.la
+TARGET := libCar_OS.a
 
 # AUTOSAR SoftWare Components list
 # autosar_swc_s := $(OS_PATH) $(ECUM_PATH) \
@@ -74,7 +74,7 @@ $(TARGET): $(autosar_swc_s)
 	@echo "LINKING OBJECTS... "
 	$(LD) ${LDFLAGS} -o $@ $(LA_OBJS)
 	@echo ""
-	@echo "Build Complete! libCar-OS.la is generated."
+	@echo "Build Complete! ${TARGET} is generated."
 
 # Clean Target
 clean:

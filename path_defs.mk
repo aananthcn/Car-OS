@@ -25,15 +25,15 @@ OS_BUILDER_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/tools/os_builder
 # Link Archive File Path Definitions
 LIBMCU := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Mcu/libMcu.a
 LIBECUM := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/EcuM/libEcuM.a
-LIBPORT := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Port/libPort.la
-LIBDIO := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Dio/libDio.la
-LIBSPI := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Spi/libSpi.la
-LIBLIN := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Lin/libLin.la
-LIBETH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Eth/libEth.la
-LIBETHIF := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/ECU-AL/EthIf/libEthIf.la
-LIBTCPIP := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/TcpIp/libTcpIp.la
+LIBPORT := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Port/libPort.a
+LIBDIO := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Dio/libDio.a
+LIBSPI := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Spi/libSpi.a
+LIBLIN := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Lin/libLin.a
+LIBETH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Eth/libEth.a
+LIBETHIF := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/ECU-AL/EthIf/libEthIf.a
+LIBTCPIP := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/TcpIp/libTcpIp.a
 LIBOS := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/Os/libOs.a
-LIBCAR_OS_TESTAPP := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/AL/Car_Os_TestApp/libCar_OS_TestApp.la
+LIBCAR_OS_TESTAPP := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/AL/Car_Os_TestApp/libCar_OS_TestApp.a
 
 
 # Link Archive Object List
