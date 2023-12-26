@@ -1,7 +1,7 @@
 # Car-OS
 The Car here stands for <u>C</u>lassic <u>a</u>utosa<u>r</u>. This runs on top of Car-OS.Zephyr project. Refer [Car-OS.Zephyr](https://github.com/aananthcn/autosar_os-zephyr) for more details. This work is a fork from [NammaAUTOSAR](https://github.com/aananthcn/NammaAUTOSAR). To know more about the history of it, please have a look.
 
-If you invoke `python car-os/tools/autosar-gui.py` from terminal and you get the GUI as shown below. And this is referred as Car-OS Builder.<br>
+If you invoke `python car-os/tools/autosar-gui.py` from terminal and you get the GUI as shown below. And this is referred as Car-OS Builder.<br><br>
 <img src="docs/Car-OS_UI.png"  width=960 height=540>
 
 This project is created this way for following reasons:
