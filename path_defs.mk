@@ -3,8 +3,12 @@
 # Makefile Paths Definitions
 CAR_OS_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os
 CAR_OS_INC_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/include
-ZEPHYR_INSTALL_PATH := E:/zephyrproject/zephyr/include/zephyr
 CAR_OS_BOARD_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/boards/rp2040
+ZEPHYR_INC_PATH := E:/zephyrproject/zephyr/include
+ZEPHYR_INC_Z_PATH := E:/zephyrproject/zephyr/include/zephyr
+ZEPHYR_STDLIB_PATH := E:/zephyrproject/zephyr/lib/libc/minimal/include
+ZEPHYR_INSTALL_PATH := E:/zephyrproject
+ZEPHYR_GEN_INC_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/build/zephyr/include/generated
 MCU_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Mcu
 ECUM_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/EcuM
 PORT_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Port
@@ -28,8 +32,8 @@ LIBLIN := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Lin/libLin.la
 LIBETH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Eth/libEth.la
 LIBETHIF := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/ECU-AL/EthIf/libEthIf.la
 LIBTCPIP := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/TcpIp/libTcpIp.la
-LIBOS := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/Os/libOs.la
-LIBCAR_OS_TESTAPP := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/AL/Car-Os.TestApp/libCar_OS_TestApp.la
+LIBOS := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/Os/libOs.a
+LIBCAR_OS_TESTAPP := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/AL/Car_Os_TestApp/libCar_OS_TestApp.la
 
 
 # Link Archive Object List

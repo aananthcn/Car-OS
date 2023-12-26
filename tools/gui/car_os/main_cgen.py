@@ -144,13 +144,17 @@ def create_source(gui):
     paths_mk.write("CAR_OS_INC_PATH := "+car_os_path+"/include\n")
 
     zephyr_path = gui.zephyr_path.replace("\\", "/")
-    paths_mk.write("ZEPHYR_INSTALL_PATH := "+zephyr_path+"/zephyr/include/zephyr\n")
-
     car_os_board_path = search.find_dir("boards", car_os_path).replace("\\", "/")
     car_os_soc_path = car_os_board_path+"/"+gui.uc_info.micro
     paths_mk.write("CAR_OS_BOARD_PATH := "+car_os_soc_path+"\n")
     paths_cmake.write("set(CAR_OS_BOARD_PATH "+car_os_soc_path+")\n")
-    swc_paths.append(car_os_soc_path)
+    swc_paths.append(car_os_soc_path) # TODO: check if this path is necessary, there won't be any library created in this path, I think.
+
+    paths_mk.write("ZEPHYR_INC_PATH := "+zephyr_path+"/zephyr/include\n")
+    paths_mk.write("ZEPHYR_INC_Z_PATH := "+zephyr_path+"/zephyr/include/zephyr\n")
+    paths_mk.write("ZEPHYR_STDLIB_PATH := "+zephyr_path+"/zephyr/lib/libc/minimal/include\n")
+    paths_mk.write("ZEPHYR_INSTALL_PATH := "+zephyr_path+"\n")
+    paths_mk.write("ZEPHYR_GEN_INC_PATH := "+cwd+"/build/zephyr/include/generated\n")
 
     mcu_path = search.find_dir("Mcu", submodules_path).replace("\\", "/")
     paths_mk.write("MCU_PATH := "+mcu_path+"\n")
