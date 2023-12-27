@@ -143,9 +143,15 @@ def create_source(gui):
     zephyr_path = gui.zephyr_path.replace("\\", "/")
     car_os_board_path = search.find_dir("boards", car_os_path).replace("\\", "/")
     car_os_soc_path = car_os_board_path+"/"+gui.uc_info.micro
-    paths_mk.write("CAR_OS_BOARD_PATH := "+car_os_soc_path+"\n")
-    paths_cmake.write("set(CAR_OS_BOARD_PATH "+car_os_soc_path+")\n")
-    swc_paths.append(car_os_soc_path) # TODO: check if this path is necessary, there won't be any library created in this path, I think.
+    paths_mk.write("CAR_OS_BOARDSOC_PATH := "+car_os_soc_path+"\n")
+    paths_cmake.write("set(CAR_OS_BASE_DIR_PATH "+car_os_path+")\n")
+    paths_cmake.write("set(CAR_OS_BOARDSOC_PATH "+car_os_soc_path+")\n")
+    # swc_paths.append(car_os_soc_path) # TODO: check if this path is necessary, there won't be any library created in this path, I think.
+    paths_cmake.write("set(CAR_OS_SYSGEN_S_PATH "+car_os_path+"/tools/os_builder/src)\n")
+    paths_cmake.write("set(CAR_OS_ASR_APPL_PATH "+car_os_path+"/submodules/AL)\n")
+    paths_cmake.write("set(CAR_OS_ASR_SRVC_PATH "+car_os_path+"/submodules/SL)\n")
+    paths_cmake.write("set(CAR_OS_ASR_ECAL_PATH "+car_os_path+"/submodules/ECU-AL)\n")
+    paths_cmake.write("set(CAR_OS_ASR_MCAL_PATH "+car_os_path+"/submodules/MCAL)\n")
 
     paths_mk.write("ZEPHYR_INC_PATH := "+zephyr_path+"/zephyr/include\n")
     paths_mk.write("ZEPHYR_INC_Z_PATH := "+zephyr_path+"/zephyr/include/zephyr\n")

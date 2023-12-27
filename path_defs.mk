@@ -3,7 +3,7 @@
 # Makefile Paths Definitions
 CAR_OS_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os
 CAR_OS_INC_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/include
-CAR_OS_BOARD_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/boards/rp2040
+CAR_OS_BOARDSOC_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/boards/rp2040
 ZEPHYR_INC_PATH := E:/zephyrproject/zephyr/include
 ZEPHYR_INC_Z_PATH := E:/zephyrproject/zephyr/include/zephyr
 ZEPHYR_STDLIB_PATH := E:/zephyrproject/zephyr/lib/libc/minimal/include
