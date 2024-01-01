@@ -83,25 +83,69 @@ const OsTaskType _OsTaskList[] = {
 		.msglist = NULL,
 		.n_msglist = ECUM_STARTUPTWO_MESSAGE_MAX,
 		.stack_size = 512
-	},
-	{
-		.handler = OS_TASK(Ethernet_Tasks),
-		.id = 5,
-		.sch_type = NON_PREEMPTIVE,
-		.priority = 10,
-		.activations = 1,
-		.autostart = true,
-		.appmodes = (const AppModeType **) &Ethernet_Tasks_AppModes,
-		.n_appmodes = ETHERNET_TASKS_APPMODE_MAX,
-		.evtmsks = NULL,
-		.n_evtmsks = ETHERNET_TASKS_EVENT_MAX,
-		.msglist = NULL,
-		.n_msglist = ETHERNET_TASKS_MESSAGE_MAX,
-		.stack_size = 2048
 	}
 };
 
 
+/*   T A S K ' S   E N T R Y   P O I N T   F O R   Z E P H Y R   */
+bool OsTaskSchedConditionsOk(uint16_t task_id);
+
+static void _entry_Task_A(void *p1, void *p2, void *p3) {
+	if (OsTaskSchedConditionsOk(0)) {
+		OS_TASK(Task_A)();
+	}
+}
+
+static void _entry_Task_B(void *p1, void *p2, void *p3) {
+	if (OsTaskSchedConditionsOk(1)) {
+		OS_TASK(Task_B)();
+	}
+}
+
+static void _entry_Task_C(void *p1, void *p2, void *p3) {
+	if (OsTaskSchedConditionsOk(2)) {
+		OS_TASK(Task_C)();
+	}
+}
+
+static void _entry_Task_D(void *p1, void *p2, void *p3) {
+	if (OsTaskSchedConditionsOk(3)) {
+		OS_TASK(Task_D)();
+	}
+}
+
+static void _entry_EcuM_StartupTwo(void *p1, void *p2, void *p3) {
+	if (OsTaskSchedConditionsOk(4)) {
+		OS_TASK(EcuM_StartupTwo)();
+	}
+}
+
+
+const k_thread_entry_t _OsTaskEntryList[] = {
+	_entry_Task_A,
+	_entry_Task_B,
+	_entry_Task_C,
+	_entry_Task_D,
+	_entry_EcuM_StartupTwo,
+};
+
+
+/*   T A S K ' S   S T A C K   P O I N T E R S   F O R   Z E P H Y R   */
+static K_THREAD_STACK_DEFINE(_Task_A_sp, 512);
+static K_THREAD_STACK_DEFINE(_Task_B_sp, 512);
+static K_THREAD_STACK_DEFINE(_Task_C_sp, 512);
+static K_THREAD_STACK_DEFINE(_Task_D_sp, 512);
+static K_THREAD_STACK_DEFINE(_EcuM_StartupTwo_sp, 512);
+
+const void* _OsStackPtrList[] = {
+	_Task_A_sp,
+	_Task_B_sp,
+	_Task_C_sp,
+	_Task_D_sp,
+	_EcuM_StartupTwo_sp,
+};
+
+
 const u32 _OsTaskValidPriorities[] = {
-	1, 2, 3, 4, 100, 10
+	1, 2, 3, 4, 100
 };

@@ -91,6 +91,7 @@ def generate_code(path, Tasks):
     hf.write("#define ACN_OSEK_SG_TASKS_H\n")
     hf.write("\n#include <osek.h>\n")
     hf.write("#include <osek_com.h>\n")
+    hf.write("\n#include <zephyr/kernel/thread_stack.h> /* for stack pointer macro - Zephyr */\n")
     print_task_ids(hf, Tasks)
     print_task_len_macros(hf, Tasks)
     hf.write(OsTaskType_str)
@@ -163,6 +164,29 @@ def generate_code(path, Tasks):
         else:
             cf.write("\n")
     cf.write("};\n")
+
+    # Task's entry point for Zephyr
+    cf.write("\n\n/*   T A S K ' S   E N T R Y   P O I N T   F O R   Z E P H Y R   */\n")
+    cf.write("bool OsTaskSchedConditionsOk(uint16_t task_id);\n\n")
+    for i, task in enumerate(Tasks):
+        cf.write("static void _entry_"+task[TaskParams[TNMI]]+"(void *p1, void *p2, void *p3) {\n")
+        cf.write("\tif (OsTaskSchedConditionsOk("+str(i)+")) {\n")
+        cf.write("\t\tOS_TASK("+task[TaskParams[TNMI]]+")();\n")
+        cf.write("\t}\n")
+        cf.write("}\n\n")
+    cf.write("\nconst k_thread_entry_t _OsTaskEntryList[] = {\n")
+    for task in Tasks:
+        cf.write("\t_entry_"+task[TaskParams[TNMI]]+",\n")
+    cf.write("};\n")
+
+    # Stack pointer definitions
+    cf.write("\n\n/*   T A S K ' S   S T A C K   P O I N T E R S   F O R   Z E P H Y R   */\n")
+    for task in Tasks:
+        cf.write("static K_THREAD_STACK_DEFINE(_"+task[TaskParams[TNMI]]+"_sp, "+task[TaskParams[STSZ]]+");\n")
+    cf.write("\nconst void* _OsStackPtrList[] = {\n")
+    for task in Tasks:
+        cf.write("\t_"+task[TaskParams[TNMI]]+"_sp,\n")
+    cf.write("};\n")
     
     # Create valid priorities list
     cf.write("\n\nconst u32 _OsTaskValidPriorities[] = {\n\t")
@@ -175,8 +199,10 @@ def generate_code(path, Tasks):
         
     
     cf.close()
+    hf.write("\n\nextern const k_thread_entry_t _OsTaskEntryList[];\n")
+    hf.write("extern const void* _OsStackPtrList[];\n")
     hf.write("\n\n#define OS_MAX_TASK_PRIORITY  ("+str(max_task_priority)+")\n")
-    hf.write("\n\nextern const u32 _OsTaskValidPriorities[];\n")
+    hf.write("extern const u32 _OsTaskValidPriorities[];\n")
     hf.write("#define OS_NO_OF_PRIORITIES  ("+str(len(task_priority_lst))+")\n")
     hf.write("\n\n#endif\n")
     hf.close()
