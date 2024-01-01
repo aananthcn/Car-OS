@@ -107,7 +107,10 @@ def insert_ecuc_param(root, refname, paramtype, subtype, value):
 #####################################
 def find_ecuc_elements_block(root):
     ecuc_arpkg_name = get_ecuc_arpkg_name()
-    ar_pkg = find_ar_package(ecuc_arpkg_name, root)
+    # TODO: this line (below) assumes that the ARXML filename and the Ecuc element name are same. This must be fixed.
+    # ar_pkg = find_ar_package(ecuc_arpkg_name, root)
+
+    ar_pkg = find_ar_package("Ecuc_", root)
     if ar_pkg == None:
         print("Error: find_ecuc_elements_block() couldn't find "+ecuc_arpkg_name+"!")
         return

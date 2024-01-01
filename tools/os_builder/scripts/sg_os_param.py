@@ -40,8 +40,9 @@ def generate_code(path, OsParams):
 
     # generate code from OsParams but limited to FreeOSEK_Params (ignore others)
     for param in FreeOSEK_Params:
-        lf.write("_"+param + " = " + OsParams[param] + ";\n")
-        hf.write("#define _"+param + "  \t(" + OsParams[param] + ")\n")
+        if param in OsParams:
+            lf.write("_"+param + " = " + OsParams[param] + ";\n")
+            hf.write("#define _"+param + "  \t(" + OsParams[param] + ")\n")
     
     lf.close()
     hf.write("\n\n#endif\n")
