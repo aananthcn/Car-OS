@@ -107,6 +107,7 @@ def generate_code(path, Tasks):
     cf.write("#include \"sg_events.h\"\n")
     cf.write("#include \"sg_messages.h\"\n")
     cf.write("#include \"sg_resources.h\"\n")
+    cf.write("\n#include <zephyr/kernel.h> /* for k_sleep() */ \n")
 
     max_task_priority = 0
     task_priority_lst = []
@@ -170,8 +171,11 @@ def generate_code(path, Tasks):
     cf.write("bool OsTaskSchedConditionsOk(uint16_t task_id);\n\n")
     for i, task in enumerate(Tasks):
         cf.write("static void _entry_"+task[TaskParams[TNMI]]+"(void *p1, void *p2, void *p3) {\n")
-        cf.write("\tif (OsTaskSchedConditionsOk("+str(i)+")) {\n")
-        cf.write("\t\tOS_TASK("+task[TaskParams[TNMI]]+")();\n")
+        cf.write("\twhile(TRUE) {\n")
+        cf.write("\t\tif (OsTaskSchedConditionsOk("+str(i)+")) {\n")
+        cf.write("\t\t\tOS_TASK("+task[TaskParams[TNMI]]+")();\n")
+        cf.write("\t\t}\n")
+        cf.write("\t\tk_sleep(K_TICKS(1));\n")
         cf.write("\t}\n")
         cf.write("}\n\n")
     cf.write("\nconst k_thread_entry_t _OsTaskEntryList[] = {\n")

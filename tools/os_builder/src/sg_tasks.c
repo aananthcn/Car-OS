@@ -6,6 +6,8 @@
 #include "sg_messages.h"
 #include "sg_resources.h"
 
+#include <zephyr/kernel.h> /* for k_sleep() */ 
+
 
 /*   T A S K   D E F I N I T I O N S   */
 const OsTaskType _OsTaskList[] = {
@@ -91,32 +93,47 @@ const OsTaskType _OsTaskList[] = {
 bool OsTaskSchedConditionsOk(uint16_t task_id);
 
 static void _entry_Task_A(void *p1, void *p2, void *p3) {
-	if (OsTaskSchedConditionsOk(0)) {
-		OS_TASK(Task_A)();
+	while(TRUE) {
+		if (OsTaskSchedConditionsOk(0)) {
+			OS_TASK(Task_A)();
+		}
+		k_sleep(K_TICKS(1));
 	}
 }
 
 static void _entry_Task_B(void *p1, void *p2, void *p3) {
-	if (OsTaskSchedConditionsOk(1)) {
-		OS_TASK(Task_B)();
+	while(TRUE) {
+		if (OsTaskSchedConditionsOk(1)) {
+			OS_TASK(Task_B)();
+		}
+		k_sleep(K_TICKS(1));
 	}
 }
 
 static void _entry_Task_C(void *p1, void *p2, void *p3) {
-	if (OsTaskSchedConditionsOk(2)) {
-		OS_TASK(Task_C)();
+	while(TRUE) {
+		if (OsTaskSchedConditionsOk(2)) {
+			OS_TASK(Task_C)();
+		}
+		k_sleep(K_TICKS(1));
 	}
 }
 
 static void _entry_Task_D(void *p1, void *p2, void *p3) {
-	if (OsTaskSchedConditionsOk(3)) {
-		OS_TASK(Task_D)();
+	while(TRUE) {
+		if (OsTaskSchedConditionsOk(3)) {
+			OS_TASK(Task_D)();
+		}
+		k_sleep(K_TICKS(1));
 	}
 }
 
 static void _entry_EcuM_StartupTwo(void *p1, void *p2, void *p3) {
-	if (OsTaskSchedConditionsOk(4)) {
-		OS_TASK(EcuM_StartupTwo)();
+	while(TRUE) {
+		if (OsTaskSchedConditionsOk(4)) {
+			OS_TASK(EcuM_StartupTwo)();
+		}
+		k_sleep(K_TICKS(1));
 	}
 }
 
