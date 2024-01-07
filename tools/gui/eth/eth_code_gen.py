@@ -311,8 +311,9 @@ def generate_macphy_files(eth_src_path, eth_configs):
     if macphy_device:
         mf.write("include ${CAR_OS_PATH}"+macphy_relpath+"/"+macphy_device+"/"+macphy_device+".mk\n\n")
         hf.write("#include <"+macphy_device+"/"+macphy_device+".h>\n\n")
+        hf.write("#define MACPHY_DEVICE  0xDEF\n")
 
-    hf.write("#endif\n")
+    hf.write("\n\n#endif\n")
     hf.close()
     mf.close()
 

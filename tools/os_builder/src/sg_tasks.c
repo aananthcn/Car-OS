@@ -75,7 +75,7 @@ const OsTaskType _OsTaskList[] = {
 		.handler = OS_TASK(EcuM_StartupTwo),
 		.id = 4,
 		.sch_type = NON_PREEMPTIVE,
-		.priority = 100,
+		.priority = 5,
 		.activations = 1,
 		.autostart = true,
 		.appmodes = (const AppModeType **) &EcuM_StartupTwo_AppModes,
@@ -164,5 +164,5 @@ const void* _OsStackPtrList[] = {
 
 
 const u32 _OsTaskValidPriorities[] = {
-	1, 2, 3, 4, 100
+	1, 2, 3, 4, 5
 };

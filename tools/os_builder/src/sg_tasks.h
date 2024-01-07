@@ -77,7 +77,7 @@ extern const k_thread_entry_t _OsTaskEntryList[];
 extern const void* _OsStackPtrList[];
 
 
-#define OS_MAX_TASK_PRIORITY  (100)
+#define OS_MAX_TASK_PRIORITY  (5)
 extern const u32 _OsTaskValidPriorities[];
 #define OS_NO_OF_PRIORITIES  (5)
 
