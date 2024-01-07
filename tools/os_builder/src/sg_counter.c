@@ -6,6 +6,7 @@ OsCounterType _OsCounters[] =  {
 		.alarm.mincycle = 1,
 		.alarm.maxallowedvalue = 1000000,
 		.alarm.ticksperbase = 1,
+		.countval = 0,
 		.maxallowedvalue = 1000000,
 		.name = "mSecCounter"
 	},
@@ -13,6 +14,7 @@ OsCounterType _OsCounters[] =  {
 		.alarm.mincycle = 100,
 		.alarm.maxallowedvalue = 1000,
 		.alarm.ticksperbase = 1,
+		.countval = 0,
 		.maxallowedvalue = 1000,
 		.name = "uSecCounter"
 	}

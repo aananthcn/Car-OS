@@ -174,6 +174,7 @@ def generate_code(path, Tasks):
         cf.write("\twhile(TRUE) {\n")
         cf.write("\t\tif (OsTaskSchedConditionsOk("+str(i)+")) {\n")
         cf.write("\t\t\tOS_TASK("+task[TaskParams[TNMI]]+")();\n")
+        cf.write("\t\t\tOsTaskSchedExit("+str(i)+");\n")
         cf.write("\t\t}\n")
         cf.write("\t\tk_sleep(K_TICKS(1));\n")
         cf.write("\t}\n")

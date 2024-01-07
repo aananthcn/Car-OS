@@ -71,21 +71,6 @@ const AppAlarmType AppAlarms_mSecCounter[] = {
 		.cycletime = 1000,
 		.n_appmodes = ALARM_WAKETASKD_APPMODES_MAX,
 		.appmodes = (const AppModeType *) &Alarm_WakeTaskD_AppModes
-	},
-	{
-		.name = "Ethernet_alarm",
-		.cntr_id = 0,
-		.pacntr = &_AppAlarmCounters[4],
-		.pcycle = &_AppAlarmCycles[4],
-		.palrm_state = &_AppAlarmStates[4],
-		.aat = AAT_ACTIVATETASK,
-		.aat_arg1 = (intptr_t) TASK_ID_MAX,
-		.aat_arg2 = (intptr_t)NULL,
-		.is_autostart = TRUE,
-		.alarmtime = 300,
-		.cycletime = 200,
-		.n_appmodes = 0,
-		.appmodes = NULL
 	}
 };
 
@@ -111,7 +96,7 @@ const AppAlarmType AppAlarms_uSecCounter[] = {
 const AppAlarmCtrlBlockType _AppAlarms[] = {
 	{
 		.alarm = (const AppAlarmType *) &AppAlarms_mSecCounter,
-		.len = 4
+		.len = 3
 	},
 	{
 		.alarm = (const AppAlarmType *) &AppAlarms_uSecCounter,
@@ -121,5 +106,5 @@ const AppAlarmCtrlBlockType _AppAlarms[] = {
 
 
 const AlarmType _AlarmID2CounterID_map[] = {
-	0, 0, 1, 0, 0, 
+	0, 0, 1, 0, 
 };

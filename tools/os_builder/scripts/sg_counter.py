@@ -63,6 +63,7 @@ def generate_code(path, Counters):
         cf.write("\t\t.alarm.mincycle = "+ str(cntr[CntrParams[1]]) + ",\n")
         cf.write("\t\t.alarm.maxallowedvalue = "+ str(cntr[CntrParams[2]]) + ",\n")
         cf.write("\t\t.alarm.ticksperbase = "+ str(cntr[CntrParams[3]]) + ",\n")
+        cf.write("\t\t.countval = 0,\n")
         cf.write("\t\t.maxallowedvalue = "+ str(cntr[CntrParams[2]]) + ",\n")
         cf.write("\t\t.name = \""+ cntr[CntrParams[0]] + "\"\n")
         cf.write("\t}")
