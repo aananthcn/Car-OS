@@ -4,13 +4,15 @@
 
 
 typedef struct {
-    AlarmBaseType alarm; /* contains OSEK specified attributes */ 
-    TickType countval; /* continuos incrementing counter */ 
-    TickType maxallowedvalue; /* count in nano seconds */
+    TickType maxallowedvalue; /* TODO: count in nano (micro?) seconds */
+    TickType mincycle;
+    TickType ticksperbase;
+    uint8_t type;
     char* name;
-} OsCounterType;
+} OsCounterType; /* == OsCounterCtrlBlkType */
 
-extern OsCounterType _OsCounters[];
+extern const OsCounterType _OsCounterCtrlBlk[];
+extern TickType _OsCounterDataBlk[];
 
 
 #define MSECCOUNTER_INDEX   	(0)
