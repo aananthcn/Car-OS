@@ -48,7 +48,7 @@ typedef struct {\n\
     u32 stack_size;\n\
 } OsTaskType;\n\
 \n\
-extern const OsTaskType _OsTaskList[];\n\n"
+extern const OsTaskType _OsTaskCtrlBlk[];\n\n"
 
 
 def print_task_ids(hf, Tasks):
@@ -113,7 +113,7 @@ def generate_code(path, Tasks):
     task_priority_lst = []
 
     cf.write("\n\n/*   T A S K   D E F I N I T I O N S   */\n")
-    cf.write("const OsTaskType _OsTaskList[] = {\n")
+    cf.write("const OsTaskType _OsTaskCtrlBlk[] = {\n")
     for i, task in enumerate(Tasks):
         cf.write("\t{\n")
 

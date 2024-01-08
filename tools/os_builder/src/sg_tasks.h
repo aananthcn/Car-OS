@@ -22,7 +22,7 @@ enum eTaskType {
 #define TASK_A_EVENT_MAX	(0)
 #define TASK_A_MESSAGE_MAX	(0)
 
-#define TASK_B_APPMODE_MAX	(0)
+#define TASK_B_APPMODE_MAX	(1)
 #define TASK_B_RESOURCE_MAX	(0)
 #define TASK_B_EVENT_MAX	(1)
 #define TASK_B_MESSAGE_MAX	(0)
@@ -32,12 +32,12 @@ enum eTaskType {
 #define TASK_C_EVENT_MAX	(2)
 #define TASK_C_MESSAGE_MAX	(0)
 
-#define TASK_D_APPMODE_MAX	(0)
+#define TASK_D_APPMODE_MAX	(1)
 #define TASK_D_RESOURCE_MAX	(1)
 #define TASK_D_EVENT_MAX	(0)
 #define TASK_D_MESSAGE_MAX	(0)
 
-#define ECUM_STARTUPTWO_APPMODE_MAX	(1)
+#define ECUM_STARTUPTWO_APPMODE_MAX	(3)
 #define ECUM_STARTUPTWO_RESOURCE_MAX	(0)
 #define ECUM_STARTUPTWO_EVENT_MAX	(0)
 #define ECUM_STARTUPTWO_MESSAGE_MAX	(0)
@@ -62,7 +62,7 @@ typedef struct {
     u32 stack_size;
 } OsTaskType;
 
-extern const OsTaskType _OsTaskList[];
+extern const OsTaskType _OsTaskCtrlBlk[];
 
 
 #define OS_TASK(task)    (OSEK_Task_##task)

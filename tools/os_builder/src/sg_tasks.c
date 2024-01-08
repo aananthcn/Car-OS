@@ -10,7 +10,7 @@
 
 
 /*   T A S K   D E F I N I T I O N S   */
-const OsTaskType _OsTaskList[] = {
+const OsTaskType _OsTaskCtrlBlk[] = {
 	{
 		.handler = OS_TASK(Task_A),
 		.id = 0,
@@ -32,8 +32,8 @@ const OsTaskType _OsTaskList[] = {
 		.sch_type = NON_PREEMPTIVE,
 		.priority = 2,
 		.activations = 1,
-		.autostart = false,
-		.appmodes = NULL,
+		.autostart = true,
+		.appmodes = (const AppModeType **) &Task_B_AppModes,
 		.n_appmodes = TASK_B_APPMODE_MAX,
 		.evtmsks = (const EventMaskType**) &Task_B_EventMasks,
 		.n_evtmsks = TASK_B_EVENT_MAX,
@@ -62,8 +62,8 @@ const OsTaskType _OsTaskList[] = {
 		.sch_type = NON_PREEMPTIVE,
 		.priority = 4,
 		.activations = 1,
-		.autostart = false,
-		.appmodes = NULL,
+		.autostart = true,
+		.appmodes = (const AppModeType **) &Task_D_AppModes,
 		.n_appmodes = TASK_D_APPMODE_MAX,
 		.evtmsks = NULL,
 		.n_evtmsks = TASK_D_EVENT_MAX,
