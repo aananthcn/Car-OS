@@ -3,6 +3,7 @@
 
 # folders to ignore
 submodules/AL/*/
+objs*
 
 # Python
 __pycache__/

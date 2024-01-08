@@ -26,7 +26,7 @@ import utils.search as search
 import gui.eth.eth_ctrlcfg as eth_cc
 
 # Temporary work-around
-import gui.main.ui_uc_cgen as uc_cgen
+import gui.car_os.main_cgen as main_cgen
 
 
 EthGeneralCfgType_str = "\n\ntypedef struct {\n\
@@ -309,10 +309,11 @@ def generate_macphy_files(eth_src_path, eth_configs):
     hf.write("#define NAMMA_AUTOSAR_MACPHY_H\n\n")
 
     if macphy_device:
-        mf.write("include ${CWD}"+macphy_relpath+"/"+macphy_device+"/"+macphy_device+".mk\n\n")
+        mf.write("include ${CAR_OS_PATH}"+macphy_relpath+"/"+macphy_device+"/"+macphy_device+".mk\n\n")
         hf.write("#include <"+macphy_device+"/"+macphy_device+".h>\n\n")
+        hf.write("#define MACPHY_DEVICE  0xDEF\n")
 
-    hf.write("#endif\n")
+    hf.write("\n\n#endif\n")
     hf.close()
     mf.close()
 
@@ -327,5 +328,5 @@ def generate_code(gui, eth_configs):
     generate_headerfile(eth_src_path, eth_configs)
     generate_sourcefile(eth_src_path, eth_configs)
     generate_macphy_files(eth_src_path, eth_configs)
-    uc_cgen.create_source(gui) # calling uc_cgen.create_source() is a work-around. This will be corrected later.
+    main_cgen.create_source(gui) # calling main_cgen.create_source() is a work-around. This will be corrected later.
     

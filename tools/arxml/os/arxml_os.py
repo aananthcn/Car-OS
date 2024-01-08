@@ -135,11 +135,11 @@ def parse_counter(ctnr):
          plist = lib.get_param_list(ctnr)
          for lst in plist:
             if lst["tag"] == "OsCounterMaxAllowedValue":
-               cntr["MAXALLOWEDVALUE"] = lst["val"]
+               cntr["OSMAXALLOWEDVALUE"] = lst["val"]
             if lst["tag"] == "OsCounterMinCycle":
-               cntr["MINCYCLE"] = lst["val"]
+               cntr["OSMINCYCLE"] = lst["val"]
             if lst["tag"] == "OsCounterTicksPerBase":
-               cntr["TICKSPERBASE"] = lst["val"]
+               cntr["OSTICKSPERBASE"] = lst["val"]
             if lst["tag"] == "OsCounterType":
                cntr["OsCounterType"] = lst["val"]
       if iter_per_cntr == 0:

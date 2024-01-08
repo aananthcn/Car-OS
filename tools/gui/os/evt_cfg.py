@@ -131,6 +131,5 @@ class EventWindow:
 
 
 
-    def backup_data(self):
-        self.backup_data()
+    def save_data(self):
         arxml_os.export_os_cfgs_2_arxml(self.gui.arxml_file, self.gui)

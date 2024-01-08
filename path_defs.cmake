@@ -1,0 +1,7 @@
+set(CAR_OS_BASE_DIR_PATH E:/labs/zephyr-lab/Car-OS.Zephyr/car-os)
+set(CAR_OS_BOARDSOC_PATH E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/boards/rp2040)
+set(CAR_OS_SYSGEN_S_PATH E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/tools/os_builder/src)
+set(CAR_OS_ASR_APPL_PATH E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/AL)
+set(CAR_OS_ASR_SRVC_PATH E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL)
+set(CAR_OS_ASR_ECAL_PATH E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/ECU-AL)
+set(CAR_OS_ASR_MCAL_PATH E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL)

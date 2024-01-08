@@ -36,7 +36,7 @@ STSZ = 8
 
 
 # list of column titles in TASK tab of OSEX-Builder.xlsx
-CntrParams = ["Counter Name", "MINCYCLE", "MAXALLOWEDVALUE", "TICKSPERBASE",
+CntrParams = ["Counter Name", "OSMINCYCLE", "OSMAXALLOWEDVALUE", "OSTICKSPERBASE",
      "OsCounterType"]
 CNME = 0
 

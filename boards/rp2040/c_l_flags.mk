@@ -26,4 +26,4 @@ LDFLAGS += -mthumb -mthumb-interwork -marmelf
 
 # following definitions would be used by the main Makefile
 BOARD_NAME := rp2040
-LINK_DEF_F := ${CAR_OS_BOARDS_PATH}/${BOARD_NAME}.lds
+LINK_DEF_F := ${CAR_OS_BOARDSOC_PATH}/${BOARD_NAME}.lds

@@ -38,7 +38,7 @@ class CounterTab:
     non_header_objs = []
     scrollw = None
     configs = None # all UI configs (tkinter strings) are stored here.
-    cfgkeys = ["Counter Name", "MINCYCLE", "MAXALLOWEDVALUE", "TICKSPERBASE", "OsCounterType"]
+    cfgkeys = ["Counter Name", "OSMINCYCLE", "OSMAXALLOWEDVALUE", "OSTICKSPERBASE", "OsCounterType"]
     dappas_per_row = len(cfgkeys) + 1 # +1 for row labels
     init_view_done = False
 
@@ -65,9 +65,9 @@ class CounterTab:
 
         # Use the last counter's name and numbers to ease the edits made by user 
         counter["Counter Name"] = "COUNTER_"
-        counter["MINCYCLE"] = "1"
-        counter["MAXALLOWEDVALUE"] = "0xFFFFFFFF"
-        counter["TICKSPERBASE"] = "1"
+        counter["OSMINCYCLE"] = "1"
+        counter["OSMAXALLOWEDVALUE"] = "0xFFFFFFFF"
+        counter["OSTICKSPERBASE"] = "1"
         counter["OsCounterType"] = "HARDWARE"
 
         return counter
@@ -75,11 +75,11 @@ class CounterTab:
 
 
     def draw_dappa_row(self, i):
-        dappa.label(self, "Counter #", self.header_row+i, 0, "e")
+        dappa.label(self, "Counter "+str(i)+":", self.header_row+i, 0, "e")
         dappa.entry(self, "Counter Name", i, self.header_row+i, 1, 30, "normal")
-        dappa.entry(self, "MINCYCLE", i, self.header_row+i, 2, 15, "normal")
-        dappa.entry(self, "MAXALLOWEDVALUE", i, self.header_row+i, 3, 20, "normal")
-        dappa.entry(self, "TICKSPERBASE", i, self.header_row+i, 4, 15, "normal")
+        dappa.entry(self, "OSMINCYCLE", i, self.header_row+i, 2, 16, "normal")
+        dappa.entry(self, "OSMAXALLOWEDVALUE", i, self.header_row+i, 3, 25, "normal")
+        dappa.entry(self, "OSTICKSPERBASE", i, self.header_row+i, 4, 19, "normal")
         dappa.combo(self, "OsCounterType", i, self.header_row+i, 5, 20, ("HARDWARE", "SOFTWARE"))
 
 

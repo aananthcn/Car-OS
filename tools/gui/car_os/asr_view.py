@@ -26,7 +26,8 @@ import tkinter.ttk as ttk
 import arxml.mcu.arxml_mcu as arxml_mcu
 import gui.lib.asr_block as asr_block
 
-import gui.main.ui_uc_view as uc_view
+import gui.car_os.uc_view as uc_view
+import gui.zephyr.zephyr_view as zephyr_view
 import gui.os.os_view as os_view
 import gui.app.app_view as app_view
 
@@ -62,27 +63,32 @@ hbwl = 98                   # horizontal block width long
 # Application layer
 la_x = 2                    # layer 1 (App) x-offset
 la_y = 1                    # layer 1 (App) y-offset
-la_h = 22
+la_h = 24   # unit: % of total height
+plain_layer_h = 6
 
 # RTE layer
-lr_h = 8
-lr_y = la_y + la_h            # layer 2 (RTE) y-offset
+lr_h = plain_layer_h
+lr_y = la_y + la_h           # layer 2 (RTE) y-offset
 
 # Service layer
-ls_y = lr_y + lr_h             # layer 3 (Service) y-offset
-ls_h = (100 - ls_y) * 0.60
+ls_y = lr_y + lr_h           # layer 3 (Service) y-offset
+ls_h = (100 - (plain_layer_h * 2.2) - la_h) * 0.60
 
 # ECU abstraction layer
 le_y = ls_y + ls_h           # layer 4 (ECU AL) y-offset
-le_h = (100 - ls_y) * 0.20
+le_h = (100 - (plain_layer_h * 2.2) - la_h) * 0.20
 
 # MCAL layer
 lm_y = le_y + le_h           # layer 5 (MCAL) y-offset
-lm_h = (100 - ls_y) * 0.20
+lm_h = (100 - (plain_layer_h * 2.2) - la_h) * 0.20
+
+# Zephyr layer
+lz_y = lm_y + lm_h           # layer 6 (Zephyr RTOS) y-offset
+lz_h = plain_layer_h *1.1
 
 # Micro-controller layer
-lu_y = lm_y + lm_h           # layer 6 (Micro-controller) y-offset
-lu_h = hbw # think twice about ls_h before changing this.
+lu_y = lz_y + lz_h           # layer 7 (Micro-controller) y-offset
+lu_h = plain_layer_h * 0.70
 
 
 
@@ -233,10 +239,19 @@ AsrBlocksConfigList = [
         "postdraw": None
     },
     {
+        # Zephyr RTOS Block
+        "name": "Zephyr", "text": "Zephyr RTOS", "txta": "center", "ori": "H",
+        # Position (offset % of screen size), size (% of screen size) & colors
+        "x": la_x, "y": lz_y, "w": hbwl, "h": lz_h, "bgc": '#2F53CA', "fgc": 'white',
+        # click callback & constructor
+        "cb": zephyr_view.zephyr_click_handler, "cons": zephyr_view.zephyr_constructor,
+        "postdraw": None
+    },
+    {
         # Micro-controller Block
         "name": "uC", "text": "MicroController Block", "txta": "center", "ori": "H",
         # Position (offset % of screen size), size (% of screen size) & colors
-        "x": la_x, "y": 100, "w": hbwl, "h": lu_h, "bgc": '#000000', "fgc": 'white',
+        "x": la_x, "y": lu_y, "w": hbwl, "h": lu_h, "bgc": '#000000', "fgc": 'white',
         # click callback & constructor
         "cb": uc_view.uc_block_click_handler, "cons": uc_view.uc_block_constructor,
         "postdraw": None

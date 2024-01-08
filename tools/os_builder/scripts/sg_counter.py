@@ -25,12 +25,13 @@ import colorama
 from colorama import Fore, Back, Style
 
 
-C_Counter_Type = "\n\ntypedef struct {\n\
-    AlarmBaseType alarm; /* contains OSEK specified attributes */ \n\
-    TickType countval; /* continuos incrementing counter */ \n\
-    TickType maxallowedvalue; /* count in nano seconds */\n\
+C_CounterCtrlBlk_Type = "\n\ntypedef struct {\n\
+    TickType maxallowedvalue; /* TODO: count in nano (micro?) seconds */\n\
+    TickType mincycle;\n\
+    TickType ticksperbase;\n\
+    uint8_t type;\n\
     char* name;\n\
-} OsCounterType;\n\n"
+} OsCounterType; /* == OsCounterCtrlBlkType */\n\n"
 
 
 
@@ -50,19 +51,20 @@ def generate_code(path, Counters):
     hf.write("#ifndef ACN_OSEK_SG_COUNTER_H\n")
     hf.write("#define ACN_OSEK_SG_COUNTER_H\n")
     hf.write("#include <osek.h>\n")
-    hf.write(C_Counter_Type)
-    hf.write("extern OsCounterType _OsCounters[];\n")
+    hf.write(C_CounterCtrlBlk_Type)
+    hf.write("extern const OsCounterType _OsCounterCtrlBlk[];\n")
+    hf.write("extern TickType _OsCounterDataBlk[];\n")
 
     # create source file
     filename = path + "/" + "sg_counter.c"
     cf = open(filename, "w")
     cf.write("#include \"sg_counter.h\"\n")
-    cf.write("\n\nOsCounterType _OsCounters[] =  {\n")
+    cf.write("\n\nconst OsCounterType _OsCounterCtrlBlk[] =  {\n")
     for i, cntr in enumerate(Counters):
         cf.write("\t{\n")
-        cf.write("\t\t.alarm.mincycle = "+ str(cntr[CntrParams[1]]) + ",\n")
-        cf.write("\t\t.alarm.maxallowedvalue = "+ str(cntr[CntrParams[2]]) + ",\n")
-        cf.write("\t\t.alarm.ticksperbase = "+ str(cntr[CntrParams[3]]) + ",\n")
+        cf.write("\t\t.mincycle = "+ str(cntr[CntrParams[1]]) + ",\n")
+        cf.write("\t\t.maxallowedvalue = "+ str(cntr[CntrParams[2]]) + ",\n")
+        cf.write("\t\t.ticksperbase = "+ str(cntr[CntrParams[3]]) + ",\n")
         cf.write("\t\t.maxallowedvalue = "+ str(cntr[CntrParams[2]]) + ",\n")
         cf.write("\t\t.name = \""+ cntr[CntrParams[0]] + "\"\n")
         cf.write("\t}")
@@ -78,15 +80,16 @@ def generate_code(path, Counters):
             maxallowed = int(cntr[CntrParams[2]], 10)
         
         # Find out if this Counter is optimal for OS Tick scheduling
-        if maxallowed >= 1000000: #nano sec
+        if maxallowed >= 1000000: # nano sec
             if os_counter_duration == -1:
                 os_counter_duration = cntr[CntrParams[2]]
                 os_counter_index = i
-            # elif int(cntr[CntrParams[4]]) < os_counter_duration: 
-            #     os_counter_duration = cntr[CntrParams[2]]
-            #     os_counter_index = i
 
     cf.write("};\n")
+
+    # Define Counter Data Block
+    cf.write("\nTickType _OsCounterDataBlk[OS_MAX_COUNTERS];\n")
+
     # close source file
     cf.close()
 

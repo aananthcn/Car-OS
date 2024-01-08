@@ -287,7 +287,7 @@ class TaskTab:
 
         # show all events specific to task[row]
         self.active_widget = EventWindow(self.configs[row].datavar["EVENT"])
-        self.active_widget.draw(self.active_dialog, xsize, ysize)
+        self.active_widget.draw(self.active_dialog, self.gui, xsize, ysize)
 
 
     def on_resource_dialog_close(self, row):

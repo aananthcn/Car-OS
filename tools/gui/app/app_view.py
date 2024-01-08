@@ -80,7 +80,7 @@ def app_draw_childrens(gui):
     for i, app in enumerate(AppInfo_List):
         if app.git == None:
             continue
-        name = app.git.split("/")[-1].split(".")[0]
+        name = app.git.split("/")[-1].split(".git")[0]
         button = tk.Button(view, text=name, command= lambda id = i: child_app_press_handler(gui, id))
         AppChild_list.append(button)
         button.place(x=10+last_widget_w, y=28)
@@ -100,6 +100,7 @@ def update_or_clone_app(app_id, gui):
 
     # generate code to build
     app_gen.create_source(app_name, gui)
+    print("Car-OS applications update completed!")
 
  
     
@@ -138,6 +139,7 @@ def restore_data_from_disk():
     data = None
     with open(AppsJsonFile) as jfile:
         data = json.load(jfile)
+        jfile.close()
         
     N_Apps = len(data)
     

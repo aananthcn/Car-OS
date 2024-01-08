@@ -122,11 +122,11 @@ def export_counters_to_container(root):
       # Parameters
       params = ET.SubElement(ctnr, "PARAMETER-VALUES")
       refname = "/AUTOSAR/EcucDefs/Os/OsCounter/OsCounterMaxAllowedValue"
-      lib_conf.insert_ecuc_param(params, refname, "numerical", "int", cntr['MAXALLOWEDVALUE'])
+      lib_conf.insert_ecuc_param(params, refname, "numerical", "int", cntr['OSMAXALLOWEDVALUE'])
       refname = "/AUTOSAR/EcucDefs/Os/OsCounter/OsCounterMinCycle"
-      lib_conf.insert_ecuc_param(params, refname, "numerical", "int", cntr['MINCYCLE'])
+      lib_conf.insert_ecuc_param(params, refname, "numerical", "int", cntr['OSMINCYCLE'])
       refname = "/AUTOSAR/EcucDefs/Os/OsCounter/OsCounterTicksPerBase"
-      lib_conf.insert_ecuc_param(params, refname, "numerical", "int", cntr['TICKSPERBASE'])
+      lib_conf.insert_ecuc_param(params, refname, "numerical", "int", cntr['OSTICKSPERBASE'])
       refname = "/AUTOSAR/EcucDefs/Os/OsCounter/OsCounterType"
       lib_conf.insert_ecuc_param(params, refname, "text", "enum", cntr['OsCounterType'])
 

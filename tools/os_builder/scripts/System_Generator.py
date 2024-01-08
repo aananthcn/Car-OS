@@ -35,7 +35,6 @@ import os_builder.scripts.sg_appmodes as sg_appmodes
 import os_builder.scripts.sg_events as sg_events
 import os_builder.scripts.sg_messages as sg_messages
 import os_builder.scripts.sg_resources as sg_resources
-import os_builder.scripts.sg_fifo as sg_fifo
 import os_builder.scripts.sg_os_param as sg_os_param
 import os_builder.scripts.sg_isrs as sg_isrs
 
@@ -193,7 +192,7 @@ def parse_counter(oil_lines, line_num):
         if CntrParams[3] in line:
             cntr[CntrParams[3]] = int(line.replace('=', ';').split(';')[1])
         if "TICKDURATION" in line:
-            cntr[CntrParams[2]] = int(line.replace('=', ';').split(';')[1]) # treat MAXALLOWEDVALUE as TICKDURATION
+            cntr[CntrParams[2]] = int(line.replace('=', ';').split(';')[1]) # treat OSMAXALLOWEDVALUE as TICKDURATION
         line_num += 1
     # following line is added as AUTOSAR spec doesn't support TICKDURATION, hence it is replaced with OsCounterType
     if "OsCounterType" not in cntr:
@@ -315,7 +314,6 @@ def generate_code_for_os(path):
         ResTaskList = sg_resources.generate_code(path, Tasks)
         sg_tasks.generate_code(path, Tasks)
         sg_alarms.generate_code(path, Alarms, Counters, Tasks)
-        sg_fifo.generate_code(path, Tasks, ResTaskList)
         sg_os_param.generate_code(path, OS_Cfgs)
         sg_isrs.generate_code(path, ISRs)
     except:

@@ -23,16 +23,31 @@ const AppModeType Alarm_WakeTaskD_AppModes[] = {
 
 
 /*   A L A R M S   D E F I N I T I O N S   */
-TickType _AppAlarmCounters[MAX_APP_ALARM_COUNTERS];
-TickType _AppAlarmCycles[MAX_APP_ALARM_COUNTERS];
-bool _AppAlarmStates[MAX_APP_ALARM_COUNTERS];
-const AppAlarmType AppAlarms_mSecCounter[] = {
+OsAlarmDataBlkType OsAlarms_mSecCounter_DataBlk[3] = {
+	{
+		.counter = 40,
+		.cycle = 500,
+		.is_active = TRUE,
+	},
+	{
+		.counter = 0,
+		.cycle = 0,
+		.is_active = FALSE,
+	},
+	{
+		.counter = 40,
+		.cycle = 1000,
+		.is_active = TRUE,
+	}
+};
+
+
+
+const OsAlarmCtrlBlkType OsAlarms_mSecCounter_CtrlBlk[] = {
 	{
 		.name = "WakeTaskA",
 		.cntr_id = 0,
-		.pacntr = &_AppAlarmCounters[0],
-		.pcycle = &_AppAlarmCycles[0],
-		.palrm_state = &_AppAlarmStates[0],
+		.alarm_id = OS_ALARM_ID_WAKETASKA,
 		.aat = AAT_ACTIVATETASK,
 		.aat_arg1 = (intptr_t) 0,
 		.aat_arg2 = (intptr_t)NULL,
@@ -45,9 +60,7 @@ const AppAlarmType AppAlarms_mSecCounter[] = {
 	{
 		.name = "WakeTaskB",
 		.cntr_id = 0,
-		.pacntr = &_AppAlarmCounters[1],
-		.pcycle = &_AppAlarmCycles[1],
-		.palrm_state = &_AppAlarmStates[1],
+		.alarm_id = OS_ALARM_ID_WAKETASKB,
 		.aat = AAT_SETEVENT,
 		.aat_arg1 = (intptr_t) 1,
 		.aat_arg2 = (intptr_t) OS_EVENT(Task_B, event1),
@@ -60,9 +73,7 @@ const AppAlarmType AppAlarms_mSecCounter[] = {
 	{
 		.name = "WakeTaskD",
 		.cntr_id = 0,
-		.pacntr = &_AppAlarmCounters[3],
-		.pcycle = &_AppAlarmCycles[3],
-		.palrm_state = &_AppAlarmStates[3],
+		.alarm_id = OS_ALARM_ID_WAKETASKD,
 		.aat = AAT_ACTIVATETASK,
 		.aat_arg1 = (intptr_t) 3,
 		.aat_arg2 = (intptr_t)NULL,
@@ -71,31 +82,26 @@ const AppAlarmType AppAlarms_mSecCounter[] = {
 		.cycletime = 1000,
 		.n_appmodes = ALARM_WAKETASKD_APPMODES_MAX,
 		.appmodes = (const AppModeType *) &Alarm_WakeTaskD_AppModes
-	},
-	{
-		.name = "Ethernet_alarm",
-		.cntr_id = 0,
-		.pacntr = &_AppAlarmCounters[4],
-		.pcycle = &_AppAlarmCycles[4],
-		.palrm_state = &_AppAlarmStates[4],
-		.aat = AAT_ACTIVATETASK,
-		.aat_arg1 = (intptr_t) 5,
-		.aat_arg2 = (intptr_t)NULL,
-		.is_autostart = TRUE,
-		.alarmtime = 300,
-		.cycletime = 200,
-		.n_appmodes = 0,
-		.appmodes = NULL
 	}
 };
 
-const AppAlarmType AppAlarms_uSecCounter[] = {
+
+
+OsAlarmDataBlkType OsAlarms_uSecCounter_DataBlk[1] = {
+	{
+		.counter = 0,
+		.cycle = 0,
+		.is_active = FALSE,
+	}
+};
+
+
+
+const OsAlarmCtrlBlkType OsAlarms_uSecCounter_CtrlBlk[] = {
 	{
 		.name = "uSecAlarm",
 		.cntr_id = 1,
-		.pacntr = &_AppAlarmCounters[2],
-		.pcycle = &_AppAlarmCycles[2],
-		.palrm_state = &_AppAlarmStates[2],
+		.alarm_id = OS_ALARM_ID_USECALARM,
 		.aat = AAT_ALARMCALLBACK,
 		.aat_arg1 = (intptr_t)Alarm_uSecAlarm_callback,
 		.aat_arg2 = (intptr_t)NULL,
@@ -108,18 +114,28 @@ const AppAlarmType AppAlarms_uSecCounter[] = {
 };
 
 
-const AppAlarmCtrlBlockType _AppAlarms[] = {
+
+
+const OsAlarmGroupsType _OsAlarmsGroups[] = {
 	{
-		.alarm = (const AppAlarmType *) &AppAlarms_mSecCounter,
-		.len = 4
+		.ctrl_blk = (const OsAlarmCtrlBlkType *) &OsAlarms_mSecCounter_CtrlBlk,
+		.data_blk = (const OsAlarmDataBlkType *) &OsAlarms_mSecCounter_DataBlk,
+		.len = 3
 	},
 	{
-		.alarm = (const AppAlarmType *) &AppAlarms_uSecCounter,
+		.ctrl_blk = (const OsAlarmCtrlBlkType *) &OsAlarms_uSecCounter_CtrlBlk,
+		.data_blk = (const OsAlarmDataBlkType *) &OsAlarms_uSecCounter_DataBlk,
 		.len = 1
 	},
 };
 
 
+// _AlarmID2CounterID_map will be used by OSEK functions to identify the Ctrl and Data blocks of Alarms 
 const AlarmType _AlarmID2CounterID_map[] = {
-	0, 0, 1, 0, 0, 
+	0, 0, 1, 0, 
+};
+
+// OSEK Alarm APIs access Ctrl & Data blocks parameters of Alarms using this 
+const AlarmType _AlarmID2BlkIndex_map[] = {
+	0, 1, 0, 2, 
 };

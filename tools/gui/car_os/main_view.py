@@ -20,6 +20,7 @@
 #
 import os
 import sys
+import json
 
 
 # Let us use the System Generator functions to parse OIL and Generate code
@@ -41,14 +42,14 @@ from tkinter import ttk
 from tkinter import filedialog
 
 import gui.os.os_view as os_view
-import gui.main.ui_uc_view as uc_view
-import gui.lib.asr_view as a_view
+import gui.car_os.uc_view as uc_view
+import gui.car_os.asr_view as a_view
 
 import arxml.core.lib as lib
 
 
 # Temporary work-around -- for non OS modules, the code is generated from Mcu Code Generator
-import gui.main.ui_uc_cgen as uc_cgen
+import gui.car_os.main_cgen as main_cgen
 import gui.app.app_gen as app_gen
 
 
@@ -94,16 +95,17 @@ class MainView:
 
 
 # UI Stuffs - FreeAUTOSAR Configurator Tool
-class NammaAUTOSAR_Builder:
+class Car_OS_Builder:
     # Target System Attributes
     uc_info = uc_view.Uc_Info()
     
     # General Attributes
     arxml_file = None
+    zephyr_path = None
     config_loaded = False
     
     # Graphical Attributes
-    title = "NammaAUTOSAR Builder"
+    title = "Car-OS Builder"
     main_view = None        # the GUI root frame
     micro_block = None      # the Microcontroller block widget
     recentfiles = None
@@ -115,7 +117,7 @@ class NammaAUTOSAR_Builder:
         Gui = self
         self.main_view = MainView()
         self.main_view.tk_root.title(self.title + " [uninitialized]")
-        recentfiles = get_recent_files()
+        recentfiles = get_project_info_recentf()
         add_menus(self.main_view.tk_root, recentfiles)
         if os.name == 'nt':
             self.main_view.tk_root.state("zoomed")
@@ -157,7 +159,7 @@ FileMenu = None
 
 # I/O stuffs
 OIL_FileName = None
-RecentFiles = os.getcwd()+"/.filelist"
+ProjectInfoFile = os.getcwd()+"/car-os/car-os_info.json"
 if os.path.exists(os.getcwd()+"/car-os"):
     ToolsPath = os.getcwd()+"/car-os/tools"
 else:
@@ -275,7 +277,7 @@ def generate_code():
     root.update_idletasks()
     
     # Generate code for other BSW Modules
-    bsw_rc = uc_cgen.create_source(Gui)
+    bsw_rc = main_cgen.create_source(Gui)
     pb["value"] = 66
     root.update_idletasks()
 
@@ -343,7 +345,7 @@ def open_arxml_file(fpath):
         messagebox.showinfo(Gui.title, "Input file contains errors, hence opening as new file!")
         new_file()
     else:
-        update_recent_files(Gui.arxml_file)
+        update_project_info_recentf(Gui.arxml_file)
         FileMenu.entryconfig("Save", state="normal")
     Gui.config_loaded = True
     a_view.show_autosar_modules_view(Gui)
@@ -394,41 +396,89 @@ def textBox():
 
 
 
-def update_recent_files(filepath):
-    if not os.path.exists(RecentFiles):
-        # create empty file
-        wfile = open(RecentFiles, 'w')
-        wfile.close()
+def update_project_info_zephyrd(filepath):
+    global ProjectInfoFile
 
-    with open(RecentFiles) as rfile:
-        raw_list = rfile.readlines()
-        rfile.close()
+    proj_data = None
+    if ProjectInfoFile == None:
+        print("Error: ProjectInfoFile is not initialized")
+        return
 
-    wlist = []
-    wlist.append(filepath)
-    for file in raw_list:
-        if file.strip() not in wlist and ".arxml" in file:
-            if len(wlist) < 10:
-                wlist.append(file.strip())
+    if os.path.exists(ProjectInfoFile):
+        with open(ProjectInfoFile, "r") as jfile:
+            try:
+                proj_data = json.load(jfile)
+            except ValueError:
+                print("Decoding json ("+ProjectInfoFile+") failed in update_project_info_recentf()!")
+                proj_data = {}
+            jfile.close()
 
-    wfile = open(RecentFiles, 'w')
-    for item in wlist:
-        wfile.write(item+"\n")
-    wfile.close()
+    if os.path.exists(filepath):
+        proj_data["zephyr_path"] = filepath
+        with open(ProjectInfoFile, "w") as jfile:
+            json.dump(proj_data, jfile)
 
 
 
-def get_recent_files():
-    file_list = []
-    try:
-        with open(RecentFiles) as rfile:
-            raw_list = rfile.readlines()
-            rfile.close()
-    except:
-        raw_list = []
+def get_project_info_zephyrd():
+    zephyrd = None
+    if os.path.exists(ProjectInfoFile):
+        with open(ProjectInfoFile, "r") as jfile:
+            try:
+                proj_data = json.load(jfile)
+                zephyrd = proj_data["zephyr_path"]
+            except ValueError:
+                print("Decoding json ("+ProjectInfoFile+") failed in get_project_info_recentf()!")
+                zephyrd = None
+            jfile.close()
 
-    for item in raw_list:
-        if item.strip() not in file_list and ".arxml" in item:
-            file_list.append(item.strip())
+    return zephyrd
+
+
+
+def update_project_info_recentf(filepath):
+    global ProjectInfoFile
+
+    proj_data = None
+    if ProjectInfoFile == None:
+        print("Error: ProjectInfoFile is not initialized")
+        return
+
+    if os.path.exists(ProjectInfoFile):
+        with open(ProjectInfoFile, "r") as jfile:
+            try:
+                proj_data = json.load(jfile)
+            except ValueError:
+                print("Decoding json ("+ProjectInfoFile+") failed in update_project_info_recentf()!")
+                proj_data = None
+            jfile.close()
+
+    if proj_data:
+        rflist = proj_data["recent_files"]
+    else:
+        rflist = []
+        proj_data = {}
+
+
+    if filepath not in rflist:
+        rflist.append(filepath)
+    proj_data["recent_files"] = rflist
+
+    with open(ProjectInfoFile, "w") as jfile:
+        json.dump(proj_data, jfile)
+
+
+
+def get_project_info_recentf():
+    file_list = None
+    if os.path.exists(ProjectInfoFile):
+        with open(ProjectInfoFile, "r") as jfile:
+            try:
+                proj_data = json.load(jfile)
+                file_list = proj_data["recent_files"]
+            except ValueError:
+                print("Decoding json ("+ProjectInfoFile+") failed in get_project_info_recentf()!")
+                file_list = None
+            jfile.close()
 
     return file_list

@@ -24,7 +24,7 @@ import os
 import utils.search as search
 
 # Temporary work-around
-import gui.main.ui_uc_cgen as uc_cgen
+import gui.car_os.main_cgen as main_cgen
 
 
 LinGeneralCfgType_str = "\n\ntypedef struct {\n\
@@ -121,5 +121,5 @@ def generate_code(gui, lin_configs):
         lin_src_path = search.find_dir("Lin", cwd+"/submodules/MCAL/")
     generate_headerfile(lin_src_path, lin_configs)
     generate_sourcefile(lin_src_path, lin_configs)
-    uc_cgen.create_source(gui) # calling uc_cgen.create_source() is a work-around. This will be corrected later.
+    main_cgen.create_source(gui) # calling main_cgen.create_source() is a work-around. This will be corrected later.
     
