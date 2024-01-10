@@ -169,14 +169,14 @@ def generate_code(path, Tasks):
     # Task's entry point for Zephyr
     cf.write("\n\n/*   T A S K ' S   E N T R Y   P O I N T   F O R   Z E P H Y R   */\n")
     cf.write("bool OsTaskSchedConditionsOk(uint16_t task_id);\n")
-    cf.write("void OsTaskSchedEndLoop(uint16_t task_id);\n\n")
+    cf.write("void OsTaskEndOfLoop(uint16_t task_id);\n\n")
     for i, task in enumerate(Tasks):
         cf.write("static void _entry_"+task[TaskParams[TNMI]]+"(void *p1, void *p2, void *p3) {\n")
         cf.write("\twhile(TRUE) {\n")
         cf.write("\t\tif (OsTaskSchedConditionsOk("+str(i)+")) {\n")
         cf.write("\t\t\tOS_TASK("+task[TaskParams[TNMI]]+")();\n")
         cf.write("\t\t}\n")
-        cf.write("\t\tOsTaskSchedEndLoop("+str(i)+");\n")
+        cf.write("\t\tOsTaskEndOfLoop("+str(i)+");\n")
         cf.write("\t}\n")
         cf.write("}\n\n")
     cf.write("\nconst k_thread_entry_t _OsTaskEntryList[] = {\n")

@@ -91,14 +91,14 @@ const OsTaskType _OsTaskCtrlBlk[] = {
 
 /*   T A S K ' S   E N T R Y   P O I N T   F O R   Z E P H Y R   */
 bool OsTaskSchedConditionsOk(uint16_t task_id);
-void OsTaskSchedEndLoop(uint16_t task_id);
+void OsTaskEndOfLoop(uint16_t task_id);
 
 static void _entry_Task_A(void *p1, void *p2, void *p3) {
 	while(TRUE) {
 		if (OsTaskSchedConditionsOk(0)) {
 			OS_TASK(Task_A)();
 		}
-		OsTaskSchedEndLoop(0);
+		OsTaskEndOfLoop(0);
 	}
 }
 
@@ -107,7 +107,7 @@ static void _entry_Task_B(void *p1, void *p2, void *p3) {
 		if (OsTaskSchedConditionsOk(1)) {
 			OS_TASK(Task_B)();
 		}
-		OsTaskSchedEndLoop(1);
+		OsTaskEndOfLoop(1);
 	}
 }
 
@@ -116,7 +116,7 @@ static void _entry_Task_C(void *p1, void *p2, void *p3) {
 		if (OsTaskSchedConditionsOk(2)) {
 			OS_TASK(Task_C)();
 		}
-		OsTaskSchedEndLoop(2);
+		OsTaskEndOfLoop(2);
 	}
 }
 
@@ -125,7 +125,7 @@ static void _entry_Task_D(void *p1, void *p2, void *p3) {
 		if (OsTaskSchedConditionsOk(3)) {
 			OS_TASK(Task_D)();
 		}
-		OsTaskSchedEndLoop(3);
+		OsTaskEndOfLoop(3);
 	}
 }
 
@@ -134,7 +134,7 @@ static void _entry_EcuM_StartupTwo(void *p1, void *p2, void *p3) {
 		if (OsTaskSchedConditionsOk(4)) {
 			OS_TASK(EcuM_StartupTwo)();
 		}
-		OsTaskSchedEndLoop(4);
+		OsTaskEndOfLoop(4);
 	}
 }
 
