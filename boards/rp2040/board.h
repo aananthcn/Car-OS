@@ -6,8 +6,8 @@
 
 #define BOARD_RP2040	1
 
-int bsp_setup_sytimer(void);
-int bsp_get_usec_syscount(u32 *ucount);
-int bsp_mcu_startup(void);
+// int bsp_setup_sytimer(void);
+// int bsp_get_usec_syscount(u32 *ucount);
+// int bsp_mcu_startup(void);
 
 #endif
