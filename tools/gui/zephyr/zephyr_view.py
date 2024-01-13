@@ -89,7 +89,7 @@ def zephyr_click_handler(gui):
     # set the geometry
     x = ZephyrViewWindow.winfo_screenwidth()
     y = ZephyrViewWindow.winfo_screenheight()
-    width = 540
+    width = 700
     height = 95
     ZephyrViewWindow.geometry("%dx%d+%d+%d" % (width, height, 3*x/10, 4*y/10))
     ZephyrViewWindow.title("Zephyr RTOS Configs")

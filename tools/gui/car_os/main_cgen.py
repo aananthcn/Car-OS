@@ -66,10 +66,13 @@ def generate_make_list_for_apps(cwd, swc_list):
                 continue
             app_name = app["git"].split("/")[-1].split(".git")[0]
             components.append(app_name)
-            app_path = search.find_dir(app_name, cwd+"/submodules").replace("\\", "/")
+            app_path = search.find_dir(app_name, cwd+"/submodules")
             if app_path:
+                app_path = app_path.replace("\\", "/")
                 apfile.write(app_name+"_path := "+app_path)
                 swc_list.append(app_path)
+            else:
+                print("Error: Application path not found (app: "+app_path+")")
 
         # create a dependency list for main makefile to invoke it
         apfile.write("\n\nAPP_LIST := ")

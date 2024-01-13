@@ -271,7 +271,7 @@ def generate_code():
     pb.update()
 
     # Generate code for OS Module
-    srcpath = ToolsPath+"\os_builder\src"
+    srcpath = ToolsPath+"/os_builder/src"
     os_rc = sg.generate_code_for_os(srcpath)
     pb["value"] = 33
     root.update_idletasks()
@@ -342,6 +342,8 @@ def open_arxml_file(fpath):
     sg.sg_reset()
     imp_status = arxml.import_arxml(Gui.arxml_file)
     if imp_status != 0:
+        # TODO: Add code to handle FILE NOT FOUND ERRORs
+        # TODO: If FILE NOT FOUND, then delete the file information in car-os_info.json file
         messagebox.showinfo(Gui.title, "Input file contains errors, hence opening as new file!")
         new_file()
     else:
