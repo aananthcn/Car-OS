@@ -69,6 +69,11 @@ def getall_spidriver_2nd_subcontainer(sub_ctnr_name, item, par_dict):
 def getall_spidriver_subcontainer(sub_ctnr_name, ctnr):
     param_list = []
     ctnr_list = lib_conf.findall_subcontainers_with_name(sub_ctnr_name, ctnr)
+
+    # An unconfigured Car-OS will have empty SPI container
+    if not ctnr_list:
+        return param_list
+
     for item in ctnr_list:
         params = lib_conf.get_param_list(item)
         par_dict = {}

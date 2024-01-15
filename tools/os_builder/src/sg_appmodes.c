@@ -27,3 +27,9 @@ const AppModeType EcuM_StartupTwo_AppModes[] = {
 	HW_TEST_MODE
 };
 
+const AppModeType Ethernet_Tasks_AppModes[] = {
+	OSDEFAULTAPPMODE,
+	MANUFACT_MODE,
+	HW_TEST_MODE
+};
+

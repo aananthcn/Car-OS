@@ -134,6 +134,14 @@ def buttonf(frame, view, key, index, row, col, width, text, cb):
     return select
 
 
+def checkboxf(frame, view, key, index, row, col):
+    select = tk.Checkbutton(frame, text="", variable=view.configs[index].dispvar[key])
+    view.configs[index].dispvar[key].set(view.configs[index].datavar[key])
+    select.grid(row=row, column=col)
+    insert_widget_to_nh_objs(row, col, view, select)
+    return select
+
+
 
 
 ###############################################################################
@@ -153,6 +161,9 @@ def spinb(view, key, index, row, col, width, values):
 
 def button(view, key, index, row, col, width, text, cb):
     return buttonf(view.scrollw.mnf, view, key, index, row, col, width, text, cb)
+
+def checkbox(view, key, index, row, col):
+    return checkboxf(view.scrollw.mnf, view, key, index, row, col)
 
 def colsep(view, col):
     label(view, "   ", 0, col, "e")

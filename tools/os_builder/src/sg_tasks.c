@@ -85,6 +85,21 @@ const OsTaskType _OsTaskCtrlBlk[] = {
 		.msglist = NULL,
 		.n_msglist = ECUM_STARTUPTWO_MESSAGE_MAX,
 		.stack_size = 512
+	},
+	{
+		.handler = OS_TASK(Ethernet_Tasks),
+		.id = 5,
+		.sch_type = NON_PREEMPTIVE,
+		.priority = 0,
+		.activations = 1,
+		.autostart = true,
+		.appmodes = (const AppModeType **) &Ethernet_Tasks_AppModes,
+		.n_appmodes = ETHERNET_TASKS_APPMODE_MAX,
+		.evtmsks = NULL,
+		.n_evtmsks = ETHERNET_TASKS_EVENT_MAX,
+		.msglist = NULL,
+		.n_msglist = ETHERNET_TASKS_MESSAGE_MAX,
+		.stack_size = 2048
 	}
 };
 
@@ -138,6 +153,15 @@ static void _entry_EcuM_StartupTwo(void *p1, void *p2, void *p3) {
 	}
 }
 
+static void _entry_Ethernet_Tasks(void *p1, void *p2, void *p3) {
+	while(TRUE) {
+		if (OsTaskSchedConditionsOk(5)) {
+			OS_TASK(Ethernet_Tasks)();
+		}
+		OsTaskEndOfLoop(5);
+	}
+}
+
 
 const k_thread_entry_t _OsTaskEntryList[] = {
 	_entry_Task_A,
@@ -145,6 +169,7 @@ const k_thread_entry_t _OsTaskEntryList[] = {
 	_entry_Task_C,
 	_entry_Task_D,
 	_entry_EcuM_StartupTwo,
+	_entry_Ethernet_Tasks,
 };
 
 
@@ -154,6 +179,7 @@ static K_THREAD_STACK_DEFINE(_Task_B_sp, 512);
 static K_THREAD_STACK_DEFINE(_Task_C_sp, 512);
 static K_THREAD_STACK_DEFINE(_Task_D_sp, 512);
 static K_THREAD_STACK_DEFINE(_EcuM_StartupTwo_sp, 512);
+static K_THREAD_STACK_DEFINE(_Ethernet_Tasks_sp, 2048);
 
 const void* _OsStackPtrList[] = {
 	_Task_A_sp,
@@ -161,9 +187,10 @@ const void* _OsStackPtrList[] = {
 	_Task_C_sp,
 	_Task_D_sp,
 	_EcuM_StartupTwo_sp,
+	_Ethernet_Tasks_sp,
 };
 
 
 const u32 _OsTaskValidPriorities[] = {
-	1, 2, 3, 4, 5
+	1, 2, 3, 4, 5, 0
 };

@@ -8,6 +8,7 @@ typedef enum {
 	OS_ALARM_ID_WAKETASKB,
 	OS_ALARM_ID_USECALARM,
 	OS_ALARM_ID_WAKETASKD,
+	OS_ALARM_ID_ALARM_ETHERNET,
 	OS_ALARM_ID_MAX
 } AlarmIdType;
 
@@ -55,6 +56,7 @@ typedef struct {
 
 extern const AppModeType Alarm_WakeTaskA_AppModes[];
 extern const AppModeType Alarm_WakeTaskD_AppModes[];
+extern const AppModeType Alarm_ALARM_Ethernet_AppModes[];
 
 #define MAX_ALARM_COUNTERS  (2)
 #define MAX_OS_ALARMS       (OS_ALARM_ID_MAX)

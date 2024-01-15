@@ -29,9 +29,7 @@ def generate_code(path, OsParams):
     print_info("Generating code for NammaAUTOSAR Parameters")
 
     # create stack definitions
-    lfilename = path + "/" + "sg_stack.lds"
     hfilename = path + "/" + "sg_os_param.h"
-    lf = open(lfilename, "w")
     hf = open(hfilename, "w")
 
     hf.write("#ifndef ACN_OSEK_OS_PARAM_H\n")
@@ -41,9 +39,7 @@ def generate_code(path, OsParams):
     # generate code from OsParams but limited to FreeOSEK_Params (ignore others)
     for param in FreeOSEK_Params:
         if param in OsParams:
-            lf.write("_"+param + " = " + OsParams[param] + ";\n")
             hf.write("#define _"+param + "  \t(" + OsParams[param] + ")\n")
     
-    lf.close()
     hf.write("\n\n#endif\n")
     hf.close()

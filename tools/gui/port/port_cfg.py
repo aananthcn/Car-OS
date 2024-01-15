@@ -56,7 +56,7 @@ class PortConfigSetTab:
     scrollw = None
     configs = None # all UI configs (tkinter strings) are stored here.
     cfgkeys = ["PortPinId", "PortPinDirection", "PortPinDirectionChangeable", "PortPinLevelValue",
-               "PortPinMode", "PortPinInitialMode", "PortPinModeChangeable"]
+               "PortPinMode", "PortPinInitialMode", "PortPinModeChangeable", "RM"]
     dappas_per_row = len(cfgkeys) + 1 # +1 for row labels
     init_view_done = False
 
@@ -96,6 +96,7 @@ class PortConfigSetTab:
         portpin["PortPinLevelValue"] = "PORT_PIN_LEVEL_LOW"
         portpin["PortPinMode"] = "PORT_PIN_MODE_DIO"
         portpin["PortPinModeChangeable"] = "FALSE"
+        portpin["RM"] = "FALSE"
 
         return portpin
 
@@ -126,6 +127,9 @@ class PortConfigSetTab:
         # PortPinModeChangeable
         dappa.combo(self, "PortPinModeChangeable", i, self.header_row+i, 7, 18, StdPinModes)
 
+        # delete checkbox (view, key, index, row, col)
+        dappa.checkbox(self, "RM", i, self.header_row+i, 8)
+
 
 
     def update(self):
@@ -150,6 +154,7 @@ class PortConfigSetTab:
         self.scrollw.scroll()
 
 
+
     def draw(self, tab):
         self.scrollw = window.ScrollableWindow(tab.frame, tab.xsize, tab.ysize)
         self.tab_struct = tab
@@ -166,6 +171,10 @@ class PortConfigSetTab:
         genm = tk.Button(self.scrollw.mnf, width=10, text="Save Configs", command=self.save_data, bg="#206020", fg='white')
         genm.grid(row=0, column=2)
 
+        # Save Button
+        genm = tk.Button(self.scrollw.mnf, width=12, text="Delete items", command=self.delete_selected, bg="#602020", fg='white')
+        genm.grid(row=0, column=3)
+
         # Update buttons frames idle tasks to let tkinter calculate buttons sizes
         self.scrollw.update()
 
@@ -179,4 +188,18 @@ class PortConfigSetTab:
 
     def save_data(self):
         self.tab_struct.save_cb(self.gui)
+
+
+
+    def delete_selected(self):
+        checks = 0
+        for i, cfg in enumerate(self.configs):
+            chk = cfg.dispvar["RM"].get()
+            if chk == "1":
+                checks += 1
+                del self.configs[i]
+                self.n_pins -= 1
+        print("Total number of boxes checked = "+ str(checks))
+        for widget in self.scrollw.winfo_children():
+            widget.destroy()
 
