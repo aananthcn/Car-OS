@@ -1,5 +1,5 @@
 .vscode
-.filelist
+.project*
 
 # folders to ignore
 submodules/AL/*/

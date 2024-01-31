@@ -159,7 +159,7 @@ FileMenu = None
 
 # I/O stuffs
 OIL_FileName = None
-ProjectInfoFile = os.getcwd()+"/car-os/car-os_info.json"
+ProjectInfoFile = os.getcwd()+"/car-os/.project-cfg.json"
 if os.path.exists(os.getcwd()+"/car-os"):
     ToolsPath = os.getcwd()+"/car-os/tools"
 else:
@@ -343,7 +343,7 @@ def open_arxml_file(fpath):
     imp_status = arxml.import_arxml(Gui.arxml_file)
     if imp_status != 0:
         # TODO: Add code to handle FILE NOT FOUND ERRORs
-        # TODO: If FILE NOT FOUND, then delete the file information in car-os_info.json file
+        # TODO: If FILE NOT FOUND, then delete the file information in .project-cfg.json file
         messagebox.showinfo(Gui.title, "Input file contains errors, hence opening as new file!")
         new_file()
     else:
@@ -362,29 +362,42 @@ def add_menus(rv, flst):
     global FileMenu
     Gui.main_view.tk_menu = tk.Menu(rv, background='#ff8000', foreground='black', activebackground='white', activeforeground='black')
     FileMenu = tk.Menu(Gui.main_view.tk_menu, tearoff=0)
+
+    # file create and open sub-menus
     FileMenu.add_command(label="New", command=new_file)
     FileMenu.add_command(label="Import OIL File", command=lambda: open_oil_file(None))
     FileMenu.add_command(label="Import ARXML File", command=lambda: open_arxml_file(None))
+
+    # file save and store sub-menus
     FileMenu.add_separator()
     FileMenu.add_command(label="Save", command=save_project, state="disabled")
     FileMenu.add_command(label="Save As", command=save_as_arxml)
+
+    # add recently opened files as sub-menus
     FileMenu.add_separator()
-    if len(flst) > 0:
+    if flst and len(flst) > 0:
         for file_path in flst:
             FileMenu.add_command(label=file_path, command=lambda fp = file_path: open_arxml_file(fp))
         FileMenu.add_separator()
+
+    # exit sub-menu
     FileMenu.add_command(label="Exit", command=rv.quit)
+
+    # Add all submenus to File menu
     Gui.main_view.tk_menu.add_cascade(label="File", menu=FileMenu)
 
+    # View menu and submenus
     view = tk.Menu(Gui.main_view.tk_menu, tearoff=0)
     view.add_command(label="OS Config", command=lambda: os_view.show_os_config(Gui))
     view.add_command(label="AUTOSAR Module View", command=lambda: a_view.show_autosar_modules_view(Gui))
     Gui.main_view.tk_menu.add_cascade(label="View", menu=view)
 
+    # Generate (source code) menu and submenus
     gen = tk.Menu(Gui.main_view.tk_menu, tearoff=0)
     gen.add_command(label="Generate Source", command=generate_code)
     Gui.main_view.tk_menu.add_cascade(label="Generate", menu=gen)
 
+    # Help menu and submenus
     help = tk.Menu(Gui.main_view.tk_menu, tearoff=0)
     help.add_command(label="About", command=about)
     Gui.main_view.tk_menu.add_cascade(label="Help", menu=help)
@@ -432,6 +445,8 @@ def get_project_info_zephyrd():
             except ValueError:
                 print("Decoding json ("+ProjectInfoFile+") failed in get_project_info_recentf()!")
                 zephyrd = None
+            except KeyError:
+                print("Opening Car-OS project as new project setup...")
             jfile.close()
 
     return zephyrd
