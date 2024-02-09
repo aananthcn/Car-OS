@@ -378,8 +378,10 @@ def open_arxml_file(fpath):
     if Gui.main_view.tk_root != None:
         Gui.main_view.tk_root.title(Gui.title + " [" + str(Gui.caros_cfg_file).split("/")[-1] +"]")
 
+    # Reset OS view to flush the contents from previous view
+    os_view.os_reset() 
+
     # Import/Parse ARXML file, so that we can use the content in GUI.
-    sg.sg_reset()
     imp_status = arxml.import_arxml(Gui.caros_cfg_file)
     if imp_status != 0:
         # TODO: Add code to handle FILE NOT FOUND ERRORs

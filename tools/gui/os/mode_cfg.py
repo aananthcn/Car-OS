@@ -24,7 +24,7 @@ from tkinter import ttk
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
 
-import os_builder.scripts.System_Generator as sg
+import gui.os.os_view as os_view
 import arxml.core.main_os as arxml_os
 
 
@@ -137,11 +137,11 @@ class AmTab:
 
 
     def backup_data(self):
-        if sg.AppModes:
-            del sg.AppModes[:]
+        if os_view.AppModes:
+            del os_view.AppModes[:]
         for cfg in self.configs:
             cfg_dict = cfg.get()
-            sg.AppModes.append(cfg_dict["OsAppMode"])
+            os_view.AppModes.append(cfg_dict["OsAppMode"])
 
 
 

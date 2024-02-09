@@ -24,7 +24,7 @@ from tkinter import ttk
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
 
-import os_builder.scripts.System_Generator as sg
+import gui.os.os_view as os_view
 import arxml.core.main_os as arxml_os
 
 
@@ -138,11 +138,11 @@ class CounterTab:
 
 
     def backup_data(self):
-        if sg.Counters:
-            del sg.Counters[:]
+        if os_view.Counters:
+            del os_view.Counters[:]
         for cfg in self.configs:
             cfg_dict = cfg.get()
-            sg.Counters.append(cfg_dict)
+            os_view.Counters.append(cfg_dict)
 
 
 

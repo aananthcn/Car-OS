@@ -43,15 +43,6 @@ from colorama import init, Fore, Back, Style
 init(convert=True)
 
 
-# Global Variables
-Counters = []
-Alarms = []
-Tasks = []
-AppModes = []
-ISRs = []
-OS_Cfgs = {}
-
-
 
 # Functions
 def print_usage(prog):
@@ -303,36 +294,6 @@ def parse(oilfile):
 
     return path
 
-
-
-def generate_code_for_os(path):
-    try:
-        sg_counter.generate_code(path, Counters)
-        sg_appmodes.generate_code(path, AppModes, Tasks)
-        sg_events.generate_code(path, Tasks)
-        sg_messages.generate_code(path, Tasks)
-        ResTaskList = sg_resources.generate_code(path, Tasks)
-        sg_tasks.generate_code(path, Tasks)
-        sg_alarms.generate_code(path, Alarms, Counters, Tasks)
-        sg_os_param.generate_code(path, OS_Cfgs)
-        sg_isrs.generate_code(path, ISRs)
-    except:
-        traceback.print_exc()
-        return -1
-
-    return 0
-
-
-def sg_reset():
-    global Counters, Alarms, Tasks, AppModes, ISRs, OS_Cfgs, SrcFilePath
-
-    del Counters[:]
-    del Alarms[:]
-    del Tasks[:]
-    del AppModes[:]
-    del ISRs[:]
-    OS_Cfgs = {}
-    set_source_file_path(None)
 
 
 if __name__ == '__main__':

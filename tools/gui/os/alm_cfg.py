@@ -27,7 +27,7 @@ from copy import copy
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
 
-import os_builder.scripts.System_Generator as sg
+import gui.os.os_view as os_view
 import arxml.core.main_os as arxml_os
 
 
@@ -244,8 +244,6 @@ class AlarmTab:
 
     def extract_counter_names(self):
         del self.counter_names[:]
-        # for cntr in self.crtab.Ctr_StrVar:
-        #     self.counter_names.append(cntr.name.get())
         for counter in self.crtab.configs:
             self.counter_names.append(counter.datavar["Counter Name"])
         return self.counter_names
@@ -253,11 +251,11 @@ class AlarmTab:
 
 
     def backup_data(self):
-        if sg.Alarms:
-            del sg.Alarms[:]
+        if os_view.Alarms:
+            del os_view.Alarms[:]
         for cfg in self.configs:
             cfg_dict = cfg.get()
-            sg.Alarms.append(cfg_dict)
+            os_view.Alarms.append(cfg_dict)
 
 
 

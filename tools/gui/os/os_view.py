@@ -21,8 +21,16 @@
 import tkinter as tk
 from tkinter import ttk
 
-import os_builder.scripts.System_Generator as sg
-import os_builder.scripts.oil as oil
+
+import os_builder.scripts.sg_counter as sg_counter
+import os_builder.scripts.sg_tasks as sg_tasks
+import os_builder.scripts.sg_alarms as sg_alarms
+import os_builder.scripts.sg_appmodes as sg_appmodes
+import os_builder.scripts.sg_events as sg_events
+import os_builder.scripts.sg_messages as sg_messages
+import os_builder.scripts.sg_resources as sg_resources
+import os_builder.scripts.sg_os_param as sg_os_param
+import os_builder.scripts.sg_isrs as sg_isrs
 
 import gui.os.os_cfg as gui_os_tab
 import gui.os.mode_cfg as gui_am_tab
@@ -36,6 +44,15 @@ import gui.os.isr_cfg as gui_ir_tab
 OsTab = AmTab = CtrTab = ResTab = TskTab = AlmTab = IsrTab = None
 OsConfigViewActive = False
 
+
+
+# OS Global Variables
+Counters = []
+Alarms = []
+Tasks = []
+AppModes = []
+ISRs = []
+OS_Cfgs = {}
 
 
 def backup_os_gui_before_save():
@@ -70,7 +87,7 @@ def os_config_close_event(view):
 
     
 def show_os_config(gui):
-    # global OsTab, AmTab, CtrTab, MsgTab, ResTab, TskTab, AlmTab, IsrTab
+    global Counters, Alarms, Tasks, AppModes, ISRs, OS_Cfgs
     global OsTab, AmTab, CtrTab, ResTab, TskTab, AlmTab, IsrTab
     global OsConfigViewActive
 
@@ -108,38 +125,66 @@ def show_os_config(gui):
     del OsTab
     del AmTab
     del CtrTab
-    # del MsgTab
     del ResTab
     del TskTab
     del AlmTab
     del IsrTab
 
     # create new GUI objects
-    OsTab = gui_os_tab.OsTab(sg.OS_Cfgs, sg.Tasks)
+    OsTab = gui_os_tab.OsTab(OS_Cfgs, Tasks)
     OsTab.draw(os_tab, gui)
 
-    AmTab = gui_am_tab.AmTab(sg.AppModes)
+    AmTab = gui_am_tab.AmTab(AppModes)
     AmTab.draw(am_tab, gui, width, height)
     
-    CtrTab = gui_cr_tab.CounterTab(sg.Counters)
+    CtrTab = gui_cr_tab.CounterTab(Counters)
     CtrTab.draw(cr_tab, gui, width, height)
 
-    ResTab = gui_rs_tab.ResourceTab(sg.Tasks)
+    ResTab = gui_rs_tab.ResourceTab(Tasks)
     ResTab.draw(rs_tab, gui, width, height)
 
-    # TskTab = gui_tk_tab.TaskTab(sg.Tasks, AmTab, ResTab, MsgTab)
-    TskTab = gui_tk_tab.TaskTab(sg.Tasks, AmTab, ResTab)
+    TskTab = gui_tk_tab.TaskTab(Tasks, AmTab, ResTab)
     TskTab.draw(tk_tab, gui, width, height)
     
-    AlmTab = gui_al_tab.AlarmTab(sg.Alarms, TskTab, AmTab, CtrTab)
+    AlmTab = gui_al_tab.AlarmTab(Alarms, TskTab, AmTab, CtrTab)
     AlmTab.draw(al_tab, gui, width, height)
 
-    # IsrTab = gui_ir_tab.IsrTab(sg.ISRs, ResTab, MsgTab)
-    IsrTab = gui_ir_tab.IsrTab(sg.ISRs, ResTab)
+    IsrTab = gui_ir_tab.IsrTab(ISRs, ResTab)
     IsrTab.draw(ir_tab, width, height)
 
     # gui.main_view.child_window.bind("<<NotebookTabChanged>>", lambda event : show_os_tab_switch(event, gui))
     
+
+
+def generate_code_for_os(path):
+    try:
+        sg_counter.generate_code(path, Counters)
+        sg_appmodes.generate_code(path, AppModes, Tasks)
+        sg_events.generate_code(path, Tasks)
+        sg_messages.generate_code(path, Tasks)
+        ResTaskList = sg_resources.generate_code(path, Tasks)
+        sg_tasks.generate_code(path, Tasks)
+        sg_alarms.generate_code(path, Alarms, Counters, Tasks)
+        sg_os_param.generate_code(path, OS_Cfgs)
+        sg_isrs.generate_code(path, ISRs)
+    except:
+        traceback.print_exc()
+        return -1
+
+    return 0
+
+
+
+def os_reset():
+    global Counters, Alarms, Tasks, AppModes, ISRs, OS_Cfgs
+
+    del Counters[:]
+    del Alarms[:]
+    del Tasks[:]
+    del AppModes[:]
+    del ISRs[:]
+    OS_Cfgs = {}
+
 
 
 def os_block_click_handler(gui):

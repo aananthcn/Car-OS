@@ -22,7 +22,8 @@ import os
 import sys
 import xml.etree.ElementTree as ET
 
-import os_builder.scripts.System_Generator as sg
+import gui.os.os_view as os_view
+
 import arxml.core.lib as lib
 import arxml.core.lib_conf as lib_conf
 import arxml.core.lib_defs as lib_defs
@@ -59,17 +60,17 @@ def parse_OsHooks(ctnr):
    plist = lib.get_param_list(ctnr)
    for lst in plist:
       if lst["tag"] == "OsErrorHook":
-         sg.OS_Cfgs["ERRORHOOK"] = lst["val"]
+         os_view.OS_Cfgs["ERRORHOOK"] = lst["val"]
       if lst["tag"] == "OsPostTaskHook":
-         sg.OS_Cfgs["POSTTASKHOOK"] = lst["val"]
+         os_view.OS_Cfgs["POSTTASKHOOK"] = lst["val"]
       if lst["tag"] == "OsPreTaskHook":
-         sg.OS_Cfgs["PRETASKHOOK"] = lst["val"]
+         os_view.OS_Cfgs["PRETASKHOOK"] = lst["val"]
       if lst["tag"] == "OsShutdownHook":
-         sg.OS_Cfgs["SHUTDOWNHOOK"] = lst["val"]
+         os_view.OS_Cfgs["SHUTDOWNHOOK"] = lst["val"]
       if lst["tag"] == "OsStartupHook":
-         sg.OS_Cfgs["STARTUPHOOK"] = lst["val"]
+         os_view.OS_Cfgs["STARTUPHOOK"] = lst["val"]
       if lst["tag"] == "OsProtectionHook":
-         sg.OS_Cfgs["OsProtectionHook"] = lst["val"]
+         os_view.OS_Cfgs["OsProtectionHook"] = lst["val"]
 
 
 
@@ -77,7 +78,7 @@ def parse_OsHookStack(ctnr):
    plist = lib.get_param_list(ctnr)
    for lst in plist:
       if lst["tag"] == "OsHookStackSize":
-         sg.OS_Cfgs["OS_STACK_SIZE"] = lst["val"]
+         os_view.OS_Cfgs["OS_STACK_SIZE"] = lst["val"]
 
 
 
@@ -85,15 +86,15 @@ def parse_NammaOsekParams(ctnr):
    plist = lib.get_param_list(ctnr)
    for lst in plist:
       if lst["tag"] == "OsName":
-         sg.OS_Cfgs["OS"] = lst["val"]
+         os_view.OS_Cfgs["OS"] = lst["val"]
       if lst["tag"] == "CpuName":
-         sg.OS_Cfgs["CPU"] = lst["val"]
+         os_view.OS_Cfgs["CPU"] = lst["val"]
       if lst["tag"] == "IrqStackSize":
-         sg.OS_Cfgs["IRQ_STACK_SIZE"] = lst["val"]
+         os_view.OS_Cfgs["IRQ_STACK_SIZE"] = lst["val"]
       if lst["tag"] == "ContextSaveSize":
-         sg.OS_Cfgs["OS_CTX_SAVE_SZ"] = lst["val"]
+         os_view.OS_Cfgs["OS_CTX_SAVE_SZ"] = lst["val"]
       if lst["tag"] == "AppTasksSize":
-         sg.OS_Cfgs["TASK_STACK_SIZE"] = lst["val"]
+         os_view.OS_Cfgs["TASK_STACK_SIZE"] = lst["val"]
 
 
 
@@ -103,7 +104,7 @@ def parse_oscfg(ctnr):
          plist = lib.get_param_list(ctnr)
          for lst in plist:
             if lst["tag"] == "OsStatus":
-               sg.OS_Cfgs["STATUS"] = lst["val"]
+               os_view.OS_Cfgs["STATUS"] = lst["val"]
       if lib.get_tag(elem) == "SUB-CONTAINERS":
          for ctnr in list(elem):
             dref = lib.get_dref_from_container(ctnr)
@@ -119,7 +120,7 @@ def parse_oscfg(ctnr):
 def parse_appmode(ctnr):
    for elem in list(ctnr):
       if lib.get_tag(elem) == "SHORT-NAME":
-         sg.AppModes.append(elem.text)
+         os_view.AppModes.append(elem.text)
 
 
 
@@ -143,7 +144,7 @@ def parse_counter(ctnr):
             if lst["tag"] == "OsCounterType":
                cntr["OsCounterType"] = lst["val"]
       if iter_per_cntr == 0:
-         sg.Counters.append(cntr)
+         os_view.Counters.append(cntr)
          iter_per_cntr = 2
          cntr = {}
 
@@ -206,7 +207,7 @@ def parse_task(ctnr):
       if iter_per_task == 0:
          if autostart == False:
             task["AUTOSTART"] = "FALSE"
-         sg.Tasks.append(task)
+         os_view.Tasks.append(task)
          iter_per_task = len(list(ctnr)) - 1
          task = {}
 
@@ -280,7 +281,7 @@ def parse_alarm(ctnr):
                      alarm["APPMODE"] = []
                      parse_alarm_autostart(l2c, alarm)
 
-   sg.Alarms.append(alarm)
+   os_view.Alarms.append(alarm)
 
 
 
@@ -300,7 +301,7 @@ def parse_isr(ctnr):
                isr["CATEGORY"] = lst["val"]
             if lst["tag"] == "OsIsrStackSize":
                isr["OsIsrStackSize"] = lst["val"]
-   sg.ISRs.append(isr)
+   os_view.ISRs.append(isr)
 
 
 
