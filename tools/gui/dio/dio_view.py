@@ -79,7 +79,7 @@ def dio_save_callback(gui):
         if tab.name == "DioGeneral":
             dio_gen = tab.tab.configs[0].get()
             continue
-    arxml_dio.update_arxml(gui.arxml_file, dio_cfg, dio_grp, dio_gen)
+    arxml_dio.update_arxml(gui.caros_cfg_file, dio_cfg, dio_grp, dio_gen)
     dio_code_gen.generate_code(gui)
 
 

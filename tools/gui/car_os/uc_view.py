@@ -91,7 +91,7 @@ def uc_block_get_updated_label(gui):
 ###############################################################################
 # Main Entry Points
 def uc_block_constructor(gui, uc_blk):
-    arxml_mcu.parse_arxml(gui.arxml_file, gui.uc_info)
+    arxml_mcu.parse_arxml(gui.caros_cfg_file, gui.uc_info)
 
     # Update the Microcontroller block in main Gui
     new_label = uc_block_get_updated_label(gui)
@@ -141,7 +141,7 @@ class UcConfig_View:
     def __init__(self, gui):
         self.gui = gui
         self.configs = []
-        arxml_mcu.parse_arxml(gui.arxml_file, self.uc_info)
+        arxml_mcu.parse_arxml(gui.caros_cfg_file, self.uc_info)
         if self.uc_info.micro == None:
             self.configs.append(dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs()))
         else:

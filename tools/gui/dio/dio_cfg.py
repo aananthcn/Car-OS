@@ -57,7 +57,7 @@ class DioConfigTab:
         self.toplvl = gui.main_view.child_window
         self.n_pins_str = tk.StringVar()
 
-        dio_pins, dio_cfg, dio_grps, dio_gen = arxml_dio.parse_arxml(gui.arxml_file)
+        dio_pins, dio_cfg, dio_grps, dio_gen = arxml_dio.parse_arxml(gui.caros_cfg_file)
         if dio_pins == None:
             return
 

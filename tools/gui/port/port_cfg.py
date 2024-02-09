@@ -70,7 +70,7 @@ class PortConfigSetTab:
         self.configs = []
         self.n_pins_str = tk.StringVar()
 
-        self.n_pins, ports, general = arxml_port.parse_arxml(gui.arxml_file)
+        self.n_pins, ports, general = arxml_port.parse_arxml(gui.caros_cfg_file)
         if self.n_pins == None or ports == None:
             self.n_pins = 0
             self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs()))

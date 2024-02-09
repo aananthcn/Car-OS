@@ -42,7 +42,7 @@ class DioGeneralTab:
     def __init__(self, gui):
         self.gui = gui
         self.configs = []
-        dio_pins, dio_cfg, dio_grp, dio_gen = arxml_dio.parse_arxml(gui.arxml_file)
+        dio_pins, dio_cfg, dio_grp, dio_gen = arxml_dio.parse_arxml(gui.caros_cfg_file)
         if dio_gen == None:
             self.configs.append(dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs()))
         else:

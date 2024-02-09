@@ -239,7 +239,7 @@ def create_source(gui):
     generate_platform_header(gui)
 
     # Update ARXML file
-    arxml_mcu.update_arxml(gui.arxml_file, gui.uc_info)
+    arxml_mcu.update_arxml(gui.caros_cfg_file, gui.uc_info)
     
     paths_mk.close()
     paths_cmake.close()

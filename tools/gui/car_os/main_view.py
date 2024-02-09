@@ -34,6 +34,7 @@ else:
 import os_builder.scripts.System_Generator as sg
 import os_builder.scripts.oil as oil
 import arxml.core.main_os as arxml
+import ajson.core.lib as ajson
 
 
 import tkinter as tk
@@ -100,7 +101,7 @@ class Car_OS_Builder:
     uc_info = uc_view.Uc_Info()
     
     # General Attributes
-    arxml_file = None
+    caros_cfg_file = None
     zephyr_path = None
     config_loaded = False
     
@@ -144,8 +145,8 @@ class Car_OS_Builder:
         uc_view.show_microcontroller_block(self)
 
 
-    def set_arxml_filepath(self, filepath):
-        self.arxml_file = filepath
+    def set_caros_cfg_filepath(self, filepath):
+        self.caros_cfg_file = filepath
         lib.setget_ecuc_arpkg_name(filepath)
     
 
@@ -220,39 +221,41 @@ def open_oil_file(fpath):
 
 
 def save_project():
-    global OIL_FileName, Gui
+    # global OIL_FileName, Gui
+    global Gui
 
     os_view.backup_os_gui_before_save()
 
-    if os.path.exists(os.getcwd()+"/car-os"):
-        init_dir = os.getcwd()+"/car-os/output/arxml"
-    else:
-        init_dir = os.getcwd()+"/output/arxml"
+    # if os.path.exists(os.getcwd()+"/car-os"):
+    #     init_dir = os.getcwd()+"/car-os/output/arxml"
+    # else:
+    #     init_dir = os.getcwd()+"/output/arxml"
 
-    # Export if the input file OIL file.
-    if OIL_FileName != None:
-        file_exts = [('ARXML Files', '*.arxml')]
-        saved_filename = filedialog.asksaveasfile(initialdir=init_dir, filetypes = file_exts, defaultextension = file_exts)
-        if saved_filename == None:
-            messagebox.showinfo(Gui.title, "File to save is not done correctly, saving aborted!")
-            return
-        Gui.set_arxml_filepath(saved_filename.name)
-        print("Info: Exporting "+OIL_FileName+" to "+Gui.arxml_file+" ...")
-        OIL_FileName = None
+    # # Export if the input file OIL file.
+    # if OIL_FileName != None:
+    #     file_exts = [('ARXML Files', '*.arxml')]
+    #     saved_filename = filedialog.asksaveasfile(initialdir=init_dir, filetypes = file_exts, defaultextension = file_exts)
+    #     if saved_filename == None:
+    #         messagebox.showinfo(Gui.title, "File to save is not done correctly, saving aborted!")
+    #         return
+    #     Gui.set_caros_cfg_filepath(saved_filename.name)
+    #     print("Info: Exporting "+OIL_FileName+" to "+Gui.caros_cfg_file+" ...")
+    #     OIL_FileName = None
 
-    # Save if the input file is ARXML
-    elif Gui.arxml_file != None:
-        print("Info: Saving configs to "+Gui.arxml_file+" ...")
+    # # Save if the input file is ARXML
+    # elif Gui.caros_cfg_file != None:
+    #     print("Info: Saving configs to "+Gui.caros_cfg_file+" ...")
     
-    # Warn if both file variables are not set
-    else:
-        messagebox.showinfo(Gui.title, "Invalid input (project) file. Can't save project!")
-        return
+    # # Warn if both file variables are not set
+    # else:
+    #     messagebox.showinfo(Gui.title, "Invalid input (project) file. Can't save project!")
+    #     return
 
 
     # Export and File name clean up
-    arxml.export_os_cfgs_2_arxml(Gui.arxml_file, Gui)
-    Gui.main_view.tk_root.title(Gui.title + " [" + Gui.arxml_file.split("/")[-1] +"]")
+    # arxml.export_os_cfgs_2_arxml(Gui.caros_cfg_file, Gui)
+    ajson.save_project(Gui)
+    Gui.main_view.tk_root.title(Gui.title + " [" + Gui.caros_cfg_file.split("/")[-1] +"]")
 
 
 
@@ -295,6 +298,70 @@ def generate_code():
 
 
 
+###############################################################################
+# A-JSON open and save functions.
+def save_as_ajson():
+    global Gui
+
+    if os.path.exists(os.getcwd()+"/car-os"):
+        init_dir = os.getcwd()+"/car-os/output/ajson"
+    else:
+        init_dir = os.getcwd()+"/output/ajson"
+
+    file_exts = [('A-JSON Files', '*.ajson')]
+    saved_filename = filedialog.asksaveasfile(initialdir=init_dir, filetypes = file_exts, defaultextension = file_exts)
+    if saved_filename == None:
+        messagebox.showinfo(Gui.title, "File to save is not done correctly, saving aborted!")
+        return
+
+    Gui.set_caros_cfg_filepath(saved_filename.name)
+    Gui.main_view.tk_root.title(Gui.title + " [" + str(saved_filename.name).split("/")[-1] +"]")
+    os_view.backup_os_gui_before_save()
+    ajson.export_os_cfgs_2_ajson(saved_filename.name, Gui)
+
+
+
+def open_ajson_file(fpath):
+    global Gui
+
+    init_dir = os.getcwd()
+    if os.path.exists(os.getcwd()+"/cfg/ajson"):
+        init_dir = os.getcwd()+"/cfg/ajson"
+    elif os.path.exists(os.getcwd()+"/car-os/cfg/ajson"):
+        init_dir = os.getcwd()+"/car-os/cfg/ajson"
+
+    if fpath == None:
+        filename = filedialog.askopenfilename(initialdir=init_dir)
+        if type(filename) is not tuple and len(filename) > 5:
+            Gui.set_caros_cfg_filepath(filename)
+        else:
+            print("Info: no or many A-JSON file is chosen, hence open_ajson_file() returning without processing!")
+            return
+    else:
+        Gui.set_caros_cfg_filepath(fpath.strip())
+
+    if Gui.main_view.tk_root != None:
+        Gui.main_view.tk_root.title(Gui.title + " [" + str(Gui.caros_cfg_file).split("/")[-1] +"]")
+
+    # Import/Parse A-JSON file, so that we can use the content in GUI.
+    sg.sg_reset()
+    imp_status = ajson.import_ajson(Gui.caros_cfg_file)
+    if imp_status != 0:
+        # TODO: Add code to handle FILE NOT FOUND ERRORs
+        # TODO: If FILE NOT FOUND, then delete the file information in .project-cfg.json file
+        messagebox.showinfo(Gui.title, "Input file contains errors, hence opening as new file!")
+        new_file()
+    else:
+        update_project_info_recentf(Gui.caros_cfg_file)
+        FileMenu.entryconfig("Save", state="normal")
+    Gui.config_loaded = True
+    a_view.show_autosar_modules_view(Gui)
+
+
+
+###############################################################################
+# ARXML open and save functions. Note ARXML is no longer (Feb 2024) the default
+# format of storage. It is decided to go with A-JSON format.
 def save_as_arxml():
     global Gui
 
@@ -302,14 +369,14 @@ def save_as_arxml():
         init_dir = os.getcwd()+"/car-os/output/arxml"
     else:
         init_dir = os.getcwd()+"/output/arxml"
-    
+
     file_exts = [('ARXML Files', '*.arxml')]
     saved_filename = filedialog.asksaveasfile(initialdir=init_dir, filetypes = file_exts, defaultextension = file_exts)
     if saved_filename == None:
         messagebox.showinfo(Gui.title, "File to save is not done correctly, saving aborted!")
         return
 
-    Gui.set_arxml_filepath(saved_filename.name)
+    Gui.set_caros_cfg_filepath(saved_filename.name)
     Gui.main_view.tk_root.title(Gui.title + " [" + str(saved_filename.name).split("/")[-1] +"]")
     os_view.backup_os_gui_before_save()
     arxml.export_os_cfgs_2_arxml(saved_filename.name, Gui)
@@ -328,26 +395,26 @@ def open_arxml_file(fpath):
     if fpath == None:
         filename = filedialog.askopenfilename(initialdir=init_dir)
         if type(filename) is not tuple and len(filename) > 5:
-            Gui.set_arxml_filepath(filename)
+            Gui.set_caros_cfg_filepath(filename)
         else:
             print("Info: no or many ARXML file is chosen, hence open_arxml_file() returning without processing!")
             return
     else:
-        Gui.set_arxml_filepath(fpath.strip())
+        Gui.set_caros_cfg_filepath(fpath.strip())
 
     if Gui.main_view.tk_root != None:
-        Gui.main_view.tk_root.title(Gui.title + " [" + str(Gui.arxml_file).split("/")[-1] +"]")
+        Gui.main_view.tk_root.title(Gui.title + " [" + str(Gui.caros_cfg_file).split("/")[-1] +"]")
 
     # Import/Parse ARXML file, so that we can use the content in GUI.
     sg.sg_reset()
-    imp_status = arxml.import_arxml(Gui.arxml_file)
+    imp_status = arxml.import_arxml(Gui.caros_cfg_file)
     if imp_status != 0:
         # TODO: Add code to handle FILE NOT FOUND ERRORs
         # TODO: If FILE NOT FOUND, then delete the file information in .project-cfg.json file
         messagebox.showinfo(Gui.title, "Input file contains errors, hence opening as new file!")
         new_file()
     else:
-        update_project_info_recentf(Gui.arxml_file)
+        update_project_info_recentf(Gui.caros_cfg_file)
         FileMenu.entryconfig("Save", state="normal")
     Gui.config_loaded = True
     a_view.show_autosar_modules_view(Gui)
@@ -365,8 +432,7 @@ def add_menus(rv, flst):
 
     # file create and open sub-menus
     FileMenu.add_command(label="New", command=new_file)
-    FileMenu.add_command(label="Import OIL File", command=lambda: open_oil_file(None))
-    FileMenu.add_command(label="Import ARXML File", command=lambda: open_arxml_file(None))
+    FileMenu.add_command(label="Open", command=lambda: open_ajson_file(None))
 
     # file save and store sub-menus
     FileMenu.add_separator()
@@ -392,10 +458,14 @@ def add_menus(rv, flst):
     view.add_command(label="AUTOSAR Module View", command=lambda: a_view.show_autosar_modules_view(Gui))
     Gui.main_view.tk_menu.add_cascade(label="View", menu=view)
 
-    # Generate (source code) menu and submenus
-    gen = tk.Menu(Gui.main_view.tk_menu, tearoff=0)
-    gen.add_command(label="Generate Source", command=generate_code)
-    Gui.main_view.tk_menu.add_cascade(label="Generate", menu=gen)
+    # Tools (source code) menu and submenus
+    tools = tk.Menu(Gui.main_view.tk_menu, tearoff=0)
+    tools.add_command(label="Generate Source", command=generate_code)
+    tools.add_separator()
+    tools.add_command(label="Import OIL File", command=lambda: open_oil_file(None))
+    tools.add_command(label="Import ARXML File", command=lambda: open_arxml_file(None))
+
+    Gui.main_view.tk_menu.add_cascade(label="Tools", menu=tools)
 
     # Help menu and submenus
     help = tk.Menu(Gui.main_view.tk_menu, tearoff=0)
@@ -403,11 +473,6 @@ def add_menus(rv, flst):
     Gui.main_view.tk_menu.add_cascade(label="Help", menu=help)
     
     rv.config(menu=Gui.main_view.tk_menu)
-
-
-
-def textBox():
-    print(textb.get())
 
 
 

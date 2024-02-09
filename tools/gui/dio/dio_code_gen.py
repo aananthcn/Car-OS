@@ -77,7 +77,7 @@ def generate_code(gui):
         dio_src_path = search.find_dir("Dio", cwd+"/car-os/submodules/MCAL/")
     else:
         dio_src_path = search.find_dir("Dio", cwd+"/submodules/MCAL/")
-    pins, dio_configs, dio_groups, dio_general = arxml_dio.parse_arxml(gui.arxml_file)
+    pins, dio_configs, dio_groups, dio_general = arxml_dio.parse_arxml(gui.caros_cfg_file)
     generate_headerfile(dio_src_path, dio_configs)
     generate_sourcefile(dio_src_path, dio_configs)
     main_cgen.create_source(gui) # calling main_cgen.create_source() is a work-around. This will be corrected later.

@@ -69,7 +69,7 @@ def spi_save_callback(gui):
     for tab in TabList:
         spi_configs[tab.name] = tab.tab.configs
     
-    arxml_spi_w.update_arxml(gui.arxml_file, spi_configs)
+    arxml_spi_w.update_arxml(gui.caros_cfg_file, spi_configs)
     spi_cgen.generate_code(gui, spi_configs)
 
 
@@ -114,7 +114,7 @@ def show_spi_tabs(gui):
         del obj
 
     # read Spi content from ARXML file
-    spi_configs = arxml_spi_r.parse_arxml(gui.arxml_file)
+    spi_configs = arxml_spi_r.parse_arxml(gui.caros_cfg_file)
     
     # create new GUI objects
     spigen_tab = SpiTab(gen_frame, width, height)
