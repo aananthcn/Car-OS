@@ -23,6 +23,13 @@ import os
 import sys
 import json
 
+import gui.os.os_view as os_view
+
+
+
+def save_uc_configs():
+    return
+
 
 def save_project(gui_obj):
     if not gui_obj:
@@ -34,6 +41,8 @@ def save_project(gui_obj):
     if "ajson" not in os.path.basename(filepath):
         filename = os.path.basename(filepath).split(".")[0]+".ajson"
         gui_obj.caros_cfg_file = filepath.split("car-os")[0]+"/car-os/cfg/ajson/"+filename 
+    print("Info: Saving", gui_obj.caros_cfg_file, "...")
 
-    print("Saving", gui_obj.caros_cfg_file, "...")
+    save_uc_configs()
+
     print("Work in progress!")

@@ -221,39 +221,11 @@ def open_oil_file(fpath):
 
 
 def save_project():
-    # global OIL_FileName, Gui
     global Gui
 
     os_view.backup_os_gui_before_save()
 
-    # if os.path.exists(os.getcwd()+"/car-os"):
-    #     init_dir = os.getcwd()+"/car-os/output/arxml"
-    # else:
-    #     init_dir = os.getcwd()+"/output/arxml"
-
-    # # Export if the input file OIL file.
-    # if OIL_FileName != None:
-    #     file_exts = [('ARXML Files', '*.arxml')]
-    #     saved_filename = filedialog.asksaveasfile(initialdir=init_dir, filetypes = file_exts, defaultextension = file_exts)
-    #     if saved_filename == None:
-    #         messagebox.showinfo(Gui.title, "File to save is not done correctly, saving aborted!")
-    #         return
-    #     Gui.set_caros_cfg_filepath(saved_filename.name)
-    #     print("Info: Exporting "+OIL_FileName+" to "+Gui.caros_cfg_file+" ...")
-    #     OIL_FileName = None
-
-    # # Save if the input file is ARXML
-    # elif Gui.caros_cfg_file != None:
-    #     print("Info: Saving configs to "+Gui.caros_cfg_file+" ...")
-    
-    # # Warn if both file variables are not set
-    # else:
-    #     messagebox.showinfo(Gui.title, "Invalid input (project) file. Can't save project!")
-    #     return
-
-
     # Export and File name clean up
-    # arxml.export_os_cfgs_2_arxml(Gui.caros_cfg_file, Gui)
     ajson.save_project(Gui)
     Gui.main_view.tk_root.title(Gui.title + " [" + Gui.caros_cfg_file.split("/")[-1] +"]")
 
@@ -275,7 +247,8 @@ def generate_code():
 
     # Generate code for OS Module
     srcpath = ToolsPath+"/os_builder/src"
-    os_rc = sg.generate_code_for_os(srcpath)
+    # os_rc = sg.generate_code_for_os(srcpath)
+    os_rc = os_view.generate_code_for_os(srcpath)
     pb["value"] = 33
     root.update_idletasks()
     
@@ -496,7 +469,7 @@ def update_project_info_zephyrd(filepath):
     if os.path.exists(filepath):
         proj_data["zephyr_path"] = filepath
         with open(ProjectInfoFile, "w") as jfile:
-            json.dump(proj_data, jfile)
+            json.dump(proj_data, jfile, indent=4)
 
 
 
@@ -511,7 +484,7 @@ def get_project_info_zephyrd():
                 print("Decoding json ("+ProjectInfoFile+") failed in get_project_info_recentf()!")
                 zephyrd = None
             except KeyError:
-                print("Opening Car-OS project as new project setup...")
+                print("Info: Opening Car-OS project as new project setup...")
             jfile.close()
 
     return zephyrd
@@ -547,7 +520,7 @@ def update_project_info_recentf(filepath):
     proj_data["recent_files"] = rflist
 
     with open(ProjectInfoFile, "w") as jfile:
-        json.dump(proj_data, jfile)
+        json.dump(proj_data, jfile, indent=4)
 
 
 
