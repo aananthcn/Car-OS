@@ -19,19 +19,26 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-import os
-import sys
 import json
+import os
 
-import gui.os.os_view as os_view
+import ajson.os.ajson_os_save as os_json
 
 
+def save_uc_configs(jdata, gui_obj):
+    m_key = "uC"
+    jdata[m_key] = {}
 
-def save_uc_configs():
+    jdata[m_key]["Micro"]      = gui_obj.uc_info.micro
+    jdata[m_key]["MicroArch"]  = gui_obj.uc_info.micro_arch
+    jdata[m_key]["MicroMaker"] = gui_obj.uc_info.micro_maker
+
     return
 
 
+
 def save_project(gui_obj):
+    jfile = None
     if not gui_obj:
         print("ERROR: save_project() argument \"gui_obj\" is not valid!")
         return
@@ -39,10 +46,17 @@ def save_project(gui_obj):
     # change filename extension to Car-OS standard file extension
     filepath = gui_obj.caros_cfg_file
     if "ajson" not in os.path.basename(filepath):
-        filename = os.path.basename(filepath).split(".")[0]+".ajson"
+        filename = os.path.basename(filepath).split(".")[0]+".json"
         gui_obj.caros_cfg_file = filepath.split("car-os")[0]+"/car-os/cfg/ajson/"+filename 
     print("Info: Saving", gui_obj.caros_cfg_file, "...")
 
-    save_uc_configs()
+    jfile = open(gui_obj.caros_cfg_file, "w")
+    jdata = {}
+
+    save_uc_configs(jdata, gui_obj)
+    os_json.save_os_configs(jdata, gui_obj)
+    
 
     print("Work in progress!")
+    json.dump(jdata, jfile, indent=4)
+    jfile.close()

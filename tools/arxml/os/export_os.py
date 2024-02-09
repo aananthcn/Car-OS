@@ -69,8 +69,8 @@ def insert_osos_to_subcontainer(root):
    refname = "/AUTOSAR/EcucDefs/Os/OsOS/OsHookStack/OsHookStackSize"
    lib_conf.insert_ecuc_param(params, refname, "numerical", "int", sg.OS_Cfgs["OS_STACK_SIZE"])
 
-   # NammaOsekParams
-   freeosek_ctnr = lib_conf.insert_ecuc_container(osos_subctnr, "NammaOsekParams", "conf", "/AUTOSAR/EcucDefs/Os/OsOS/VendorSpecific")
+   # CarOsParams
+   freeosek_ctnr = lib_conf.insert_ecuc_container(osos_subctnr, "CarOsParams", "conf", "/AUTOSAR/EcucDefs/Os/OsOS/VendorSpecific")
    # Parameters
    params = ET.SubElement(freeosek_ctnr, "PARAMETER-VALUES")
    refname = "/AUTOSAR/EcucDefs/Os/OsOS/VendorSpecific/OsName"

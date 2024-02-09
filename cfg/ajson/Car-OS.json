@@ -1,0 +1,213 @@
+{
+    "uC": {
+        "Micro": "rp2040",
+        "MicroArch": "cortex-m0",
+        "MicroMaker": "RaspberryPi"
+    },
+    "Os": {
+        "OsOs": {
+            "OsHooks": {},
+            "OsHookStack": {},
+            "CarOsParams": {},
+            "OS_Cfgs": {
+                "STATUS": "STANDARD",
+                "ERRORHOOK": "FALSE",
+                "POSTTASKHOOK": "FALSE",
+                "PRETASKHOOK": "FALSE",
+                "SHUTDOWNHOOK": "FALSE",
+                "STARTUPHOOK": "FALSE",
+                "OsProtectionHook": "NOT YET SUPPORTED",
+                "OS_STACK_SIZE": "512",
+                "OS": "NammaAutosar",
+                "CPU": "rp2040",
+                "IRQ_STACK_SIZE": "512",
+                "OS_CTX_SAVE_SZ": "128",
+                "TASK_STACK_SIZE": "5376"
+            }
+        },
+        "OsModes": [
+            "OSDEFAULTAPPMODE",
+            "MANUFACT_MODE",
+            "HW_TEST_MODE"
+        ],
+        "OsCounter": [
+            {
+                "Counter Name": "mSecCounter",
+                "OSMAXALLOWEDVALUE": "1000000",
+                "OSMINCYCLE": "1",
+                "OSTICKSPERBASE": "1",
+                "OsCounterType": "HARDWARE"
+            },
+            {
+                "Counter Name": "uSecCounter",
+                "OSMAXALLOWEDVALUE": "1000",
+                "OSMINCYCLE": "100",
+                "OSTICKSPERBASE": "1",
+                "OsCounterType": "HARDWARE"
+            }
+        ],
+        "OsTask": [
+            {
+                "RESOURCE": [
+                    "RES_MUTEX1"
+                ],
+                "EVENT": [],
+                "AUTOSTART_APPMODE": [
+                    "OSDEFAULTAPPMODE",
+                    "MANUFACT_MODE",
+                    "HW_TEST_MODE"
+                ],
+                "Task Name": "Task_A",
+                "ACTIVATION": "1",
+                "PRIORITY": "1",
+                "STACK_SIZE": "512",
+                "SCHEDULE": "NON",
+                "AUTOSTART": "TRUE"
+            },
+            {
+                "RESOURCE": [],
+                "EVENT": [
+                    "event1"
+                ],
+                "AUTOSTART_APPMODE": [
+                    "OSDEFAULTAPPMODE"
+                ],
+                "Task Name": "Task_B",
+                "ACTIVATION": "1",
+                "PRIORITY": "2",
+                "STACK_SIZE": "512",
+                "SCHEDULE": "NON",
+                "AUTOSTART": "TRUE"
+            },
+            {
+                "RESOURCE": [],
+                "EVENT": [
+                    "event1",
+                    "event2"
+                ],
+                "AUTOSTART_APPMODE": [
+                    "OSDEFAULTAPPMODE"
+                ],
+                "Task Name": "Task_C",
+                "ACTIVATION": "1",
+                "PRIORITY": "3",
+                "STACK_SIZE": "512",
+                "SCHEDULE": "NON",
+                "AUTOSTART": "TRUE"
+            },
+            {
+                "RESOURCE": [
+                    "RES_MUTEX1"
+                ],
+                "EVENT": [],
+                "AUTOSTART_APPMODE": [
+                    "OSDEFAULTAPPMODE"
+                ],
+                "Task Name": "Task_D",
+                "ACTIVATION": "1",
+                "PRIORITY": "4",
+                "STACK_SIZE": "512",
+                "SCHEDULE": "NON",
+                "AUTOSTART": "TRUE"
+            },
+            {
+                "RESOURCE": [],
+                "EVENT": [],
+                "AUTOSTART_APPMODE": [
+                    "OSDEFAULTAPPMODE",
+                    "MANUFACT_MODE",
+                    "HW_TEST_MODE"
+                ],
+                "Task Name": "EcuM_StartupTwo",
+                "ACTIVATION": "1",
+                "PRIORITY": "5",
+                "STACK_SIZE": "512",
+                "SCHEDULE": "NON",
+                "AUTOSTART": "TRUE"
+            },
+            {
+                "RESOURCE": [],
+                "EVENT": [],
+                "AUTOSTART_APPMODE": [
+                    "OSDEFAULTAPPMODE",
+                    "MANUFACT_MODE",
+                    "HW_TEST_MODE"
+                ],
+                "Task Name": "Ethernet_Tasks",
+                "ACTIVATION": "1",
+                "PRIORITY": "0",
+                "STACK_SIZE": "2048",
+                "SCHEDULE": "NON",
+                "AUTOSTART": "TRUE"
+            }
+        ],
+        "OsAlarm": [
+            {
+                "IsAutostart": "TRUE",
+                "Alarm Name": "WakeTaskA",
+                "COUNTER": "mSecCounter",
+                "Action-Type": "ACTIVATETASK",
+                "arg1": "Task_A",
+                "APPMODE": [
+                    "OSDEFAULTAPPMODE",
+                    "MANUFACT_MODE"
+                ],
+                "ALARMTIME": "40",
+                "CYCLETIME": "500",
+                "OsAlarmAutostartType": "NOT YET SUPPORTED"
+            },
+            {
+                "IsAutostart": "FALSE",
+                "Alarm Name": "WakeTaskB",
+                "COUNTER": "mSecCounter",
+                "Action-Type": "SETEVENT",
+                "arg1": "Task_B",
+                "arg2": "event1"
+            },
+            {
+                "IsAutostart": "FALSE",
+                "Alarm Name": "uSecAlarm",
+                "COUNTER": "uSecCounter",
+                "Action-Type": "ALARMCALLBACK",
+                "arg1": "Alarm_uSecAlarm_callback"
+            },
+            {
+                "IsAutostart": "TRUE",
+                "Alarm Name": "WakeTaskD",
+                "COUNTER": "mSecCounter",
+                "Action-Type": "ACTIVATETASK",
+                "arg1": "Task_D",
+                "APPMODE": [
+                    "OSDEFAULTAPPMODE"
+                ],
+                "ALARMTIME": "40",
+                "CYCLETIME": "1000",
+                "OsAlarmAutostartType": "NOT YET SUPPORTED"
+            },
+            {
+                "IsAutostart": "TRUE",
+                "Alarm Name": "ALARM_Ethernet",
+                "COUNTER": "mSecCounter",
+                "Action-Type": "ACTIVATETASK",
+                "arg1": "Ethernet_Tasks",
+                "APPMODE": [
+                    "OSDEFAULTAPPMODE",
+                    "MANUFACT_MODE",
+                    "HW_TEST_MODE"
+                ],
+                "ALARMTIME": "500",
+                "CYCLETIME": "100",
+                "OsAlarmAutostartType": "NOT YET SUPPORTED"
+            }
+        ],
+        "OsIsr": [
+            {
+                "ISR Name": "SystemTickISR",
+                "IRQn": "4",
+                "OsIsrInterruptPriority": "0",
+                "CATEGORY": "2",
+                "OsIsrStackSize": null
+            }
+        ]
+    }
+}
