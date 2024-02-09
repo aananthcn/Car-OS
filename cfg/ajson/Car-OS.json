@@ -215,7 +215,7 @@
             "PortDevErrorDetect": "TRUE",
             "PortVersionInfoApi": "FALSE",
             "PortSetPinDirectionApi": "TRUE",
-            "PortSetPinModeApi": "TRUE"
+            "PortSetPinModeApi": "FALSE"
         },
         "PortConfigSet": [
             {
@@ -359,5 +359,24 @@
                 "RM": "None"
             }
         ]
+    },
+    "Dio": {
+        "DioGeneral": {
+            "DioDevErrorDetect": "FALSE",
+            "DioVersionInfoApi": "TRUE",
+            "DioFlipChannelApi": "FALSE",
+            "DioMaskedWritePortApi": "TRUE"
+        },
+        "DioConfig": [
+            {
+                "DioPortId": "25",
+                "DioChannelId": "25"
+            },
+            {
+                "DioPortId": "1",
+                "DioChannelId": "1"
+            }
+        ],
+        "DioChannelGroup": []
     }
 }

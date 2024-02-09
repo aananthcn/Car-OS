@@ -338,4 +338,4 @@ class TaskTab:
 
     def save_data(self):
         self.backup_data()
-        arxml_os.export_os_cfgs_2_arxml(self.gui.caros_cfg_file, self.gui)
+        arxml_os.export_os_cfgs_2_arxml(self.gui.arxml_file, self.gui)

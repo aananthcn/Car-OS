@@ -42,7 +42,7 @@ class PortGeneralTab:
     def __init__(self, gui):
         self.gui = gui
         self.configs = []
-        port_pins, port_cfg, port_gen = arxml_port.parse_arxml(gui.caros_cfg_file)
+        port_pins, port_cfg, port_gen = arxml_port.parse_arxml(gui.arxml_file)
         if port_gen == None:
             self.configs.append(dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs()))
         else:

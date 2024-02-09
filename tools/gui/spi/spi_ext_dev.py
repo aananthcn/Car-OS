@@ -61,7 +61,7 @@ class SpiExternalDeviceTab:
         self.spijobtab = spijobtab
 
         self.dio_ch = []
-        dpins, dio_cfg, dgrps, dgen = arxml_dio.parse_arxml(gui.caros_cfg_file)
+        dpins, dio_cfg, dgrps, dgen = arxml_dio.parse_arxml(gui.arxml_file)
         for dio in dio_cfg:
             self.dio_ch.append(dio["DioChannelId"])
 

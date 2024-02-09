@@ -32,6 +32,7 @@ import gui.dio.dio_code_gen as dio_code_gen
 
 TabList = []
 DioConfigViewActive = False
+DioView = {}
 
 
 class DioTab:
@@ -61,7 +62,7 @@ def dio_config_close_event(gui, view):
 
 
 def dio_save_callback(gui):
-    global TabList
+    global TabList, DioView
     dio_cfg = None
     dio_grp = None
     dio_gen = None
@@ -79,7 +80,13 @@ def dio_save_callback(gui):
         if tab.name == "DioGeneral":
             dio_gen = tab.tab.configs[0].get()
             continue
-    arxml_dio.update_arxml(gui.caros_cfg_file, dio_cfg, dio_grp, dio_gen)
+    # Update Dio View
+    DioView["DioGeneral"] = dio_gen
+    DioView["DioConfig"] = dio_cfg
+    DioView["DioChannelGroup"] = dio_grp
+    gui.save()
+
+    arxml_dio.update_arxml(gui.arxml_file, dio_cfg, dio_grp, dio_gen)
     dio_code_gen.generate_code(gui)
 
 

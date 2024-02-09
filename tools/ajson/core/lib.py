@@ -25,6 +25,7 @@ import os
 import ajson.uc.ajson_uc_save as ajson_uc
 import ajson.os.ajson_os_save as ajson_os
 import ajson.port.ajson_port_save as ajson_port
+import ajson.dio.ajson_dio_save as ajson_dio
 
 
 def save_project(gui_obj):
@@ -47,6 +48,7 @@ def save_project(gui_obj):
     ajson_uc.save_uc_configs(jdata, gui_obj)
     ajson_os.save_os_configs(jdata, gui_obj)
     ajson_port.save_port_configs(jdata, gui_obj)
+    ajson_dio.save_dio_configs(jdata, gui_obj)
     
 
     print("Work in progress!")

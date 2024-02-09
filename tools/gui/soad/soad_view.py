@@ -72,7 +72,7 @@ def soad_save_callback(gui):
         soad_configs[tab.name] = tab.tab.configs
 
     # write to file
-    arxml_soad_w.update_arxml(gui.caros_cfg_file, soad_configs)
+    arxml_soad_w.update_arxml(gui.arxml_file, soad_configs)
 
     return
 
@@ -115,7 +115,7 @@ def show_soad_tabs(gui):
     del TabList[:]
 
     # read SoAd content from ARXML file
-    soad_configs = arxml_soad_r.parse_arxml(gui.caros_cfg_file)
+    soad_configs = arxml_soad_r.parse_arxml(gui.arxml_file)
     
     # create the SoAdGeneral GUI tab
     soad_gen_view = SoAdTab(gen_frame, width, height)

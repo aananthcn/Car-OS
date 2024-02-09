@@ -51,7 +51,7 @@ def dcm_save_callback(gui):
         dcm_configs[tab.name] = tab.tab.configs
 
     # write to file
-    arxml_dcm_w.update_arxml(gui.caros_cfg_file, dcm_configs)
+    arxml_dcm_w.update_arxml(gui.arxml_file, dcm_configs)
 
     # generate code
     dcm_cgen.generate_code(gui, dcm_configs)
@@ -90,7 +90,7 @@ def show_dcm_tabs(gui):
     del TabList[:]
 
     # read Dcm content from ARXML file
-    # dcm_configs = arxml_dcm_r.parse_arxml(gui.caros_cfg_file)
+    # dcm_configs = arxml_dcm_r.parse_arxml(gui.arxml_file)
     dcm_configs = None
     
     # create the DcmGeneral GUI tab

@@ -177,12 +177,6 @@ def parse_arxml(ar_file):
     port_pin_count = None
     port_pins = []
 
-    # File extension check
-    filename = os.path.basename(ar_file)
-    if "arxml" not in filename.split(".")[-1]:
-        print("Warning: Read request of non ARXML file got rejected!!")
-        return
-
     # Read ARXML File
     tree = ET.parse(ar_file)
     root = tree.getroot()

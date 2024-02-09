@@ -71,7 +71,7 @@ def ethif_save_callback(gui):
         ethif_configs[tab.name] = tab.tab.configs
 
     # write to file
-    arxml_ethif_w.update_arxml(gui.caros_cfg_file, ethif_configs)
+    arxml_ethif_w.update_arxml(gui.arxml_file, ethif_configs)
 
     # generate code
     ethif_cgen.generate_code(gui, ethif_configs)
@@ -110,7 +110,7 @@ def show_ethif_tabs(gui):
     del TabList[:]
 
     # read EthIf content from ARXML file
-    ethif_configs = arxml_ethif_r.parse_arxml(gui.caros_cfg_file)
+    ethif_configs = arxml_ethif_r.parse_arxml(gui.arxml_file)
     
     # create the EthIfGeneral GUI tab
     ethif_gen_view = EthIfTab(gen_frame, width, height)

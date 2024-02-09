@@ -58,7 +58,7 @@ def eth_config_close_event(gui, view):
 
 
 def eth_save_callback(gui, eth_configs):
-    arxml_eth_w.update_arxml(gui.caros_cfg_file, eth_configs)
+    arxml_eth_w.update_arxml(gui.arxml_file, eth_configs)
     eth_cgen.generate_code(gui, eth_configs)
 
 
@@ -86,7 +86,7 @@ def show_eth_tabs(gui):
         del obj
 
     # read Eth content from ARXML file
-    eth_configs = arxml_eth_r.parse_arxml(gui.caros_cfg_file)
+    eth_configs = arxml_eth_r.parse_arxml(gui.arxml_file)
     
     # create the main Ethernet GUI object
     ethcfg_view = EthTab(view, width, height)

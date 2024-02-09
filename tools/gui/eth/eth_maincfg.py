@@ -496,7 +496,7 @@ class EthernetConfigMainView:
         self.active_dialog.title("EthCtrlConfigSpiConfiguration")
 
         # parse ARXML for SPI sequence
-        spi_configs = arxml_spi_r.parse_arxml(self.gui.caros_cfg_file)
+        spi_configs = arxml_spi_r.parse_arxml(self.gui.arxml_file)
 
         # create views and draw
         gen_view = EthChildView(self.active_dialog, width, height, self.save_data)

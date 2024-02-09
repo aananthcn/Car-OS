@@ -102,6 +102,7 @@ class Car_OS_Builder:
     
     # General Attributes
     caros_cfg_file = None
+    arxml_file = None # TODO: delete this line after A-JSON porting
     zephyr_path = None
     config_loaded = False
     
@@ -147,6 +148,7 @@ class Car_OS_Builder:
 
     def set_caros_cfg_filepath(self, filepath):
         self.caros_cfg_file = filepath
+        self.arxml_file = filepath # TODO: delete this line after A-JSON porting
         lib.setget_ecuc_arpkg_name(filepath)
 
     def save(self):
@@ -379,20 +381,20 @@ def open_arxml_file(fpath):
         Gui.set_caros_cfg_filepath(fpath.strip())
 
     if Gui.main_view.tk_root != None:
-        Gui.main_view.tk_root.title(Gui.title + " [" + str(Gui.caros_cfg_file).split("/")[-1] +"]")
+        Gui.main_view.tk_root.title(Gui.title + " [" + str(Gui.arxml_file).split("/")[-1] +"]")
 
     # Reset OS view to flush the contents from previous view
     os_view.os_reset() 
 
     # Import/Parse ARXML file, so that we can use the content in GUI.
-    imp_status = arxml.import_arxml(Gui.caros_cfg_file)
+    imp_status = arxml.import_arxml(Gui.arxml_file)
     if imp_status != 0:
         # TODO: Add code to handle FILE NOT FOUND ERRORs
         # TODO: If FILE NOT FOUND, then delete the file information in .project-cfg.json file
         messagebox.showinfo(Gui.title, "Input file contains errors, hence opening as new file!")
         new_file()
     else:
-        update_project_info_recentf(Gui.caros_cfg_file)
+        update_project_info_recentf(Gui.arxml_file)
         FileMenu.entryconfig("Save", state="normal")
     Gui.config_loaded = True
     a_view.show_autosar_modules_view(Gui)

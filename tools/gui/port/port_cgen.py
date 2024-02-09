@@ -167,13 +167,7 @@ def generate_code(gui):
     else:
         port_src_path = search.find_dir("Port", cwd+"/submodules/MCAL/")
 
-    # File extension check
-    filename = os.path.basename(gui.caros_cfg_file)
-    if "arxml" not in filename.split(".")[-1]:
-        print("Warning: Code gen request based on a non-ARXML file got rejected!!")
-        return
-
-    pins, port_info, port_gen = arxml_port.parse_arxml(gui.caros_cfg_file)
+    pins, port_info, port_gen = arxml_port.parse_arxml(gui.arxml_file)
     generate_headerfile(port_src_path, pins, port_info)
     generate_sourcefile(port_src_path, pins, port_info)
     generate_dtsi_file(port_src_path, pins, port_info)

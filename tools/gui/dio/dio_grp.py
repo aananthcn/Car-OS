@@ -54,14 +54,14 @@ class DioChannelGroupTab:
         self.n_chgrps = 0
         self.n_chgrps_str = tk.StringVar()
 
-        pins, ports, general = arxml_port.parse_arxml(gui.caros_cfg_file)
+        pins, ports, general = arxml_port.parse_arxml(gui.arxml_file)
         if pins == None or ports == None:
             return
         for port in ports:
             if port['PortPinMode'] == "PORT_PIN_MODE_DIO":
                 self.port_pin_ids.append(port["PortPinId"])
 
-        dio_pins, dio_cfgs, dio_grps, dio_gen = arxml_dio.parse_arxml(gui.caros_cfg_file)
+        dio_pins, dio_cfgs, dio_grps, dio_gen = arxml_dio.parse_arxml(gui.arxml_file)
         for grp in dio_grps:
             if "DioChannelGroupIdentification" in grp:
                 self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, grp))
