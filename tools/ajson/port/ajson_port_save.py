@@ -1,5 +1,5 @@
 #
-# Created on Fri Feb 09 2024 10:50:45 AM
+# Created on Fri Feb 09 2024 3:55:38 PM
 #
 # The MIT License (MIT)
 # Copyright (c) 2024 Aananth C N
@@ -20,35 +20,12 @@
 #
 
 import json
-import os
 
-import ajson.uc.ajson_uc_save as ajson_uc
-import ajson.os.ajson_os_save as ajson_os
-import ajson.port.ajson_port_save as ajson_port
+import gui.port.port_view as port_view
 
 
-def save_project(gui_obj):
-    jfile = None
-    if not gui_obj:
-        print("ERROR: save_project() argument \"gui_obj\" is not valid!")
-        return
 
-    # change filename extension to Car-OS standard file extension
-    filepath = gui_obj.caros_cfg_file
-    if "ajson" not in os.path.basename(filepath):
-        filename = os.path.basename(filepath).split(".")[0]+".json"
-        gui_obj.caros_cfg_file = filepath.split("car-os")[0]+"/car-os/cfg/ajson/"+filename 
-    print("Info: Saving", gui_obj.caros_cfg_file, "...")
-
-    jfile = open(gui_obj.caros_cfg_file, "w")
-    jdata = {}
-
-    # transfer the data from View(s) to A-JSON file
-    ajson_uc.save_uc_configs(jdata, gui_obj)
-    ajson_os.save_os_configs(jdata, gui_obj)
-    ajson_port.save_port_configs(jdata, gui_obj)
-    
-
-    print("Work in progress!")
-    json.dump(jdata, jfile, indent=4)
-    jfile.close()
+def save_port_configs(jdata, gui_obj):
+    m_key = "Port"
+    jdata[m_key] = port_view.PortView
+    return

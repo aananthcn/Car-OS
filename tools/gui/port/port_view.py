@@ -29,6 +29,7 @@ import arxml.port.arxml_port as arxml_port
 
 TabList = []
 PortConfigViewActive = False
+PortView = {}
 
 
 class PortTab:
@@ -48,6 +49,8 @@ class PortTab:
 
 
 def port_save_callback(gui):
+    global PortView
+
     port_cfg = None
     port_gen = None
     for tab in TabList:
@@ -59,6 +62,13 @@ def port_save_callback(gui):
         if tab.name == "PortGeneral":
             port_gen = tab.tab.configs[0].get()
             continue
+
+    # save the GUI contents to View
+    PortView["PortGeneral"] = port_gen
+    PortView["PortConfigSet"] = port_cfg
+    gui.save()
+
+    # save the GUI contents to ARXML
     arxml_port.update_arxml(gui.caros_cfg_file, port_cfg, port_gen)
     port_cgen.generate_code(gui)
 

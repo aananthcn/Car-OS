@@ -28,10 +28,10 @@ def save_os_os_configs(jdata, gui_obj):
     m_key = "OsOs"
     jdata[m_key] = {}
 
-    jdata[m_key]["OsHooks"] = {}
+    jdata[m_key]["OS_Cfgs"] = os_view.OS_Cfgs
+    jdata[m_key]["OsHooks"] = {} # TODO: The OS_Cfgs will be split into these 3 once the complete porting is done.
     jdata[m_key]["OsHookStack"] = {}
     jdata[m_key]["CarOsParams"] = {}
-    jdata[m_key]["OS_Cfgs"] = os_view.OS_Cfgs
 
     return
 

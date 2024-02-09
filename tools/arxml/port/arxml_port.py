@@ -18,6 +18,7 @@
 # THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
+import os
 
 import xml.etree.ElementTree as ET
 import arxml.core.lib as lib
@@ -124,6 +125,12 @@ def update_port_info_to_container(root, port_cfg):
 
 # Write ARXML with port info
 def update_arxml(ar_file, port_info, port_gen):
+    # File extension check
+    filename = os.path.basename(ar_file)
+    if "arxml" not in filename.split(".")[-1]:
+        print("Warning: Save request of non ARXML file got rejected!!")
+        return
+
     # Following line is added to avoid ns0 prefix added
     ET.register_namespace('', "http://autosar.org/schema/r4.0")
     ET.register_namespace('xsi', "http://www.w3.org/2001/XMLSchema-instance")
@@ -169,6 +176,13 @@ def parse_arxml(ar_file):
         return None, None
     port_pin_count = None
     port_pins = []
+
+    # File extension check
+    filename = os.path.basename(ar_file)
+    if "arxml" not in filename.split(".")[-1]:
+        print("Warning: Read request of non ARXML file got rejected!!")
+        return
+
     # Read ARXML File
     tree = ET.parse(ar_file)
     root = tree.getroot()

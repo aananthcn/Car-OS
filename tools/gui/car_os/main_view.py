@@ -148,6 +148,9 @@ class Car_OS_Builder:
     def set_caros_cfg_filepath(self, filepath):
         self.caros_cfg_file = filepath
         lib.setget_ecuc_arpkg_name(filepath)
+
+    def save(self):
+        save_project()
     
 
 
