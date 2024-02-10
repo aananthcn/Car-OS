@@ -24,7 +24,8 @@ from tkinter import ttk
 import gui.port.port_cfg as port_cfg
 import gui.port.port_gen as port_gen
 import gui.port.port_cgen as port_cgen
-import arxml.port.arxml_port as arxml_port
+
+import ajson.port.ajson_port as ajson_port
 
 
 TabList = []
@@ -68,8 +69,6 @@ def port_save_callback(gui):
     PortView["PortConfigSet"] = port_cfg
     gui.save()
 
-    # save the GUI contents to ARXML
-    arxml_port.update_arxml(gui.arxml_file, port_cfg, port_gen)
     port_cgen.generate_code(gui)
 
 
@@ -111,21 +110,19 @@ def show_port_config(gui):
     for obj in TabList:
         del obj
 
-    # read View data from cfg (ARXML/A-JSON) file
-    n_pins, port_cfg_f, port_gen_f = arxml_port.parse_arxml(gui.arxml_file)
-    PortView["PortGeneral"] = port_gen_f
-    PortView["PortConfigSet"] = port_cfg_f
+    # read View data from cfg (A-JSON) file
+    PortView = ajson_port.read_port_configs()
 
     # create new GUI objects
     ptab = PortTab(pcs_frame, width, height)
-    ptab.tab = port_cfg.PortConfigSetTab(gui)
+    ptab.tab = port_cfg.PortConfigSetTab(gui, PortView)
     ptab.name = "PortConfigSet"
     TabList.append(ptab)
     ptab.tab.draw(ptab)
 
     # create new GUI objects
     ptab = PortTab(pgn_frame, width, height)
-    ptab.tab = port_gen.PortGeneralTab(gui)
+    ptab.tab = port_gen.PortGeneralTab(gui, PortView)
     ptab.name = "PortGeneral"
     TabList.append(ptab)
     ptab.tab.draw(ptab)

@@ -19,6 +19,7 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+import ajson.core.lib as ajson
 import gui.port.port_view as port_view
 
 
@@ -27,3 +28,10 @@ def save_port_configs(jdata, gui_obj):
     m_key = "Port"
     jdata[m_key] = port_view.PortView
     return
+
+
+
+def read_port_configs():
+    m_key = "Port"
+    jdata = ajson.AJSON_Dump[m_key]
+    return jdata

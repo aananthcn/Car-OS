@@ -24,7 +24,6 @@ from tkinter import ttk
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
 
-import arxml.port.arxml_port as arxml_port
 import gui.port.port_cgen as port_cgen
 
 
@@ -39,10 +38,11 @@ class PortGeneralTab:
     dappas_per_col = len(cfgkeys)
 
 
-    def __init__(self, gui):
+    def __init__(self, gui, view):
         self.gui = gui
         self.configs = []
-        port_pins, port_cfg, port_gen = arxml_port.parse_arxml(gui.arxml_file)
+
+        port_gen = view["PortGeneral"]
         if port_gen == None:
             self.configs.append(dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs()))
         else:
