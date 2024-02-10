@@ -22,9 +22,9 @@
 import tkinter as tk
 from tkinter import ttk
 
-#import gui.car_os.asr_view as asr_view
+import ajson.uc.ajson_uc_save as ajson_uc
+
 import gui.car_os.main_cgen as main_cgen
-import arxml.mcu.arxml_mcu as arxml_mcu
 
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
@@ -34,6 +34,11 @@ class Uc_Info:
     micro = None        # e.g., rp2040, stm32f407vet6 etc
     micro_arch = None   # e.g., cortex-m0, cortex-m4 etc
     micro_maker = None  # e.g., Broadcom, ST etc
+
+    def update(self, view_obj):
+        self.micro = view_obj["Micro"]
+        self.micro_arch = view_obj["MicroArch"]
+        self.micro_maker = view_obj["MicroMaker"]
 
 
 Uc_Manufacturers = [
@@ -57,6 +62,7 @@ Uc_Arch = {
 
 UcViewWindow = None
 Uc_ComboBox = None
+UcView = {} # the json view object for uC block
 
 
 ###############################################################################
@@ -91,7 +97,9 @@ def uc_block_get_updated_label(gui):
 ###############################################################################
 # Main Entry Points
 def uc_block_constructor(gui, uc_blk):
-    arxml_mcu.parse_arxml(gui.arxml_file, gui.uc_info)
+    # parse ajson and get Ucview
+    UcView = ajson_uc.read_uc_configs()
+    gui.uc_info.update(UcView)
 
     # Update the Microcontroller block in main Gui
     new_label = uc_block_get_updated_label(gui)
@@ -101,7 +109,7 @@ def uc_block_constructor(gui, uc_blk):
 
 
 def uc_block_click_handler(gui):
-    global UcViewWindow
+    global UcViewWindow, UcView
 
     if UcViewWindow != None:
         return
@@ -120,7 +128,7 @@ def uc_block_click_handler(gui):
     UcViewWindow.title("Microcontroller Configs")
 
     # create views and draw
-    uc_view = UcConfig_View(gui)
+    uc_view = UcConfig_View(gui, UcView)
     uc_view.draw(UcViewWindow, width, height)
 
 
@@ -132,22 +140,22 @@ class UcConfig_View:
     tab_struct = None # passed from *_view.py file
     configs = None # all UI configs (tkinter strings) are stored here.
     cfgkeys = ["SoC Manufacturer", "SoC variant"]
-    uc_info = Uc_Info()
 
     non_header_objs = []
     dappas_per_col = len(cfgkeys)
 
 
-    def __init__(self, gui):
+    def __init__(self, gui, view):
         self.gui = gui
         self.configs = []
-        arxml_mcu.parse_arxml(gui.arxml_file, self.uc_info)
-        if self.uc_info.micro == None:
+
+        # Gui's uc_info will be initialized by the uc_block_constructor()
+        if self.gui.uc_info.micro == None:
             self.configs.append(dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs()))
         else:
             uc_view = {}
-            uc_view["SoC Manufacturer"] = self.uc_info.micro_maker
-            uc_view["SoC variant"]      = self.uc_info.micro
+            uc_view["SoC Manufacturer"] = self.gui.uc_info.micro_maker
+            uc_view["SoC variant"]      = self.gui.uc_info.micro
             self.configs.append(dappa.AsrCfgStr(self.cfgkeys, uc_view))
 
 
@@ -170,7 +178,7 @@ class UcConfig_View:
         cmb_mak.bind("<<ComboboxSelected>>", lambda ev: uc_manufacturer_selected(ev, self.gui, self))
 
         # SoC variant
-        Uc_ComboBox = dappa.combo(self, "SoC variant", 0, 1, 1, 25, self.uc_info.micro)
+        Uc_ComboBox = dappa.combo(self, "SoC variant", 0, 1, 1, 25, self.gui.uc_info.micro)
         # Uc_ComboBox.bind("<<ComboboxSelected>>", lambda ev: uc_selected(ev, self.gui, self))
 
         # empty space

@@ -35,6 +35,8 @@ import ajson.ethif.ajson_ethif_save as wr_ajson_ethif
 import ajson.soad.ajson_soad_save as wr_ajson_soad
 
 
+AJSON_Dump = None
+
 def save_project(gui_obj):
     jfile = None
     if not gui_obj:
@@ -72,3 +74,18 @@ def save_project(gui_obj):
     print("Work in progress!")
     json.dump(jdata, jfile, indent=4)
     jfile.close()
+
+
+
+def read_project(filepath):
+    global AJSON_Dump
+    retval = 0
+
+    if not os.path.isfile(filepath):
+        return -1
+
+    with open(filepath) as jfile:
+        AJSON_Dump = json.load(jfile)
+        jfile.close()
+
+    return retval

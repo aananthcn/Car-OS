@@ -79,7 +79,7 @@ def soad_save_callback(gui):
     # write to file
     arxml_soad_w.update_arxml(gui.arxml_file, soad_configs)
 
-    return
+    return # TODO: implement code generation for SoAd and remove this
 
     # generate code
     soad_cgen.generate_code(gui, soad_configs)

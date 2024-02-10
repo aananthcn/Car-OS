@@ -19,6 +19,8 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+import ajson.core.lib as ajson
+
 
 def save_uc_configs(jdata, gui_obj):
     m_key = "uC"
@@ -27,7 +29,10 @@ def save_uc_configs(jdata, gui_obj):
     jdata[m_key]["Micro"]      = gui_obj.uc_info.micro
     jdata[m_key]["MicroArch"]  = gui_obj.uc_info.micro_arch
     jdata[m_key]["MicroMaker"] = gui_obj.uc_info.micro_maker
-
     return
 
 
+def read_uc_configs():
+    m_key = "uC"
+    jdata = ajson.AJSON_Dump[m_key]
+    return jdata
