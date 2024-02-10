@@ -1,5 +1,5 @@
 #
-# Created on Fri Feb 09 2024 6:54:34 PM
+# Created on Sat Feb 10 2024 6:32:47 AM
 #
 # The MIT License (MIT)
 # Copyright (c) 2024 Aananth C N
@@ -21,11 +21,11 @@
 
 import json
 
-import gui.port.port_view as port_view
+import gui.spi.spi_view as spi_view
 
 
 
-def save_port_configs(jdata, gui_obj):
-    m_key = "Port"
-    jdata[m_key] = port_view.PortView
+def save_spi_configs(jdata, gui_obj):
+    m_key = "Spi"
+    jdata[m_key] = spi_view.SpiView
     return

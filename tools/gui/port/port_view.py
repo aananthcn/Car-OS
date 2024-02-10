@@ -111,6 +111,11 @@ def show_port_config(gui):
     for obj in TabList:
         del obj
 
+    # read View data from cfg (ARXML/A-JSON) file
+    n_pins, port_cfg_f, port_gen_f = arxml_port.parse_arxml(gui.arxml_file)
+    PortView["PortGeneral"] = port_gen_f
+    PortView["PortConfigSet"] = port_cfg_f
+
     # create new GUI objects
     ptab = PortTab(pcs_frame, width, height)
     ptab.tab = port_cfg.PortConfigSetTab(gui)

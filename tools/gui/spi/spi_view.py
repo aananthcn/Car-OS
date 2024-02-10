@@ -38,6 +38,7 @@ import gui.spi.spi_cgen as spi_cgen
 
 TabList = []
 SpiConfigViewActive = False
+SpiView = {}
 
 
 class SpiTab:
@@ -65,17 +66,22 @@ def spi_config_close_event(gui, view):
 
 
 def spi_save_callback(gui):
+    global SpiView
+
     spi_configs = {}
     for tab in TabList:
         spi_configs[tab.name] = tab.tab.configs
-    
+        SpiView[tab.name] = tab.tab.configs.get()
+
+    gui.save()
+
     arxml_spi_w.update_arxml(gui.arxml_file, spi_configs)
     spi_cgen.generate_code(gui, spi_configs)
 
 
     
 def show_spi_tabs(gui):
-    global SpiConfigViewActive, TabList
+    global SpiConfigViewActive, TabList, SpiView
     
     if SpiConfigViewActive:
         return
@@ -115,6 +121,7 @@ def show_spi_tabs(gui):
 
     # read Spi content from ARXML file
     spi_configs = arxml_spi_r.parse_arxml(gui.arxml_file)
+    SpiView = spi_configs
     
     # create new GUI objects
     spigen_tab = SpiTab(gen_frame, width, height)

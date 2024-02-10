@@ -22,10 +22,11 @@
 import json
 import os
 
-import ajson.uc.ajson_uc_save as ajson_uc
-import ajson.os.ajson_os_save as ajson_os
-import ajson.port.ajson_port_save as ajson_port
-import ajson.dio.ajson_dio_save as ajson_dio
+import ajson.uc.ajson_uc_save as wr_ajson_uc
+import ajson.os.ajson_os_save as wr_ajson_os
+import ajson.port.ajson_port_save as wr_ajson_port
+import ajson.dio.ajson_dio_save as wr_ajson_dio
+import ajson.spi.ajson_spi_save as wr_ajson_spi
 
 
 def save_project(gui_obj):
@@ -45,11 +46,11 @@ def save_project(gui_obj):
     jdata = {}
 
     # transfer the data from View(s) to A-JSON file
-    ajson_uc.save_uc_configs(jdata, gui_obj)
-    ajson_os.save_os_configs(jdata, gui_obj)
-    ajson_port.save_port_configs(jdata, gui_obj)
-    ajson_dio.save_dio_configs(jdata, gui_obj)
-    
+    wr_ajson_uc.save_uc_configs(jdata, gui_obj)
+    wr_ajson_os.save_os_configs(jdata, gui_obj)
+    wr_ajson_port.save_port_configs(jdata, gui_obj)
+    wr_ajson_dio.save_dio_configs(jdata, gui_obj)
+    wr_ajson_spi.save_spi_configs(jdata, gui_obj)
 
     print("Work in progress!")
     json.dump(jdata, jfile, indent=4)

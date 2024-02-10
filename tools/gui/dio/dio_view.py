@@ -23,6 +23,7 @@ from tkinter import ttk
 
 import arxml.port.arxml_port as arxml_port
 import arxml.dio.arxml_dio_write as arxml_dio
+import arxml.dio.arxml_dio_parse as arxml_dio_rd
 
 import gui.dio.dio_cfg as dio_cfg
 import gui.dio.dio_gen as dio_gen
@@ -121,6 +122,12 @@ def show_dio_tabs(gui):
 
     # # destroy old GUI objects
     del TabList[:]
+
+    # read View data from cfg (ARXML/A-JSON) file
+    n_pins, dio_cfg_f, dio_grp_f, dio_gen_f = arxml_dio_rd.parse_arxml(gui.arxml_file)
+    DioView["DioGeneral"] = dio_gen_f
+    DioView["DioConfig"] = dio_cfg_f
+    DioView["DioChannelGroup"] = dio_grp_f
 
     # create new GUI objects
     dtab = DioTab(cfg_frame, width, height)

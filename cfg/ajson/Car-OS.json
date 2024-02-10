@@ -224,9 +224,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_LOW",
                 "PortPinMode": "PORT_PIN_MODE_LIN",
-                "PortPinInitialMode": "PORT_PIN_MODE_LIN",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_LIN"
             },
             {
                 "PortPinId": "5",
@@ -234,9 +233,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_LOW",
                 "PortPinMode": "PORT_PIN_MODE_LIN",
-                "PortPinInitialMode": "PORT_PIN_MODE_LIN",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_LIN"
             },
             {
                 "PortPinId": "25",
@@ -244,9 +242,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_LOW",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
             },
             {
                 "PortPinId": "0",
@@ -254,9 +251,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_LOW",
                 "PortPinMode": "PORT_PIN_MODE_SPI",
-                "PortPinInitialMode": "PORT_PIN_MODE_SPI",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_SPI"
             },
             {
                 "PortPinId": "1",
@@ -264,9 +260,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
             },
             {
                 "PortPinId": "2",
@@ -274,9 +269,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_LOW",
                 "PortPinMode": "PORT_PIN_MODE_SPI",
-                "PortPinInitialMode": "PORT_PIN_MODE_SPI",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_SPI"
             },
             {
                 "PortPinId": "3",
@@ -284,9 +278,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_LOW",
                 "PortPinMode": "PORT_PIN_MODE_SPI",
-                "PortPinInitialMode": "PORT_PIN_MODE_SPI",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_SPI"
             },
             {
                 "PortPinId": "16",
@@ -294,9 +287,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
             },
             {
                 "PortPinId": "17",
@@ -304,9 +296,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
             },
             {
                 "PortPinId": "18",
@@ -314,9 +305,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
             },
             {
                 "PortPinId": "19",
@@ -324,9 +314,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
             },
             {
                 "PortPinId": "20",
@@ -334,9 +323,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
             },
             {
                 "PortPinId": "21",
@@ -344,9 +332,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
             },
             {
                 "PortPinId": "22",
@@ -354,9 +341,8 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "RM": "None"
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
             }
         ]
     },
@@ -369,14 +355,89 @@
         },
         "DioConfig": [
             {
-                "DioPortId": "25",
-                "DioChannelId": "25"
+                "DioChannelId": "25",
+                "DioPortId": "25"
             },
             {
-                "DioPortId": "1",
-                "DioChannelId": "1"
+                "DioChannelId": "1",
+                "DioPortId": "1"
             }
         ],
-        "DioChannelGroup": []
+        "DioChannelGroup": [
+            {},
+            {}
+        ]
+    },
+    "Spi": {
+        "SpiDriver": {
+            "SpiMaxChannel": "1",
+            "SpiMaxJob": "1",
+            "SpiMaxSequence": "1",
+            "SpiMaxHwUnit": "1"
+        },
+        "SpiChannel": [
+            {
+                "SpiChannelId": "0",
+                "SpiChannelType": "EB (External Buffer)",
+                "SpiDataWidth": "8",
+                "SpiDefaultData": "0x0",
+                "SpiEbMaxLength": "2048",
+                "SpiIbNBuffers": "0",
+                "SpiTransferStart": "MSB"
+            }
+        ],
+        "SpiExternalDevice": [
+            {
+                "SpiBaudrate": "8000000.0",
+                "SpiCsIdentifier": "CS_Ethernet",
+                "SpiCsPolarity": "LOW",
+                "SpiCsSelection": "CS_VIA_GPIO",
+                "SpiDataShiftEdge": "LEADING",
+                "SpiEnableCs": "FALSE",
+                "SpiHwUnit": "spi0",
+                "SpiShiftClockIdleLevel": "LOW",
+                "SpiTimeClk2Cs": "0.0",
+                "SpiTimeCs2Clk": "0.000001",
+                "SpiTimeCs2Cs": "0.000001",
+                "DIO": "1",
+                "SpiFrameFormat": "MOTOROLA_SPI"
+            }
+        ],
+        "SpiJob": [
+            {
+                "SpiJobEndNotification": "NULL",
+                "SpiJobId": "0",
+                "SpiJobPriority": "0",
+                "SpiDeviceAssignment": "spi0",
+                "SpiChannelList": [
+                    {
+                        "SpiChannelIndex": "0",
+                        "SpiChannelAssignment": "Job no: 0"
+                    }
+                ]
+            }
+        ],
+        "SpiSequence": [
+            {
+                "SpiInterruptibleSequence": "FALSE",
+                "SpiSeqEndNotification": "NULL",
+                "SpiSequenceId": "0",
+                "SpiSequenceName": "SEQ_ETHERNET_BASIC_TX_RX",
+                "SpiJobAssignment": [
+                    "0"
+                ]
+            }
+        ],
+        "SpiGeneral": {
+            "SpiCancelApi": "FALSE",
+            "SpiChannelBuffersAllowed": "IB",
+            "SpiDevErrorDetect": "FALSE",
+            "SpiHwStatusApi": "FALSE",
+            "SpiInterruptibleSeqAllowed": "FALSE",
+            "SpiLevelDelivered": "1",
+            "SpiMainFunctionPeriod": "0.01",
+            "SpiSupportConcurrentSyncTransmit": "FALSE",
+            "SpiVersionInfoApi": "FALSE"
+        }
     }
 }
