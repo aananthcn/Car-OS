@@ -22,7 +22,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-import ajson.uc.ajson_uc_save as ajson_uc
+import ajson.uc.ajson_uc as ajson_uc
 
 import gui.car_os.main_cgen as main_cgen
 

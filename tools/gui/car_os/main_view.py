@@ -234,9 +234,11 @@ def save_project():
 
     os_view.backup_os_gui_before_save()
 
+    filepath = Gui.caros_cfg_file
+
     # Export and File name clean up
-    ajson.save_project(Gui)
-    Gui.main_view.tk_root.title(Gui.title + " [" + Gui.caros_cfg_file.split("/")[-1] +"]")
+    ajson.save_project(Gui, filepath)
+    Gui.main_view.tk_root.title(Gui.title + " [" + filepath.split("/")[-1] +"]")
 
 
 

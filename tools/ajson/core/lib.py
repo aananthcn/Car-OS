@@ -22,29 +22,28 @@
 import json
 import os
 
-import ajson.uc.ajson_uc_save as wr_ajson_uc
-import ajson.os.ajson_os_save as wr_ajson_os
+import ajson.uc.ajson_uc as ajson_uc
+import ajson.os.ajson_os as ajson_os
 
-import ajson.port.ajson_port_save as wr_ajson_port
-import ajson.dio.ajson_dio_save as wr_ajson_dio
-import ajson.spi.ajson_spi_save as wr_ajson_spi
-import ajson.lin.ajson_lin_save as wr_ajson_lin
-import ajson.eth.ajson_eth_save as wr_ajson_eth
+import ajson.port.ajson_port as ajson_port
+import ajson.dio.ajson_dio as ajson_dio
+import ajson.spi.ajson_spi as ajson_spi
+import ajson.lin.ajson_lin as ajson_lin
+import ajson.eth.ajson_eth as ajson_eth
 
-import ajson.ethif.ajson_ethif_save as wr_ajson_ethif
-import ajson.soad.ajson_soad_save as wr_ajson_soad
+import ajson.ethif.ajson_ethif as ajson_ethif
+import ajson.soad.ajson_soad as ajson_soad
 
 
 AJSON_Dump = None
 
-def save_project(gui_obj):
+def save_project(gui_obj, filepath):
     jfile = None
-    if not gui_obj:
-        print("ERROR: save_project() argument \"gui_obj\" is not valid!")
+    if not gui_obj or not filepath:
+        print("ERROR: save_project() invalid arguments!")
         return
 
     # change filename extension to Car-OS standard file extension
-    filepath = gui_obj.caros_cfg_file
     if "ajson" not in os.path.basename(filepath):
         filename = os.path.basename(filepath).split(".")[0]+".json"
         gui_obj.caros_cfg_file = filepath.split("car-os")[0]+"/car-os/cfg/ajson/"+filename 
@@ -54,21 +53,21 @@ def save_project(gui_obj):
     jdata = {}
 
     # transfer the data from View(s) to A-JSON file
-    wr_ajson_uc.save_uc_configs(jdata, gui_obj)
+    ajson_uc.save_uc_configs(jdata, gui_obj)
 
     # MCAL Views
-    wr_ajson_port.save_port_configs(jdata, gui_obj)
-    wr_ajson_dio.save_dio_configs(jdata, gui_obj)
-    wr_ajson_spi.save_spi_configs(jdata, gui_obj)
-    wr_ajson_lin.save_lin_configs(jdata, gui_obj)
-    wr_ajson_eth.save_eth_configs(jdata, gui_obj)
+    ajson_port.save_port_configs(jdata, gui_obj)
+    ajson_dio.save_dio_configs(jdata, gui_obj)
+    ajson_spi.save_spi_configs(jdata, gui_obj)
+    ajson_lin.save_lin_configs(jdata, gui_obj)
+    ajson_eth.save_eth_configs(jdata, gui_obj)
 
     # ECU Abstraction Views
-    wr_ajson_ethif.save_ethif_configs(jdata, gui_obj)
+    ajson_ethif.save_ethif_configs(jdata, gui_obj)
 
     # Service layer views
-    wr_ajson_os.save_os_configs(jdata, gui_obj)
-    wr_ajson_soad.save_soad_configs(jdata, gui_obj)
+    ajson_os.save_os_configs(jdata, gui_obj)
+    ajson_soad.save_soad_configs(jdata, gui_obj)
     
 
     print("Work in progress!")
