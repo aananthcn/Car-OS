@@ -32,6 +32,7 @@ import gui.ethif.ethif_code_gen as ethif_cgen
 
 TabList = []
 EthIfConfigViewActive = False
+EthIfView = {}
 
 
 class EthIfTab:
@@ -59,6 +60,8 @@ def ethif_config_close_event(gui, view):
 
 
 def ethif_save_callback(gui):
+    global EthIfView
+
     ethif_configs = {}
 
     # pull all configs from UI tabs
@@ -70,6 +73,10 @@ def ethif_save_callback(gui):
         # copy to configs to dict
         ethif_configs[tab.name] = tab.tab.configs
 
+    # update config to View object
+    EthIfView = ethif_configs
+    gui.save()
+
     # write to file
     arxml_ethif_w.update_arxml(gui.arxml_file, ethif_configs)
 
@@ -79,14 +86,14 @@ def ethif_save_callback(gui):
 
     
 def show_ethif_tabs(gui):
-    global EthIfConfigViewActive, TabList
+    global EthIfConfigViewActive, TabList, EthIfView
     
     if EthIfConfigViewActive:
         return
 
     # Create a child window (tabbed view)
     width = gui.main_view.xsize * 50 / 100
-    height = gui.main_view.ysize * 55 / 100
+    height = gui.main_view.ysize * 60 / 100
     view = tk.Toplevel()
     gui.main_view.child_window = view
     xoff = (gui.main_view.xsize - width)/2
@@ -111,6 +118,7 @@ def show_ethif_tabs(gui):
 
     # read EthIf content from ARXML file
     ethif_configs = arxml_ethif_r.parse_arxml(gui.arxml_file)
+    EthIfView = ethif_configs
     
     # create the EthIfGeneral GUI tab
     ethif_gen_view = EthIfTab(gen_frame, width, height)
