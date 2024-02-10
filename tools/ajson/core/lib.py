@@ -29,6 +29,7 @@ import ajson.dio.ajson_dio_save as wr_ajson_dio
 import ajson.spi.ajson_spi_save as wr_ajson_spi
 import ajson.lin.ajson_lin_save as wr_ajson_lin
 import ajson.ethif.ajson_ethif_save as wr_ajson_ethif
+import ajson.soad.ajson_soad_save as wr_ajson_soad
 
 
 def save_project(gui_obj):
@@ -49,7 +50,6 @@ def save_project(gui_obj):
 
     # transfer the data from View(s) to A-JSON file
     wr_ajson_uc.save_uc_configs(jdata, gui_obj)
-    wr_ajson_os.save_os_configs(jdata, gui_obj)
 
     # MCAL Views
     wr_ajson_port.save_port_configs(jdata, gui_obj)
@@ -60,6 +60,10 @@ def save_project(gui_obj):
     # ECU Abstraction Views
     wr_ajson_ethif.save_ethif_configs(jdata, gui_obj)
 
+    # Service layer views
+    wr_ajson_os.save_os_configs(jdata, gui_obj)
+    wr_ajson_soad.save_soad_configs(jdata, gui_obj)
+    
 
     print("Work in progress!")
     json.dump(jdata, jfile, indent=4)

@@ -33,6 +33,7 @@ import arxml.soad.arxml_soad_write as arxml_soad_w
 
 TabList = []
 SoAdConfigViewActive = False
+SoAdView = {}
 
 
 class SoAdTab:
@@ -60,6 +61,7 @@ def soad_config_close_event(gui, view):
 
 
 def soad_save_callback(gui):
+    global SoAdView
     soad_configs = {}
 
     # pull all configs from UI tabs
@@ -70,6 +72,9 @@ def soad_save_callback(gui):
 
         # copy to configs to dict
         soad_configs[tab.name] = tab.tab.configs
+
+    SoAdView = soad_configs
+    gui.save()
 
     # write to file
     arxml_soad_w.update_arxml(gui.arxml_file, soad_configs)
@@ -82,14 +87,14 @@ def soad_save_callback(gui):
 
     
 def show_soad_tabs(gui):
-    global SoAdConfigViewActive, TabList
+    global SoAdConfigViewActive, TabList, SoAdView
     
     if SoAdConfigViewActive:
         return
 
     # Create a child window (tabbed view)
     width = gui.main_view.xsize * 80 / 100
-    height = gui.main_view.ysize * 55 / 100
+    height = gui.main_view.ysize * 40 / 100
     view = tk.Toplevel()
     gui.main_view.child_window = view
     xoff = (gui.main_view.xsize - width)/2
@@ -116,6 +121,7 @@ def show_soad_tabs(gui):
 
     # read SoAd content from ARXML file
     soad_configs = arxml_soad_r.parse_arxml(gui.arxml_file)
+    SoAdView = soad_configs
     
     # create the SoAdGeneral GUI tab
     soad_gen_view = SoAdTab(gen_frame, width, height)

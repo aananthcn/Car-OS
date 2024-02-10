@@ -4,212 +4,6 @@
         "MicroArch": "cortex-m0",
         "MicroMaker": "RaspberryPi"
     },
-    "Os": {
-        "OsOs": {
-            "OS_Cfgs": {
-                "STATUS": "STANDARD",
-                "ERRORHOOK": "FALSE",
-                "POSTTASKHOOK": "FALSE",
-                "PRETASKHOOK": "FALSE",
-                "SHUTDOWNHOOK": "FALSE",
-                "STARTUPHOOK": "FALSE",
-                "OsProtectionHook": "NOT YET SUPPORTED",
-                "OS_STACK_SIZE": "512",
-                "OS": "NammaAutosar",
-                "CPU": "rp2040",
-                "IRQ_STACK_SIZE": "512",
-                "OS_CTX_SAVE_SZ": "128",
-                "TASK_STACK_SIZE": "5376"
-            },
-            "OsHooks": {},
-            "OsHookStack": {},
-            "CarOsParams": {}
-        },
-        "OsModes": [
-            "OSDEFAULTAPPMODE",
-            "MANUFACT_MODE",
-            "HW_TEST_MODE"
-        ],
-        "OsCounter": [
-            {
-                "Counter Name": "mSecCounter",
-                "OSMAXALLOWEDVALUE": "1000000",
-                "OSMINCYCLE": "1",
-                "OSTICKSPERBASE": "1",
-                "OsCounterType": "HARDWARE"
-            },
-            {
-                "Counter Name": "uSecCounter",
-                "OSMAXALLOWEDVALUE": "1000",
-                "OSMINCYCLE": "100",
-                "OSTICKSPERBASE": "1",
-                "OsCounterType": "HARDWARE"
-            }
-        ],
-        "OsTask": [
-            {
-                "RESOURCE": [
-                    "RES_MUTEX1"
-                ],
-                "EVENT": [],
-                "AUTOSTART_APPMODE": [
-                    "OSDEFAULTAPPMODE",
-                    "MANUFACT_MODE",
-                    "HW_TEST_MODE"
-                ],
-                "Task Name": "Task_A",
-                "ACTIVATION": "1",
-                "PRIORITY": "1",
-                "STACK_SIZE": "512",
-                "SCHEDULE": "NON",
-                "AUTOSTART": "TRUE"
-            },
-            {
-                "RESOURCE": [],
-                "EVENT": [
-                    "event1"
-                ],
-                "AUTOSTART_APPMODE": [
-                    "OSDEFAULTAPPMODE"
-                ],
-                "Task Name": "Task_B",
-                "ACTIVATION": "1",
-                "PRIORITY": "2",
-                "STACK_SIZE": "512",
-                "SCHEDULE": "NON",
-                "AUTOSTART": "TRUE"
-            },
-            {
-                "RESOURCE": [],
-                "EVENT": [
-                    "event1",
-                    "event2"
-                ],
-                "AUTOSTART_APPMODE": [
-                    "OSDEFAULTAPPMODE"
-                ],
-                "Task Name": "Task_C",
-                "ACTIVATION": "1",
-                "PRIORITY": "3",
-                "STACK_SIZE": "512",
-                "SCHEDULE": "NON",
-                "AUTOSTART": "TRUE"
-            },
-            {
-                "RESOURCE": [
-                    "RES_MUTEX1"
-                ],
-                "EVENT": [],
-                "AUTOSTART_APPMODE": [
-                    "OSDEFAULTAPPMODE"
-                ],
-                "Task Name": "Task_D",
-                "ACTIVATION": "1",
-                "PRIORITY": "4",
-                "STACK_SIZE": "512",
-                "SCHEDULE": "NON",
-                "AUTOSTART": "TRUE"
-            },
-            {
-                "RESOURCE": [],
-                "EVENT": [],
-                "AUTOSTART_APPMODE": [
-                    "OSDEFAULTAPPMODE",
-                    "MANUFACT_MODE",
-                    "HW_TEST_MODE"
-                ],
-                "Task Name": "EcuM_StartupTwo",
-                "ACTIVATION": "1",
-                "PRIORITY": "5",
-                "STACK_SIZE": "512",
-                "SCHEDULE": "NON",
-                "AUTOSTART": "TRUE"
-            },
-            {
-                "RESOURCE": [],
-                "EVENT": [],
-                "AUTOSTART_APPMODE": [
-                    "OSDEFAULTAPPMODE",
-                    "MANUFACT_MODE",
-                    "HW_TEST_MODE"
-                ],
-                "Task Name": "Ethernet_Tasks",
-                "ACTIVATION": "1",
-                "PRIORITY": "0",
-                "STACK_SIZE": "2048",
-                "SCHEDULE": "NON",
-                "AUTOSTART": "TRUE"
-            }
-        ],
-        "OsAlarm": [
-            {
-                "IsAutostart": "TRUE",
-                "Alarm Name": "WakeTaskA",
-                "COUNTER": "mSecCounter",
-                "Action-Type": "ACTIVATETASK",
-                "arg1": "Task_A",
-                "APPMODE": [
-                    "OSDEFAULTAPPMODE",
-                    "MANUFACT_MODE"
-                ],
-                "ALARMTIME": "40",
-                "CYCLETIME": "500",
-                "OsAlarmAutostartType": "NOT YET SUPPORTED"
-            },
-            {
-                "IsAutostart": "FALSE",
-                "Alarm Name": "WakeTaskB",
-                "COUNTER": "mSecCounter",
-                "Action-Type": "SETEVENT",
-                "arg1": "Task_B",
-                "arg2": "event1"
-            },
-            {
-                "IsAutostart": "FALSE",
-                "Alarm Name": "uSecAlarm",
-                "COUNTER": "uSecCounter",
-                "Action-Type": "ALARMCALLBACK",
-                "arg1": "Alarm_uSecAlarm_callback"
-            },
-            {
-                "IsAutostart": "TRUE",
-                "Alarm Name": "WakeTaskD",
-                "COUNTER": "mSecCounter",
-                "Action-Type": "ACTIVATETASK",
-                "arg1": "Task_D",
-                "APPMODE": [
-                    "OSDEFAULTAPPMODE"
-                ],
-                "ALARMTIME": "40",
-                "CYCLETIME": "1000",
-                "OsAlarmAutostartType": "NOT YET SUPPORTED"
-            },
-            {
-                "IsAutostart": "TRUE",
-                "Alarm Name": "ALARM_Ethernet",
-                "COUNTER": "mSecCounter",
-                "Action-Type": "ACTIVATETASK",
-                "arg1": "Ethernet_Tasks",
-                "APPMODE": [
-                    "OSDEFAULTAPPMODE",
-                    "MANUFACT_MODE",
-                    "HW_TEST_MODE"
-                ],
-                "ALARMTIME": "500",
-                "CYCLETIME": "100",
-                "OsAlarmAutostartType": "NOT YET SUPPORTED"
-            }
-        ],
-        "OsIsr": [
-            {
-                "ISR Name": "SystemTickISR",
-                "IRQn": "4",
-                "OsIsrInterruptPriority": "0",
-                "CATEGORY": "2",
-                "OsIsrStackSize": null
-            }
-        ]
-    },
     "Port": {
         "PortGeneral": {
             "PortDevErrorDetect": "TRUE",
@@ -606,5 +400,419 @@
                 ]
             }
         }
-    ]
+    ],
+    "Os": {
+        "OsOs": {
+            "OS_Cfgs": {
+                "STATUS": "STANDARD",
+                "ERRORHOOK": "FALSE",
+                "POSTTASKHOOK": "FALSE",
+                "PRETASKHOOK": "FALSE",
+                "SHUTDOWNHOOK": "FALSE",
+                "STARTUPHOOK": "FALSE",
+                "OsProtectionHook": "NOT YET SUPPORTED",
+                "OS_STACK_SIZE": "512",
+                "OS": "NammaAutosar",
+                "CPU": "rp2040",
+                "IRQ_STACK_SIZE": "512",
+                "OS_CTX_SAVE_SZ": "128",
+                "TASK_STACK_SIZE": "5376"
+            },
+            "OsHooks": {},
+            "OsHookStack": {},
+            "CarOsParams": {}
+        },
+        "OsModes": [
+            "OSDEFAULTAPPMODE",
+            "MANUFACT_MODE",
+            "HW_TEST_MODE"
+        ],
+        "OsCounter": [
+            {
+                "Counter Name": "mSecCounter",
+                "OSMAXALLOWEDVALUE": "1000000",
+                "OSMINCYCLE": "1",
+                "OSTICKSPERBASE": "1",
+                "OsCounterType": "HARDWARE"
+            },
+            {
+                "Counter Name": "uSecCounter",
+                "OSMAXALLOWEDVALUE": "1000",
+                "OSMINCYCLE": "100",
+                "OSTICKSPERBASE": "1",
+                "OsCounterType": "HARDWARE"
+            }
+        ],
+        "OsTask": [
+            {
+                "RESOURCE": [
+                    "RES_MUTEX1"
+                ],
+                "EVENT": [],
+                "AUTOSTART_APPMODE": [
+                    "OSDEFAULTAPPMODE",
+                    "MANUFACT_MODE",
+                    "HW_TEST_MODE"
+                ],
+                "Task Name": "Task_A",
+                "ACTIVATION": "1",
+                "PRIORITY": "1",
+                "STACK_SIZE": "512",
+                "SCHEDULE": "NON",
+                "AUTOSTART": "TRUE"
+            },
+            {
+                "RESOURCE": [],
+                "EVENT": [
+                    "event1"
+                ],
+                "AUTOSTART_APPMODE": [
+                    "OSDEFAULTAPPMODE"
+                ],
+                "Task Name": "Task_B",
+                "ACTIVATION": "1",
+                "PRIORITY": "2",
+                "STACK_SIZE": "512",
+                "SCHEDULE": "NON",
+                "AUTOSTART": "TRUE"
+            },
+            {
+                "RESOURCE": [],
+                "EVENT": [
+                    "event1",
+                    "event2"
+                ],
+                "AUTOSTART_APPMODE": [
+                    "OSDEFAULTAPPMODE"
+                ],
+                "Task Name": "Task_C",
+                "ACTIVATION": "1",
+                "PRIORITY": "3",
+                "STACK_SIZE": "512",
+                "SCHEDULE": "NON",
+                "AUTOSTART": "TRUE"
+            },
+            {
+                "RESOURCE": [
+                    "RES_MUTEX1"
+                ],
+                "EVENT": [],
+                "AUTOSTART_APPMODE": [
+                    "OSDEFAULTAPPMODE"
+                ],
+                "Task Name": "Task_D",
+                "ACTIVATION": "1",
+                "PRIORITY": "4",
+                "STACK_SIZE": "512",
+                "SCHEDULE": "NON",
+                "AUTOSTART": "TRUE"
+            },
+            {
+                "RESOURCE": [],
+                "EVENT": [],
+                "AUTOSTART_APPMODE": [
+                    "OSDEFAULTAPPMODE",
+                    "MANUFACT_MODE",
+                    "HW_TEST_MODE"
+                ],
+                "Task Name": "EcuM_StartupTwo",
+                "ACTIVATION": "1",
+                "PRIORITY": "5",
+                "STACK_SIZE": "512",
+                "SCHEDULE": "NON",
+                "AUTOSTART": "TRUE"
+            },
+            {
+                "RESOURCE": [],
+                "EVENT": [],
+                "AUTOSTART_APPMODE": [
+                    "OSDEFAULTAPPMODE",
+                    "MANUFACT_MODE",
+                    "HW_TEST_MODE"
+                ],
+                "Task Name": "Ethernet_Tasks",
+                "ACTIVATION": "1",
+                "PRIORITY": "0",
+                "STACK_SIZE": "2048",
+                "SCHEDULE": "NON",
+                "AUTOSTART": "TRUE"
+            }
+        ],
+        "OsAlarm": [
+            {
+                "IsAutostart": "TRUE",
+                "Alarm Name": "WakeTaskA",
+                "COUNTER": "mSecCounter",
+                "Action-Type": "ACTIVATETASK",
+                "arg1": "Task_A",
+                "APPMODE": [
+                    "OSDEFAULTAPPMODE",
+                    "MANUFACT_MODE"
+                ],
+                "ALARMTIME": "40",
+                "CYCLETIME": "500",
+                "OsAlarmAutostartType": "NOT YET SUPPORTED"
+            },
+            {
+                "IsAutostart": "FALSE",
+                "Alarm Name": "WakeTaskB",
+                "COUNTER": "mSecCounter",
+                "Action-Type": "SETEVENT",
+                "arg1": "Task_B",
+                "arg2": "event1"
+            },
+            {
+                "IsAutostart": "FALSE",
+                "Alarm Name": "uSecAlarm",
+                "COUNTER": "uSecCounter",
+                "Action-Type": "ALARMCALLBACK",
+                "arg1": "Alarm_uSecAlarm_callback"
+            },
+            {
+                "IsAutostart": "TRUE",
+                "Alarm Name": "WakeTaskD",
+                "COUNTER": "mSecCounter",
+                "Action-Type": "ACTIVATETASK",
+                "arg1": "Task_D",
+                "APPMODE": [
+                    "OSDEFAULTAPPMODE"
+                ],
+                "ALARMTIME": "40",
+                "CYCLETIME": "1000",
+                "OsAlarmAutostartType": "NOT YET SUPPORTED"
+            },
+            {
+                "IsAutostart": "TRUE",
+                "Alarm Name": "ALARM_Ethernet",
+                "COUNTER": "mSecCounter",
+                "Action-Type": "ACTIVATETASK",
+                "arg1": "Ethernet_Tasks",
+                "APPMODE": [
+                    "OSDEFAULTAPPMODE",
+                    "MANUFACT_MODE",
+                    "HW_TEST_MODE"
+                ],
+                "ALARMTIME": "500",
+                "CYCLETIME": "100",
+                "OsAlarmAutostartType": "NOT YET SUPPORTED"
+            }
+        ],
+        "OsIsr": [
+            {
+                "ISR Name": "SystemTickISR",
+                "IRQn": "4",
+                "OsIsrInterruptPriority": "0",
+                "CATEGORY": "2",
+                "OsIsrStackSize": null
+            }
+        ]
+    },
+    "SoAd": {
+        "SoAdGeneral": {
+            "SoAdDevErrorDetect": "TRUE",
+            "SoAdVersionInfoApi": "TRUE",
+            "SoAdIPv6AddressEnabled": "TRUE",
+            "SoAdMainFunctionPeriod": "0.02",
+            "SoAdSoConMax": "38",
+            "SoAdRoutingGroupMax": "4",
+            "SoAdGetAndResetMeasurementDataApi": "TRUE",
+            "SoAdEnableSecurityEventReporting": "TRUE",
+            "SoAdSecurityEventRefs": "..."
+        },
+        "SoAdBswModules": [
+            {
+                "SoAdIf": "FALSE",
+                "SoAdIfTriggerTransmit": "FALSE",
+                "SoAdIfTxConfirmation": "FALSE",
+                "SoAdLocalIpAddrAssigmentChg": "FALSE",
+                "SoAdSoConModeChg": "FALSE",
+                "SoAdTp": "FALSE",
+                "SoAdUseCallerInfix": "FALSE",
+                "SoAdUseTypeInfix": "FALSE",
+                "SoAdBswModuleRef": "..."
+            },
+            {
+                "SoAdIf": "TRUE",
+                "SoAdIfTriggerTransmit": "FALSE",
+                "SoAdIfTxConfirmation": "TRUE",
+                "SoAdLocalIpAddrAssigmentChg": "FALSE",
+                "SoAdSoConModeChg": "TRUE",
+                "SoAdTp": "FALSE",
+                "SoAdUseCallerInfix": "TRUE",
+                "SoAdUseTypeInfix": "FALSE",
+                "SoAdBswModuleRef": "Ref2"
+            }
+        ],
+        "SoAdConfig": {
+            "SoAdPduRoute": [
+                {
+                    "SoAdTxPduId": "0",
+                    "SoAdTxUpperLayerType": "IF",
+                    "SoAdTxPduCollectionSemantics": "SOAD_COLLECT_LAST_IS_BEST",
+                    "SoAdTxPduRef": "...",
+                    "SoAdPduRouteDest": [
+                        {
+                            "SoAdTxPduHeaderId": "0",
+                            "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
+                            "SoAdTxUdpTriggerTimeout": "10",
+                            "SoAdTxSocketConnOrSocketConnBundleRef": "...",
+                            "SoAdTxRoutingGroupRef": "..."
+                        },
+                        {
+                            "SoAdTxPduHeaderId": "1",
+                            "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
+                            "SoAdTxUdpTriggerTimeout": "20",
+                            "SoAdTxSocketConnOrSocketConnBundleRef": "...",
+                            "SoAdTxRoutingGroupRef": "..."
+                        },
+                        {
+                            "SoAdTxPduHeaderId": "2",
+                            "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
+                            "SoAdTxUdpTriggerTimeout": "30",
+                            "SoAdTxSocketConnOrSocketConnBundleRef": "...",
+                            "SoAdTxRoutingGroupRef": "..."
+                        }
+                    ]
+                }
+            ],
+            "SoAdRoutingGroup": [
+                {
+                    "SoAdRoutingGroupId": "0",
+                    "SoAdRoutingGroupIsEnabledAtInit": "FALSE",
+                    "SoAdRoutingGroupTxTriggerable": "FALSE"
+                },
+                {
+                    "SoAdRoutingGroupId": "1",
+                    "SoAdRoutingGroupIsEnabledAtInit": "TRUE",
+                    "SoAdRoutingGroupTxTriggerable": "TRUE"
+                }
+            ],
+            "SoAdSocketConnectionGroup": [
+                {
+                    "SoAdPduHeaderEnable": "FALSE",
+                    "SoAdSocketPathMTUEnable": "FALSE",
+                    "SoAdSocketAutomaticSoConSetup": "FALSE",
+                    "SoAdSocketIpAddrAssignmentChgNotification": "FALSE",
+                    "SoAdSocketLocalPort": "1",
+                    "SoAdSocketSoConModeChgBswMNotification": "FALSE",
+                    "SoAdSocketSoConModeChgNotification": "FALSE",
+                    "SoAdSocketTpRxBufferMin": "2",
+                    "SoAdSocketFramePriority": "3",
+                    "SoAdSocketMsgAcceptanceFilterEnabled": "FALSE",
+                    "SoAdSocketFlowLabel": "4",
+                    "SoAdSocketDifferentiatedServicesField": "5",
+                    "SoAdSocketLocalAddressRef": "...",
+                    "SoAdSocketSoConModeChgNotifUpperLayerRef": "...",
+                    "SoAdSocketProtocol": {
+                        "SoAdSocketTcpRetransmissionTimeout": "0.001",
+                        "SoAdSocketTcpAutoConnectTimeout": "1",
+                        "SoAdSocketTcpInitiate": "FALSE",
+                        "SoAdSocketTcpNoDelay": "FALSE",
+                        "SoAdSocketTcpImmediateTpTxConfirmation": "FALSE",
+                        "SoAdSocketTcpTxQuota": "2",
+                        "SoAdSocketTcpKeepAlive": "FALSE",
+                        "SoAdSocketTcpKeepAliveProbesMax": "3",
+                        "SoAdSocketTcpKeepAliveInterval": "4",
+                        "SoAdSocketTcpKeepAliveTime": "7200",
+                        "SoAdSocketTCPOptionFilterRef": "...",
+                        "SoAdSocketTcpTlsConnectionRef": "..."
+                    },
+                    "SoAdSocketProtocolChoice": "TCP",
+                    "SoAdSocketConnection": [
+                        {
+                            "SoAdSocketId": "0",
+                            "SoAdSocketRemotePort": "123",
+                            "SoAdSocketRemoteIpAddress": "aa"
+                        },
+                        {
+                            "SoAdSocketId": "1",
+                            "SoAdSocketRemotePort": "124",
+                            "SoAdSocketRemoteIpAddress": "bb"
+                        },
+                        {
+                            "SoAdSocketId": "2",
+                            "SoAdSocketRemotePort": "125",
+                            "SoAdSocketRemoteIpAddress": "cc"
+                        }
+                    ]
+                },
+                {
+                    "SoAdPduHeaderEnable": "FALSE",
+                    "SoAdSocketPathMTUEnable": "FALSE",
+                    "SoAdSocketAutomaticSoConSetup": "FALSE",
+                    "SoAdSocketIpAddrAssignmentChgNotification": "FALSE",
+                    "SoAdSocketLocalPort": "0",
+                    "SoAdSocketSoConModeChgBswMNotification": "FALSE",
+                    "SoAdSocketSoConModeChgNotification": "FALSE",
+                    "SoAdSocketTpRxBufferMin": "0",
+                    "SoAdSocketFramePriority": "0",
+                    "SoAdSocketMsgAcceptanceFilterEnabled": "FALSE",
+                    "SoAdSocketFlowLabel": "0",
+                    "SoAdSocketDifferentiatedServicesField": "0",
+                    "SoAdSocketLocalAddressRef": "...",
+                    "SoAdSocketSoConModeChgNotifUpperLayerRef": "...",
+                    "SoAdSocketProtocol": {
+                        "SoAdSocketUdpListenOnly": "FALSE",
+                        "SoAdSocketUdpAliveSupervisionTimeout": "0",
+                        "SoAdSocketnPduUdpTxBufferMin": "0",
+                        "SoAdSocketUdpTriggerTimeout": "0",
+                        "SoAdSocketUdpStrictHeaderLenCheckEnabled": "FALSE",
+                        "SoAdSocketUdpChecksumEnabled": "TRUE"
+                    },
+                    "SoAdSocketProtocolChoice": "UDP",
+                    "SoAdSocketConnection": []
+                }
+            ],
+            "SoAdSocketRoute": [
+                {
+                    "SoAdRxPduHeaderId": "0",
+                    "SoAdRxSocketConnOrSocketConnBundleRef": "...",
+                    "SoAdSocketRouteDest": [
+                        {
+                            "SoAdRxPduId": "100",
+                            "SoAdRxUpperLayerType": "IF",
+                            "SoAdRxPduRef": "...",
+                            "SoAdRxRoutingGroupRef": "..."
+                        }
+                    ]
+                },
+                {
+                    "SoAdRxPduHeaderId": "1",
+                    "SoAdRxSocketConnOrSocketConnBundleRef": "...",
+                    "SoAdSocketRouteDest": [
+                        {
+                            "SoAdRxPduId": "20",
+                            "SoAdRxUpperLayerType": "TP",
+                            "SoAdRxPduRef": "...",
+                            "SoAdRxRoutingGroupRef": "..."
+                        }
+                    ]
+                },
+                {
+                    "SoAdRxPduHeaderId": "2",
+                    "SoAdRxSocketConnOrSocketConnBundleRef": "...",
+                    "SoAdSocketRouteDest": [
+                        {
+                            "SoAdRxPduId": "40",
+                            "SoAdRxUpperLayerType": "IF",
+                            "SoAdRxPduRef": "...",
+                            "SoAdRxRoutingGroupRef": "..."
+                        }
+                    ]
+                },
+                {
+                    "SoAdRxPduHeaderId": "3",
+                    "SoAdRxSocketConnOrSocketConnBundleRef": "...",
+                    "SoAdSocketRouteDest": [
+                        {
+                            "SoAdRxPduId": "60",
+                            "SoAdRxUpperLayerType": "IF",
+                            "SoAdRxPduRef": "...",
+                            "SoAdRxRoutingGroupRef": "..."
+                        }
+                    ]
+                }
+            ]
+        }
+    }
 }
