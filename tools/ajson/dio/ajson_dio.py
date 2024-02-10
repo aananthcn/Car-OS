@@ -19,6 +19,7 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+import ajson.core.lib as ajson
 import gui.dio.dio_view as dio_view
 
 
@@ -27,3 +28,10 @@ def save_dio_configs(jdata, gui_obj):
     m_key = "Dio"
     jdata[m_key] = dio_view.DioView
     return
+
+
+
+def read_dio_configs():
+    m_key = "Dio"
+    jdata = ajson.AJSON_Dump[m_key]
+    return jdata

@@ -21,9 +21,8 @@
 import tkinter as tk
 from tkinter import ttk
 
-import arxml.port.arxml_port as arxml_port
-import arxml.dio.arxml_dio_write as arxml_dio
-import arxml.dio.arxml_dio_parse as arxml_dio_rd
+import ajson.dio.ajson_dio as ajson_dio
+import ajson.port.ajson_port as ajson_port
 
 import gui.dio.dio_cfg as dio_cfg
 import gui.dio.dio_gen as dio_gen
@@ -120,30 +119,28 @@ def show_dio_tabs(gui):
     notebook.add(gen_frame, text ='DioGeneral')
     notebook.pack(expand = 1, fill ="both")
 
-    # # destroy old GUI objects
+    # destroy old GUI objects
     del TabList[:]
 
-    # read View data from cfg (ARXML/A-JSON) file
-    n_pins, dio_cfg_f, dio_grp_f, dio_gen_f = arxml_dio_rd.parse_arxml(gui.arxml_file)
-    DioView["DioGeneral"] = dio_gen_f
-    DioView["DioConfig"] = dio_cfg_f
-    DioView["DioChannelGroup"] = dio_grp_f
+    # read View data from cfg (A-JSON) file
+    DioView = ajson_dio.read_dio_configs()
+    port_view = ajson_port.read_port_configs()
 
     # create new GUI objects
     dtab = DioTab(cfg_frame, width, height)
-    dtab.tab = dio_cfg.DioConfigTab(gui)
+    dtab.tab = dio_cfg.DioConfigTab(gui, DioView)
     dtab.name = "DioConfig"
     TabList.append(dtab)
     dtab.tab.draw(dtab)
     
     dtab = DioTab(cgr_frame, width, height)
-    dtab.tab = dio_grp.DioChannelGroupTab(gui)
+    dtab.tab = dio_grp.DioChannelGroupTab(gui, DioView, port_view)
     dtab.name = "DioChannelGroup"
     TabList.append(dtab)
     dtab.tab.draw(dtab)
     
     dtab = DioTab(gen_frame, width, height)
-    dtab.tab = dio_gen.DioGeneralTab(gui)
+    dtab.tab = dio_gen.DioGeneralTab(gui, DioView)
     dtab.name = "DioGeneral"
     TabList.append(dtab)
     dtab.tab.draw(dtab)

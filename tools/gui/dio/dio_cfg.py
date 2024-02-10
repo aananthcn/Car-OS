@@ -21,9 +21,6 @@
 import tkinter as tk
 from tkinter import ttk
 
-import arxml.port.arxml_port as arxml_port
-import arxml.dio.arxml_dio_parse as arxml_dio
-
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
 
@@ -51,14 +48,15 @@ class DioConfigTab:
     dappas_per_row = len(cfgkeys) + 1 # +1 for row labels
 
 
-    def __init__(self, gui):
+    def __init__(self, gui, view):
         self.gui = gui
         self.configs = []
         self.toplvl = gui.main_view.child_window
         self.n_pins_str = tk.StringVar()
 
-        dio_pins, dio_cfg, dio_grps, dio_gen = arxml_dio.parse_arxml(gui.arxml_file)
-        if dio_pins == None:
+        # arg "view" contains the ajson content read out at init
+        dio_cfg = view["DioConfig"]
+        if dio_cfg == None:
             return
 
         for cfg in dio_cfg:

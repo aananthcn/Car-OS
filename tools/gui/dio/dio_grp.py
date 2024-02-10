@@ -21,9 +21,6 @@
 import tkinter as tk
 from tkinter import ttk
 
-import arxml.port.arxml_port as arxml_port
-import arxml.dio.arxml_dio_parse as arxml_dio
-
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
 
@@ -41,27 +38,29 @@ class DioChannelGroupTab:
     cfgkeys = ["DioPortId", "DioChannelGroupIdentification", "DioPortOffset", "DioPortMask"]
 
     port_pin_ids = []
-    n_header_objs = 12 #Objects / widgets that are part of the header and shouldn't be destroyed
+    n_header_objs = 12 # Objects / widgets that are part of the header and shouldn't be destroyed
     header_row = 3
     non_header_objs = []
     dappas_per_row = len(cfgkeys) + 1 # +1 for row labels
     init_view_done = False
 
 
-    def __init__(self, gui):
+    def __init__(self, gui, view, port_view):
         self.gui = gui
         self.configs = []
         self.n_chgrps = 0
         self.n_chgrps_str = tk.StringVar()
 
-        pins, ports, general = arxml_port.parse_arxml(gui.arxml_file)
-        if pins == None or ports == None:
+        # read port data from json formated argument: port_view
+        ports = port_view["PortConfigSet"]
+        if ports == None:
             return
         for port in ports:
             if port['PortPinMode'] == "PORT_PIN_MODE_DIO":
                 self.port_pin_ids.append(port["PortPinId"])
 
-        dio_pins, dio_cfgs, dio_grps, dio_gen = arxml_dio.parse_arxml(gui.arxml_file)
+        # read dio data from view json object
+        dio_grps = view["DioChannelGroup"]
         for grp in dio_grps:
             if "DioChannelGroupIdentification" in grp:
                 self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, grp))
@@ -69,12 +68,12 @@ class DioChannelGroupTab:
         self.n_chgrps_str.set(self.n_chgrps)
 
 
+
     def __del__(self):
         del self.n_chgrps_str
         del self.non_header_objs[:]
         del self.port_pin_ids[:]
         del self.configs[:]
-
 
 
 

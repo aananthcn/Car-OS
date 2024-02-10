@@ -24,9 +24,6 @@ from tkinter import ttk
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
 
-import arxml.port.arxml_port as arxml_port
-import arxml.dio.arxml_dio_parse as arxml_dio
-
 import gui.port.port_cgen as port_cgen
 
 
@@ -39,10 +36,10 @@ class DioGeneralTab:
     non_header_objs = []
     dappas_per_col = len(cfgkeys)
 
-    def __init__(self, gui):
+    def __init__(self, gui, view):
         self.gui = gui
         self.configs = []
-        dio_pins, dio_cfg, dio_grp, dio_gen = arxml_dio.parse_arxml(gui.arxml_file)
+        dio_gen = view["DioGeneral"]
         if dio_gen == None:
             self.configs.append(dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs()))
         else:
