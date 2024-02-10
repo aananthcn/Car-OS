@@ -270,6 +270,76 @@
             "LinIndex": "1"
         }
     ],
+    "Eth": [
+        {
+            "EthCtrlConfig": {
+                "EthCtrlConfigSwBufferHandling": "FALSE",
+                "EthCtrlEnableMii": "TRUE",
+                "EthCtrlEnableRxInterrupt": "FALSE",
+                "EthCtrlEnableSpiInterface": "TRUE",
+                "EthCtrlEnableTxInterrupt": "FALSE",
+                "EthCtrlIdx": "0",
+                "EthCtrlMacLayerSpeed": "ETH_MAC_LAYER_SPEED_10M",
+                "EthCtrlMacLayerType": "ETH_MAC_LAYER_TYPE_XMII",
+                "EthCtrlMacLayerSubType": "STANDARD",
+                "EthCtrlPhyAddress": "00:7D:FA:BA:BA:00",
+                "EthSpiCtrlDevice": "ENC28J60"
+            },
+            "EthCtrlConfigXgressFifo": {
+                "EthCtrlConfigIngressFifoBufLenByte": "128",
+                "EthCtrlConfigIngressFifoBufTotal": "100",
+                "EthCtrlConfigIngressFifoIdx": "0",
+                "EthCtrlConfigIngressFifoPriorityAssignment": "7",
+                "EthCtrlConfigEgressFifoBufLenByte": "128",
+                "EthCtrlConfigEgressFifoBufTotal": "100",
+                "EthCtrlConfigEgressFifoIdx": "0",
+                "EthCtrlConfigEgressFifoPriorityAssignment": "7"
+            },
+            "EthCtrlConfigScheduler": {
+                "EthCtrlConfigSchedulerPredecessorOrder": "0"
+            },
+            "EthCtrlConfigShaper": {
+                "EthCtrlConfigShaperIdleSlope": "1",
+                "EthCtrlConfigShaperMaxCredit": "1",
+                "EthCtrlConfigShaperMinCredit": "1"
+            },
+            "EthCtrlConfigSpiConfiguration": {
+                "EthCtrlConfigSpiChunkPayloadSize": "64",
+                "EthCtrlConfigSpiCommRetries": "1",
+                "EthCtrlConfigSpiCommTimeout": "0.1",
+                "EthCtrlConfigSpiEnableControlDataProtection": "FALSE",
+                "EthCtrlConfigSpiEnableRxCSAlign": "FALSE",
+                "EthCtrlConfigSpiEnableRxCutThrough": "FALSE",
+                "EthCtrlConfigSpiEnableRxZeroAlign": "FALSE",
+                "EthCtrlConfigSpiEnableTransmitDataHdrSequence": "FALSE",
+                "EthCtrlConfigSpiEnableTxChecksum": "FALSE",
+                "EthCtrlConfigSpiEnableTxCutThrough": "FALSE",
+                "EthCtrlConfigSpiSelectTimeStamp": "FALSE",
+                "EthCtrlConfigSpiTransmitCreditThreshold": "0",
+                "EthCtrlConfigSpiAccessSynchronous": "FALSE",
+                "EthCtrlConfigSpiSequenceName": "SEQ_ETHERNET_BASIC_TX_RX"
+            },
+            "EthGeneral": {
+                "EthIndex": "0",
+                "EthDevErrorDetect": "FALSE",
+                "EthMainFunctionPeriod": "0.1",
+                "EthGetCounterValuesApi": "FALSE",
+                "EthGetRxStatsApi": "FALSE",
+                "EthGetTxErrorCounterValuesApi": "FALSE",
+                "EthGetTxStatsApi": "FALSE",
+                "EthGlobalTimeSupport": "FALSE",
+                "EthMaxCtrlsSupported": "1",
+                "EthVersionInfoApi": "FALSE"
+            },
+            "EthCtrlOffloading": {
+                "EthCtrlEnableOffloadChecksumIPv4": "FALSE",
+                "EthCtrlEnableOffloadChecksumICMP": "FALSE",
+                "EthCtrlEnableOffloadChecksumTCP": "FALSE",
+                "EthCtrlEnableOffloadChecksumUDP": "FALSE"
+            },
+            "EthIndex": "0"
+        }
+    ],
     "EthIf": [
         {
             "EthIfConfigSet": {

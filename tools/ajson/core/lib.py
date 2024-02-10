@@ -24,10 +24,13 @@ import os
 
 import ajson.uc.ajson_uc_save as wr_ajson_uc
 import ajson.os.ajson_os_save as wr_ajson_os
+
 import ajson.port.ajson_port_save as wr_ajson_port
 import ajson.dio.ajson_dio_save as wr_ajson_dio
 import ajson.spi.ajson_spi_save as wr_ajson_spi
 import ajson.lin.ajson_lin_save as wr_ajson_lin
+import ajson.eth.ajson_eth_save as wr_ajson_eth
+
 import ajson.ethif.ajson_ethif_save as wr_ajson_ethif
 import ajson.soad.ajson_soad_save as wr_ajson_soad
 
@@ -56,6 +59,7 @@ def save_project(gui_obj):
     wr_ajson_dio.save_dio_configs(jdata, gui_obj)
     wr_ajson_spi.save_spi_configs(jdata, gui_obj)
     wr_ajson_lin.save_lin_configs(jdata, gui_obj)
+    wr_ajson_eth.save_eth_configs(jdata, gui_obj)
 
     # ECU Abstraction Views
     wr_ajson_ethif.save_ethif_configs(jdata, gui_obj)
