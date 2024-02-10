@@ -83,7 +83,7 @@ def port_config_close_event(gui, view):
 
     
 def show_port_config(gui):
-    global PortConfigViewActive, TabList
+    global PortConfigViewActive, TabList, PortView
     
     if PortConfigViewActive:
         return

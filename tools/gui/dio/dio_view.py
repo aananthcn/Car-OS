@@ -93,7 +93,7 @@ def dio_save_callback(gui):
 
 
 def show_dio_tabs(gui):
-    global DioConfigViewActive, TabList
+    global DioConfigViewActive, TabList, DioView
     
     if DioConfigViewActive:
         return

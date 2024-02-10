@@ -1,5 +1,5 @@
 #
-# Created on Fri Feb 09 2024 6:54:34 PM
+# Created on Sat Feb 10 2024 8:54:55 AM
 #
 # The MIT License (MIT)
 # Copyright (c) 2024 Aananth C N
@@ -19,11 +19,11 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
-import gui.port.port_view as port_view
+import gui.lin.lin_view as lin_view
 
 
 
-def save_port_configs(jdata, gui_obj):
-    m_key = "Port"
-    jdata[m_key] = port_view.PortView
+def save_lin_configs(jdata, gui_obj):
+    m_key = "Lin"
+    jdata[m_key] = lin_view.LinView
     return

@@ -27,6 +27,7 @@ import ajson.os.ajson_os_save as wr_ajson_os
 import ajson.port.ajson_port_save as wr_ajson_port
 import ajson.dio.ajson_dio_save as wr_ajson_dio
 import ajson.spi.ajson_spi_save as wr_ajson_spi
+import ajson.lin.ajson_lin_save as wr_ajson_lin
 
 
 def save_project(gui_obj):
@@ -51,6 +52,8 @@ def save_project(gui_obj):
     wr_ajson_port.save_port_configs(jdata, gui_obj)
     wr_ajson_dio.save_dio_configs(jdata, gui_obj)
     wr_ajson_spi.save_spi_configs(jdata, gui_obj)
+    wr_ajson_lin.save_lin_configs(jdata, gui_obj)
+
 
     print("Work in progress!")
     json.dump(jdata, jfile, indent=4)

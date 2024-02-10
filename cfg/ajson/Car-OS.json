@@ -439,5 +439,41 @@
             "SpiSupportConcurrentSyncTransmit": "FALSE",
             "SpiVersionInfoApi": "FALSE"
         }
-    }
+    },
+    "Lin": [
+        {
+            "LinGlobalConfig": {
+                "LinChannelId": "0",
+                "LinNodeType": "SLAVE",
+                "LinChannelBaudRate": "1000",
+                "LinChannelWakeupSupport": "FALSE",
+                "LinChannelEcuMWakeupSource": "test",
+                "LinClockRef": "test"
+            },
+            "LinGeneral": {
+                "LinIndex": "0",
+                "LinDevErrorDetect": "FALSE",
+                "LinVersionInfoApi": "FALSE",
+                "LinTimeoutDuration": "2"
+            },
+            "LinIndex": "0"
+        },
+        {
+            "LinGlobalConfig": {
+                "LinChannelId": "1",
+                "LinNodeType": "MASTER",
+                "LinChannelBaudRate": "1000",
+                "LinChannelWakeupSupport": "FALSE",
+                "LinChannelEcuMWakeupSource": "chumma",
+                "LinClockRef": "chumma"
+            },
+            "LinGeneral": {
+                "LinIndex": "1",
+                "LinDevErrorDetect": "TRUE",
+                "LinVersionInfoApi": "TRUE",
+                "LinTimeoutDuration": "0"
+            },
+            "LinIndex": "1"
+        }
+    ]
 }

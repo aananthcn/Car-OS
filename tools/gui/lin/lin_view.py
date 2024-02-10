@@ -31,6 +31,7 @@ import gui.lin.lin_code_gen as lin_cgen
 
 TabList = []
 LinConfigViewActive = False
+LinView = {}
 
 
 class LinTab:
@@ -58,13 +59,19 @@ def lin_config_close_event(gui, view):
 
 
 def lin_save_callback(gui, lin_configs):
+    global LinView
+
+    # save to View object
+    LinView = lin_configs
+    gui.save()
+
     arxml_lin_w.update_arxml(gui.arxml_file, lin_configs)
     lin_cgen.generate_code(gui, lin_configs)
 
 
     
 def show_lin_tabs(gui):
-    global LinConfigViewActive, TabList
+    global LinConfigViewActive, TabList, LinView
     
     if LinConfigViewActive:
         return
@@ -87,6 +94,7 @@ def show_lin_tabs(gui):
 
     # read Lin content from ARXML file
     lin_configs = arxml_lin_r.parse_arxml(gui.arxml_file)
+    LinView = lin_configs    
     
     # create the main Lin GUI object
     lincfg_view = LinTab(view, width, height)
