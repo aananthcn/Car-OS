@@ -67,12 +67,12 @@ class EthIfConfigSetView:
     active_view = None
 
 
-    def __init__(self, gui, ethif_cfg):
+    def __init__(self, gui, view):
         self.gui = gui
         self.configs = []
 
-        if ethif_cfg:
-            ethifcfg = ethif_cfg[0]["EthIfConfigSet"]
+        if view:
+            ethifcfg = view[0]["EthIfConfigSet"]
         else:
             ethifcfg = None
 

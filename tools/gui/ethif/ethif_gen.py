@@ -67,12 +67,12 @@ class EthIfGeneralView:
     active_view = None
 
 
-    def __init__(self, gui, ethif_cfg):
+    def __init__(self, gui, view):
         self.gui = gui
         self.configs = []
         
-        if ethif_cfg:
-            gen_cfg = ethif_cfg[0]["EthIfGeneral"]
+        if view:
+            gen_cfg = view[0]["EthIfGeneral"]
         else:
             gen_cfg = None
 
