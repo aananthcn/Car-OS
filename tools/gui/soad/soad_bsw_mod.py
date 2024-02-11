@@ -76,15 +76,15 @@ class SaOdBswModulesView:
     
 
 
-    def __init__(self, gui, soad_cfgs):
+    def __init__(self, gui, view):
         self.gui = gui
         self.configs = []
         self.n_soad_bswm = 0
         self.n_soad_bswm_str = tk.StringVar()
         # self.save_cb = save_cb
 
-        if soad_cfgs:
-            soad_bswm = soad_cfgs["SoAdBswModules"]
+        if view:
+            soad_bswm = view["SoAdBswModules"]
         else:
             return
 
@@ -92,7 +92,7 @@ class SaOdBswModulesView:
         self.n_soad_bswm = len(soad_bswm)
         self.n_soad_bswm_str.set(len(soad_bswm))
 
-        # initialize configurations from ARXML file
+        # initialize configurations from A-JSON file passed as "view" to the constructor
         for i, cfg in enumerate(soad_bswm):
             self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, cfg))
 

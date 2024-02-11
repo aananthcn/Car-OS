@@ -25,7 +25,6 @@ import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
 
 import gui.os.os_view as os_view
-import arxml.core.main_os as arxml_os
 
 
 class CounterTab:
@@ -48,7 +47,7 @@ class CounterTab:
         self.n_counters_str = tk.StringVar()
         self.configs = []
 
-        # add tasks to UI passed from ARXML file
+        # add tasks to UI passed from A-JSON file
         for counter in cntrs:
             self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, counter))
 
@@ -148,4 +147,3 @@ class CounterTab:
 
     def save_data(self):
         self.backup_data()
-        arxml_os.export_os_cfgs_2_arxml(self.gui.arxml_file, self.gui)

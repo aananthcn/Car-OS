@@ -33,5 +33,9 @@ def save_spi_configs(jdata, gui_obj):
 
 def read_spi_configs():
     m_key = "Spi"
-    jdata = ajson.AJSON_Dump[m_key]
+    jdata = {}
+
+    if ajson.AJSON_Dump:
+        jdata = ajson.AJSON_Dump[m_key]
+
     return jdata

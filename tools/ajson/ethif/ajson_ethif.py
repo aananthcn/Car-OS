@@ -33,5 +33,9 @@ def save_ethif_configs(jdata, gui_obj):
 
 def read_ethif_configs():
     m_key = "EthIf"
-    jdata = ajson.AJSON_Dump[m_key]
+    jdata = {}
+
+    if ajson.AJSON_Dump:
+        jdata = ajson.AJSON_Dump[m_key]
+
     return jdata

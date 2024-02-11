@@ -33,5 +33,9 @@ def save_eth_configs(jdata, gui_obj):
 
 def read_eth_configs():
     m_key = "Eth"
-    jdata = ajson.AJSON_Dump[m_key]
+    jdata = {}
+
+    if ajson.AJSON_Dump:
+        jdata = ajson.AJSON_Dump[m_key]
+
     return jdata

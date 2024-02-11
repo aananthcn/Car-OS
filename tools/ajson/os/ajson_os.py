@@ -82,5 +82,9 @@ def save_os_configs(jdata, gui_obj):
 
 def read_os_configs():
     m_key = "Os"
-    jdata = ajson.AJSON_Dump[m_key]
+    jdata = {}
+
+    if ajson.AJSON_Dump:
+        jdata = ajson.AJSON_Dump[m_key]
+
     return jdata

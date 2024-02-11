@@ -64,7 +64,7 @@ class TaskTab:
         self.n_tasks_str = tk.StringVar()
         self.configs = []
 
-        # add tasks to UI passed from ARXML file
+        # add tasks to UI passed from A-JSON file
         for task in tasks:
             self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, task))
 

@@ -28,7 +28,6 @@ import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
 
 import gui.os.os_view as os_view
-import arxml.core.main_os as arxml_os
 
 
 
@@ -68,7 +67,7 @@ class AlarmTab:
         self.n_alarms_str = tk.StringVar()
         self.configs = []
 
-        # add alarms to UI configs which is passed from ARXML file 
+        # add alarms to UI configs which is passed from A-JSON file 
         for alarm in alarms:
             self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, alarm))
 
@@ -337,4 +336,3 @@ class AlarmTab:
 
     def save_data(self):
         self.backup_data()
-        arxml_os.export_os_cfgs_2_arxml(self.gui.arxml_file, self.gui)

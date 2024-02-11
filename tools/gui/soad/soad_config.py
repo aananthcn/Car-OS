@@ -142,12 +142,12 @@ class SoAdConfigView:
     
 
 
-    def __init__(self, gui, soad_cfgs):
+    def __init__(self, gui, view):
         self.gui = gui
         self.configs = []
 
-        if soad_cfgs:
-            soadcfg = soad_cfgs["SoAdConfig"]
+        if view:
+            soadcfg = view["SoAdConfig"]
         else:
             soadcfg = None
 

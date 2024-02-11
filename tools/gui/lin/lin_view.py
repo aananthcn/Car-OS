@@ -22,11 +22,7 @@ import tkinter as tk
 from tkinter import ttk
 
 import gui.lin.lin_maincfg as lin_cfg
-
-# import arxml.lin.arxml_lin_parse as arxml_lin_r
-# import arxml.lin.arxml_lin_write as arxml_lin_w
 import ajson.lin.ajson_lin as ajson_lin
-
 import gui.lin.lin_code_gen as lin_cgen
 
 
@@ -97,10 +93,8 @@ def show_lin_tabs(gui):
     for obj in TabList:
         del obj
 
-    # read Lin content from ARXML file
+    # read Lin content from A-JSON file
     LinView = ajson_lin.read_lin_configs()
-    # lin_configs = arxml_lin_r.parse_arxml(gui.arxml_file)
-    # LinView = lin_configs    
     
     # create the main Lin GUI object
     lincfg_view = LinTab(view, width, height)

@@ -33,5 +33,9 @@ def save_lin_configs(jdata, gui_obj):
 
 def read_lin_configs():
     m_key = "Lin"
-    jdata = ajson.AJSON_Dump[m_key]
+    jdata = {}
+
+    if ajson.AJSON_Dump:
+        jdata = ajson.AJSON_Dump[m_key]
+
     return jdata

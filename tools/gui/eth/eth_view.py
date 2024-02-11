@@ -89,9 +89,8 @@ def show_eth_tabs(gui):
     for obj in TabList:
         del obj
 
-    # read Eth content from ARXML file
+    # read Eth content from A-JSON file
     EthView = ajson_eth.read_eth_configs()
-    # eth_configs = arxml_eth_r.parse_arxml(gui.arxml_file)
     
     # create the main Ethernet GUI object
     ethcfg_view = EthTab(view, width, height)

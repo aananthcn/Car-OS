@@ -25,9 +25,8 @@ import gui.soad.soad_gen as soad_gen
 import gui.soad.soad_config as soad_cfg
 import gui.soad.soad_bsw_mod as soad_bswm
 
-import arxml.soad.arxml_soad_parse as arxml_soad_r
-import arxml.soad.arxml_soad_write as arxml_soad_w
 
+import ajson.soad.ajson_soad as ajson_soad
 # import gui.soad.soad_code_gen as soad_cgen
 
 
@@ -73,11 +72,9 @@ def soad_save_callback(gui):
         # copy to configs to dict
         soad_configs[tab.name] = tab.tab.configs
 
+    # copy to SoadView in order to write into A-JSON file 
     SoAdView = soad_configs
     gui.save()
-
-    # write to file
-    arxml_soad_w.update_arxml(gui.arxml_file, soad_configs)
 
     return # TODO: implement code generation for SoAd and remove this
 
@@ -119,25 +116,24 @@ def show_soad_tabs(gui):
     # destroy old GUI objects
     del TabList[:]
 
-    # read SoAd content from ARXML file
-    soad_configs = arxml_soad_r.parse_arxml(gui.arxml_file)
-    SoAdView = soad_configs
+    # read SoAd content from A-JSON file
+    SoAdView = ajson_soad.read_soad_configs()
     
     # create the SoAdGeneral GUI tab
     soad_gen_view = SoAdTab(gen_frame, width, height)
-    soad_gen_view.tab = soad_gen.SoAdGeneralView(gui, soad_configs)
+    soad_gen_view.tab = soad_gen.SoAdGeneralView(gui, SoAdView)
     soad_gen_view.name = "SoAdGeneral"
     TabList.append(soad_gen_view)
 
     # create the SoAdBswModules GUI tab
     soad_bswm_view = SoAdTab(bswm_frame, width, height)
-    soad_bswm_view.tab = soad_bswm.SaOdBswModulesView(gui, soad_configs)
+    soad_bswm_view.tab = soad_bswm.SaOdBswModulesView(gui, SoAdView)
     soad_bswm_view.name = "SoAdBswModules"
     TabList.append(soad_bswm_view)
 
     # create the SoAdGeneral GUI tab
     soad_configset_view = SoAdTab(cfg_frame, width, height)
-    soad_configset_view.tab = soad_cfg.SoAdConfigView(gui, soad_configs)
+    soad_configset_view.tab = soad_cfg.SoAdConfigView(gui, SoAdView)
     soad_configset_view.name = "SoAdConfig"
     TabList.append(soad_configset_view)
 

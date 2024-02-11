@@ -87,7 +87,7 @@ class EthernetConfigMainView:
         self.n_eth_dev = len(view)
         self.n_eth_dev_str.set(len(view))
 
-        # initialize configurations from ARXML file
+        # initialize configurations from A-JSON file passed via "view" argument
         for i, cfg in enumerate(view):
             self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, cfg))
             self.configs[i].datavar["EthGeneral"] = cfg["EthGeneral"]

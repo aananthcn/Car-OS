@@ -26,8 +26,6 @@ from copy import copy
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
 
-import arxml.core.main_os as arxml_os
-
 
 class EventWindow:
     n_events = 0
@@ -55,7 +53,7 @@ class EventWindow:
         else:
             return
 
-        # add resources to UI passed from ARXML file
+        # add resources to UI passed from A-JSON file
         for event in events:
             event_dict = {}
             event_dict["OsEvent"] = event
@@ -132,4 +130,5 @@ class EventWindow:
 
 
     def save_data(self):
-        arxml_os.export_os_cfgs_2_arxml(self.gui.arxml_file, self.gui)
+        # events are stored within OsTask. Hence do nothing.abs
+        return

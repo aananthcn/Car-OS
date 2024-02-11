@@ -19,6 +19,7 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+import ajson.core.lib as ajson
 import gui.soad.soad_view as soad_view
 
 
@@ -27,3 +28,14 @@ def save_soad_configs(jdata, gui_obj):
     m_key = "SoAd"
     jdata[m_key] = soad_view.SoAdView
     return
+
+
+
+def read_soad_configs():
+    m_key = "SoAd"
+    jdata = {}
+
+    if ajson.AJSON_Dump:
+        jdata = ajson.AJSON_Dump[m_key]
+
+    return jdata

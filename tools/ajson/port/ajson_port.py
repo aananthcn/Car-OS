@@ -33,5 +33,9 @@ def save_port_configs(jdata, gui_obj):
 
 def read_port_configs():
     m_key = "Port"
-    jdata = ajson.AJSON_Dump[m_key]
+    jdata = {}
+
+    if ajson.AJSON_Dump:
+        jdata = ajson.AJSON_Dump[m_key]
+
     return jdata

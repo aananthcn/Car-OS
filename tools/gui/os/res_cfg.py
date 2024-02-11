@@ -23,7 +23,6 @@ from tkinter import ttk
 
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
-import arxml.core.main_os as arxml_os
 
 
 
@@ -51,7 +50,7 @@ class ResourceTab:
         self.n_resources_str = tk.StringVar()
         self.configs = []
 
-        # add resources to UI passed from ARXML file
+        # add resources to UI passed from A-JSON file
         for res in resources:
             res_dict = {}
             res_dict["OsResource"] = res
@@ -137,7 +136,8 @@ class ResourceTab:
 
 
     def backup_data(self):
-        print("backup_data called in res_cfg")
+        # TODO: support for OS Resource is not added in Car-OS. This is a TBD.
+        print("Info: backup_data called in res_cfg, but OsResource is not supported in CarOS")
 
 
 
@@ -159,4 +159,3 @@ class ResourceTab:
 
     def save_data(self):
         self.backup_data()
-        arxml_os.export_os_cfgs_2_arxml(self.gui.arxml_file, self.gui)

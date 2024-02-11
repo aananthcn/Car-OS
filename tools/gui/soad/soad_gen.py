@@ -60,12 +60,12 @@ class SoAdGeneralView:
     active_view = None
 
 
-    def __init__(self, gui, soad_cfgs):
+    def __init__(self, gui, view):
         self.gui = gui
         self.configs = []
 
-        if soad_cfgs:
-            gen_cfg = soad_cfgs["SoAdGeneral"]
+        if view:
+            gen_cfg = view["SoAdGeneral"]
         else:
             gen_cfg = None
 
