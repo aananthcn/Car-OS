@@ -43,7 +43,6 @@ import gui.car_os.asr_view as a_view
 ###############################################################################
 # Oil file support is kept for legacy (OSEK) reasons. These days this function
 # is not tested, so, plan to remove this. 
-# TODO: Remove OIL file support.
 def open_oil_file(fpath, gui):
     OIL_FileName = None
 
