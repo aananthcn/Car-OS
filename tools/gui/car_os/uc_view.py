@@ -36,9 +36,10 @@ class Uc_Info:
     micro_maker = None  # e.g., Broadcom, ST etc
 
     def update(self, view_obj):
-        self.micro = view_obj["Micro"]
-        self.micro_arch = view_obj["MicroArch"]
-        self.micro_maker = view_obj["MicroMaker"]
+        if view_obj:
+            self.micro = view_obj["Micro"]
+            self.micro_arch = view_obj["MicroArch"]
+            self.micro_maker = view_obj["MicroMaker"]
 
 
 Uc_Manufacturers = [

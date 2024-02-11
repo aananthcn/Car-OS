@@ -43,6 +43,13 @@ from colorama import init, Fore, Back, Style
 init(convert=True)
 
 
+from gui.os.os_view import Counters
+from gui.os.os_view import Alarms
+from gui.os.os_view import Tasks
+from gui.os.os_view import AppModes
+from gui.os.os_view import ISRs
+from gui.os.os_view import OS_Cfgs
+
 
 # Functions
 def print_usage(prog):
@@ -234,9 +241,6 @@ def set_source_file_path(path):
 
 def parse(oilfile):
     global Counters, Alarms, Tasks, AppModes, ISRs, OS_Cfgs
-
-    # Sometimes the parse is called without close of previous session
-    sg_reset()
 
     # Validate and open OIL file
     print_info("Opening " + oilfile)
