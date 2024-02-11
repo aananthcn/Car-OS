@@ -19,6 +19,7 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+import ajson.core.lib as ajson
 import gui.os.os_view as os_view
 
 
@@ -76,3 +77,10 @@ def save_os_configs(jdata, gui_obj):
     save_os_alarm_configs(jdata[m_key], gui_obj)
     save_os_isr_configs(jdata[m_key], gui_obj)
     return
+
+
+
+def read_os_configs():
+    m_key = "Os"
+    jdata = ajson.AJSON_Dump[m_key]
+    return jdata

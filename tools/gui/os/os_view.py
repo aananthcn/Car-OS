@@ -40,6 +40,7 @@ import gui.os.tsk_cfg as gui_tk_tab
 import gui.os.alm_cfg as gui_al_tab
 import gui.os.isr_cfg as gui_ir_tab
 
+import ajson.os.ajson_os as ajson_os
 
 OsTab = AmTab = CtrTab = ResTab = TskTab = AlmTab = IsrTab = None
 OsConfigViewActive = False
@@ -130,6 +131,18 @@ def show_os_config(gui):
     del AlmTab
     del IsrTab
 
+    # read OS configs from A-JSON file
+    os_configs = ajson_os.read_os_configs()
+
+    # transfer to the global structure
+    Counters = os_configs["OsCounter"]
+    Alarms = os_configs["OsAlarm"]
+    Tasks = os_configs["OsTask"]
+    AppModes = os_configs["OsModes"]
+    ISRs = os_configs["OsIsr"]
+    OS_Cfgs = os_configs["OsOs"]["OS_Cfgs"] # TODO: merge OS_Cfgs into OsOs
+
+
     # create new GUI objects
     OsTab = gui_os_tab.OsTab(OS_Cfgs, Tasks)
     OsTab.draw(os_tab, gui)
@@ -157,6 +170,8 @@ def show_os_config(gui):
 
 
 def generate_code_for_os(path):
+    global Counters, Alarms, Tasks, AppModes, ISRs, OS_Cfgs
+
     try:
         sg_counter.generate_code(path, Counters)
         sg_appmodes.generate_code(path, AppModes, Tasks)

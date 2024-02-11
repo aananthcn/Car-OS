@@ -234,7 +234,7 @@ class OsTab:
 
 
     def backup_data(self):
-        # Backup to system generator global variables
+        # Backup to os_view global variables
         self.osv_oscfg["CPU"]                   = self.OS_StrVar[0].get()
         self.osv_oscfg["OS"]                    = self.OS_StrVar[1].get()
         self.osv_oscfg["STATUS"]                = self.OS_StrVar[2].get()
@@ -251,6 +251,7 @@ class OsTab:
     
     
     def create_empty_os_config(self):
+        # create default os configs in os_view space directly
         self.osv_oscfg["CPU"]                   = ""
         self.osv_oscfg["OS"]                    = ""
         self.osv_oscfg["STATUS"]                = "STANDARD"

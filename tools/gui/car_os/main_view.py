@@ -336,7 +336,7 @@ def add_menus(rv, flst):
     FileMenu.add_separator()
     if flst and len(flst) > 0:
         for file_path in flst:
-            FileMenu.add_command(label=file_path, command=lambda fp = file_path: imp_exp.open_arxml_file(fp, Gui))
+            FileMenu.add_command(label=file_path, command=lambda fp = file_path: open_ajson_file(fp))
         FileMenu.add_separator()
 
     # exit sub-menu
