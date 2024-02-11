@@ -38,12 +38,15 @@ class SpiDriverTab:
     dappas_per_col = len(cfgkeys)
 
 
-    def __init__(self, gui, ar_cfg):
+    def __init__(self, gui, view):
         self.gui = gui
         self.configs = []
 
         # Create config string for AUTOSAR configs on this tab
-        self.configs.append(dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs()))
+        if view:
+            self.configs.append(dappa.AsrCfgStr(self.cfgkeys, view))
+        else:
+            self.configs.append(dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs()))
 
 
     def __del__(self):

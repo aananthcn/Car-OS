@@ -48,7 +48,7 @@ class SpiSequenceTab:
     active_widget = None
 
 
-    def __init__(self, gui, spidrvtab, spijobtab, ar_cfg):
+    def __init__(self, gui, spidrvtab, spijobtab, view):
         self.gui = gui
         self.configs = []
         self.n_spi_seqs = 0
@@ -56,14 +56,9 @@ class SpiSequenceTab:
         self.spidrvtab = spidrvtab
         self.spijobtab = spijobtab
 
-        if ar_cfg["SpiSequence"] == None:
+        if view["SpiSequence"] == None:
             return
-        for seq in ar_cfg["SpiSequence"]:
-            # let us do some correction between how UI and ARXML stores job assignment
-            job_list = seq["SpiJobAssignment"]
-            seq["SpiJobAssignment"] = []
-            for job in job_list:
-                seq["SpiJobAssignment"].append(job['SpiJob'])
+        for seq in view["SpiSequence"]:
             self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, seq))
             self.n_spi_seqs += 1
         self.n_spi_seqs_str.set(self.n_spi_seqs)

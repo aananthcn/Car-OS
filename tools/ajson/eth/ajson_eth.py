@@ -19,6 +19,7 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+import ajson.core.lib as ajson
 import gui.eth.eth_view as eth_view
 
 
@@ -27,3 +28,10 @@ def save_eth_configs(jdata, gui_obj):
     m_key = "Eth"
     jdata[m_key] = eth_view.EthView
     return
+
+
+
+def read_eth_configs():
+    m_key = "Eth"
+    jdata = ajson.AJSON_Dump[m_key]
+    return jdata

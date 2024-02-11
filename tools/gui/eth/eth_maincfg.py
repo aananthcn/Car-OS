@@ -32,7 +32,7 @@ import gui.eth.eth_sch as eth_sch
 import gui.eth.eth_shaper as eth_shaper
 import gui.eth.eth_spicfg as eth_spicfg
 
-import arxml.spi.arxml_spi_parse as arxml_spi_r
+import ajson.spi.ajson_spi as ajson_spi
 
 
 class EthChildView:
@@ -76,7 +76,7 @@ class EthernetConfigMainView:
     
 
 
-    def __init__(self, gui, eth_cfgs, save_cb):
+    def __init__(self, gui, view, save_cb):
         self.gui = gui
         self.configs = []
         self.n_eth_dev = 0
@@ -84,11 +84,11 @@ class EthernetConfigMainView:
         self.save_cb = save_cb
 
         # read configs from ARXML
-        self.n_eth_dev = len(eth_cfgs)
-        self.n_eth_dev_str.set(len(eth_cfgs))
+        self.n_eth_dev = len(view)
+        self.n_eth_dev_str.set(len(view))
 
         # initialize configurations from ARXML file
-        for i, cfg in enumerate(eth_cfgs):
+        for i, cfg in enumerate(view):
             self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, cfg))
             self.configs[i].datavar["EthGeneral"] = cfg["EthGeneral"]
             self.configs[i].datavar["EthCtrlConfig"] = cfg["EthCtrlConfig"]
@@ -495,12 +495,12 @@ class EthernetConfigMainView:
         self.active_dialog.geometry("%dx%d+%d+%d" % (width, height, x/2, y/5))
         self.active_dialog.title("EthCtrlConfigSpiConfiguration")
 
-        # parse ARXML for SPI sequence
-        spi_configs = arxml_spi_r.parse_arxml(self.gui.arxml_file)
+        # parse A-JSON for getting SpiSequence info
+        spi_view = ajson_spi.read_spi_configs()
 
         # create views and draw
         gen_view = EthChildView(self.active_dialog, width, height, self.save_data)
-        gen_view.view = eth_spicfg.EthConfigSpiConfigChildView(self.gui, row, spi_configs["SpiSequence"],
+        gen_view.view = eth_spicfg.EthConfigSpiConfigChildView(self.gui, row, spi_view["SpiSequence"],
                             self.configs[row].datavar["EthCtrlConfigSpiConfiguration"] )
         gen_view.name = "EthCtrlConfigSpiConfiguration"
         self.active_view = gen_view

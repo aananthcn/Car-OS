@@ -21,7 +21,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-import arxml.dio.arxml_dio_parse as arxml_dio
+import ajson.dio.ajson_dio as ajson_dio
 
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
@@ -52,7 +52,7 @@ class SpiExternalDeviceTab:
     dio_ch = None
 
 
-    def __init__(self, gui, spidrvtab, spijobtab, ar_cfg):
+    def __init__(self, gui, spidrvtab, spijobtab, view):
         self.gui = gui
         self.configs = []
         self.n_spi_extdev = 0
@@ -61,13 +61,14 @@ class SpiExternalDeviceTab:
         self.spijobtab = spijobtab
 
         self.dio_ch = []
-        dpins, dio_cfg, dgrps, dgen = arxml_dio.parse_arxml(gui.arxml_file)
+        dio_view = ajson_dio.read_dio_configs()
+        dio_cfg = dio_view["DioConfig"]
         for dio in dio_cfg:
             self.dio_ch.append(dio["DioChannelId"])
 
-        if ar_cfg["SpiExternalDevice"] == None:
+        if view["SpiExternalDevice"] == None:
             return
-        for dev in ar_cfg["SpiExternalDevice"]:
+        for dev in view["SpiExternalDevice"]:
             self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, dev))
             self.n_spi_extdev += 1
         self.n_spi_extdev_str.set(self.n_spi_extdev)

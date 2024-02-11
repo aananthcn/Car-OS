@@ -30,9 +30,7 @@ import gui.spi.spi_jobs as spi_job
 import gui.spi.spi_ext_dev as spi_exd
 import gui.spi.spi_drv as spi_drv
 
-import arxml.spi.arxml_spi_parse as arxml_spi_r
-import arxml.spi.arxml_spi_write as arxml_spi_w
-
+import ajson.spi.ajson_spi as ajson_spi
 import gui.spi.spi_cgen as spi_cgen
 
 
@@ -73,9 +71,9 @@ def spi_save_callback(gui):
         spi_configs[tab.name] = tab.tab.configs
         SpiView[tab.name] = tab.tab.configs.get()
 
+    # save SpiView into A-JSON file
     gui.save()
 
-    arxml_spi_w.update_arxml(gui.arxml_file, spi_configs)
     spi_cgen.generate_code(gui, spi_configs)
 
 
@@ -119,13 +117,12 @@ def show_spi_tabs(gui):
     for obj in TabList:
         del obj
 
-    # read Spi content from ARXML file
-    spi_configs = arxml_spi_r.parse_arxml(gui.arxml_file)
-    SpiView = spi_configs
+    # read Spi content from A-JSON file
+    SpiView = ajson_spi.read_spi_configs()
     
     # create new GUI objects
     spigen_tab = SpiTab(gen_frame, width, height)
-    spigen_tab.tab = spi_gen.SpiGeneralTab(gui, spi_configs)
+    spigen_tab.tab = spi_gen.SpiGeneralTab(gui, SpiView)
     spigen_tab.name = "SpiGeneral"
     TabList.append(spigen_tab)
 
@@ -134,25 +131,25 @@ def show_spi_tabs(gui):
     spijob_tab = SpiTab(job_frame, width, height)
     
     spidev_tab = SpiTab(exd_frame, width, height)
-    spidev_tab.tab = spi_exd.SpiExternalDeviceTab(gui, spidrv_tab, spijob_tab, spi_configs)
+    spidev_tab.tab = spi_exd.SpiExternalDeviceTab(gui, spidrv_tab, spijob_tab, SpiView)
     spidev_tab.name = "SpiExternalDevice"
     TabList.append(spidev_tab)
 
     spichn_tab    = SpiTab(chn_frame, width, height)
-    spichn_tab.tab = spi_chn.SpiChannelTab(gui, spidrv_tab, spi_configs)
+    spichn_tab.tab = spi_chn.SpiChannelTab(gui, spidrv_tab, SpiView)
     spichn_tab.name = "SpiChannel"
     TabList.append(spichn_tab)
 
-    spijob_tab.tab = spi_job.SpiJobTab(gui, spidrv_tab, spidev_tab, spichn_tab, spi_configs)
+    spijob_tab.tab = spi_job.SpiJobTab(gui, spidrv_tab, spidev_tab, spichn_tab, SpiView)
     spijob_tab.name = "SpiJob"
     TabList.append(spijob_tab)
 
     spiseq_tab = SpiTab(seq_frame, width, height)
-    spiseq_tab.tab = spi_seq.SpiSequenceTab(gui, spidrv_tab, spijob_tab, spi_configs)
+    spiseq_tab.tab = spi_seq.SpiSequenceTab(gui, spidrv_tab, spijob_tab, SpiView)
     spiseq_tab.name = "SpiSequence"
     TabList.append(spiseq_tab)
 
-    spidrv_tab.tab = spi_drv.SpiDriverTab(gui, spi_configs)
+    spidrv_tab.tab = spi_drv.SpiDriverTab(gui, SpiView)
     spidrv_tab.name = "SpiDriver"
     TabList.append(spidrv_tab)
 

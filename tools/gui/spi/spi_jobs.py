@@ -51,7 +51,7 @@ class SpiJobTab:
     active_widget = None
 
 
-    def __init__(self, gui, spidrvtab, spidevtab, spichtab, ar_cfg):
+    def __init__(self, gui, spidrvtab, spidevtab, spichtab, view):
         self.gui = gui
         self.configs = []
         self.n_spi_job = 0
@@ -60,9 +60,9 @@ class SpiJobTab:
         self.spichtab = spichtab
         self.spidev_lst = []
 
-        if ar_cfg["SpiJob"] == None:
+        if view["SpiJob"] == None:
             return
-        for job in ar_cfg["SpiJob"]:
+        for job in view["SpiJob"]:
             self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, job))
             self.n_spi_job += 1
         self.n_spi_job_str.set(self.n_spi_job)

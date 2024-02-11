@@ -19,6 +19,7 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+import ajson.core.lib as ajson
 import gui.spi.spi_view as spi_view
 
 
@@ -27,3 +28,10 @@ def save_spi_configs(jdata, gui_obj):
     m_key = "Spi"
     jdata[m_key] = spi_view.SpiView
     return
+
+
+
+def read_spi_configs():
+    m_key = "Spi"
+    jdata = ajson.AJSON_Dump[m_key]
+    return jdata

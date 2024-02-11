@@ -22,16 +22,13 @@ import tkinter as tk
 from tkinter import ttk
 
 import gui.eth.eth_maincfg as eth_cfg
-
-import arxml.eth.arxml_eth_parse as arxml_eth_r
-import arxml.eth.arxml_eth_write as arxml_eth_w
-
+import ajson.eth.ajson_eth as ajson_eth
 import gui.eth.eth_code_gen as eth_cgen
 
 
 TabList = []
 EthConfigViewActive = False
-EthView = {}  # the view Object that contains the configs
+EthView = []  # the view Object that contains the configs
 
 
 class EthTab:
@@ -61,10 +58,11 @@ def eth_config_close_event(gui, view):
 def eth_save_callback(gui, eth_configs):
     global EthView
 
-    EthView = eth_configs
+    EthView.clear()
+    for eth_cfg in eth_configs:
+        EthView.append(eth_cfg.get())
     gui.save()
     
-    arxml_eth_w.update_arxml(gui.arxml_file, eth_configs)
     eth_cgen.generate_code(gui, eth_configs)
 
 
@@ -92,12 +90,12 @@ def show_eth_tabs(gui):
         del obj
 
     # read Eth content from ARXML file
-    eth_configs = arxml_eth_r.parse_arxml(gui.arxml_file)
-    EthView = eth_configs
+    EthView = ajson_eth.read_eth_configs()
+    # eth_configs = arxml_eth_r.parse_arxml(gui.arxml_file)
     
     # create the main Ethernet GUI object
     ethcfg_view = EthTab(view, width, height)
-    ethcfg_view.tab = eth_cfg.EthernetConfigMainView(gui, eth_configs, ethcfg_view.save_cb)
+    ethcfg_view.tab = eth_cfg.EthernetConfigMainView(gui, EthView, ethcfg_view.save_cb)
     ethcfg_view.name = "EthernetConfigs"
     TabList.append(ethcfg_view)
 

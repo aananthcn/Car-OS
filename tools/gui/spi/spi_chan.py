@@ -45,16 +45,16 @@ class SpiChannelTab:
     init_view_done = False
 
 
-    def __init__(self, gui, spidrvtab, ar_cfg):
+    def __init__(self, gui, spidrvtab, view):
         self.gui = gui
         self.configs = []
         self.n_spi_chans = 0
         self.n_spi_chans_str = tk.StringVar()
         self.spidrvtab = spidrvtab
 
-        if ar_cfg["SpiChannel"] == None:
+        if view["SpiChannel"] == None:
             return
-        for chan in ar_cfg["SpiChannel"]:
+        for chan in view["SpiChannel"]:
             self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, chan))
             self.n_spi_chans += 1
         self.n_spi_chans_str.set(self.n_spi_chans)
