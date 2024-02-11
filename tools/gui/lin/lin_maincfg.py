@@ -27,7 +27,6 @@ import gui.lib.asr_widget as dappa # dappa in Tamil means box
 import gui.lin.lin_gen as lin_gen
 import gui.lin.lin_chancfg as lin_chancfg
 
-# import arxml.spi.arxml_spi_parse as arxml_spi_r
 
 
 class LinChildView:
@@ -69,21 +68,21 @@ class LinConfigMainView:
     
 
 
-    def __init__(self, gui, lin_cfgs, save_cb):
+    def __init__(self, gui, view, save_cb):
         self.gui = gui
         self.configs = []
         self.n_lin_dev = 0
         self.n_lin_dev_str = tk.StringVar()
         self.save_cb = save_cb
 
-        # read configs from ARXML
-        if not lin_cfgs:
+        # read configs from A-JSON
+        if not view:
             return
-        self.n_lin_dev = len(lin_cfgs)
-        self.n_lin_dev_str.set(len(lin_cfgs))
+        self.n_lin_dev = len(view)
+        self.n_lin_dev_str.set(len(view))
 
-        # initialize configurations from ARXML file
-        for i, cfg in enumerate(lin_cfgs):
+        # initialize configurations from A-JSON file
+        for i, cfg in enumerate(view):
             self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, cfg))
             self.configs[i].datavar["LinGeneral"] = cfg["LinGeneral"]
             self.configs[i].datavar["LinChannel"] = cfg["LinGlobalConfig"]

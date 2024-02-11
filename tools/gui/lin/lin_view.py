@@ -23,15 +23,16 @@ from tkinter import ttk
 
 import gui.lin.lin_maincfg as lin_cfg
 
-import arxml.lin.arxml_lin_parse as arxml_lin_r
-import arxml.lin.arxml_lin_write as arxml_lin_w
+# import arxml.lin.arxml_lin_parse as arxml_lin_r
+# import arxml.lin.arxml_lin_write as arxml_lin_w
+import ajson.lin.ajson_lin as ajson_lin
 
 import gui.lin.lin_code_gen as lin_cgen
 
 
 TabList = []
 LinConfigViewActive = False
-LinView = {}
+LinView = []
 
 
 class LinTab:
@@ -62,10 +63,14 @@ def lin_save_callback(gui, lin_configs):
     global LinView
 
     # save to View object
-    LinView = lin_configs
+    LinView.clear()
+    for cfg in lin_configs:
+        lin_cfg = cfg.get()
+        LinView.append(lin_cfg)
     gui.save()
 
-    arxml_lin_w.update_arxml(gui.arxml_file, lin_configs)
+    # arxml_lin_w.update_arxml(gui.arxml_file, lin_configs)
+    return
     lin_cgen.generate_code(gui, lin_configs)
 
 
@@ -93,12 +98,13 @@ def show_lin_tabs(gui):
         del obj
 
     # read Lin content from ARXML file
-    lin_configs = arxml_lin_r.parse_arxml(gui.arxml_file)
-    LinView = lin_configs    
+    LinView = ajson_lin.read_lin_configs()
+    # lin_configs = arxml_lin_r.parse_arxml(gui.arxml_file)
+    # LinView = lin_configs    
     
     # create the main Lin GUI object
     lincfg_view = LinTab(view, width, height)
-    lincfg_view.tab = lin_cfg.LinConfigMainView(gui, lin_configs, lincfg_view.save_cb)
+    lincfg_view.tab = lin_cfg.LinConfigMainView(gui, LinView, lincfg_view.save_cb)
     lincfg_view.name = "LinConfigs"
     TabList.append(lincfg_view)
 

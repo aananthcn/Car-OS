@@ -19,6 +19,7 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 
+import ajson.core.lib as ajson
 import gui.lin.lin_view as lin_view
 
 
@@ -27,3 +28,10 @@ def save_lin_configs(jdata, gui_obj):
     m_key = "Lin"
     jdata[m_key] = lin_view.LinView
     return
+
+
+
+def read_lin_configs():
+    m_key = "Lin"
+    jdata = ajson.AJSON_Dump[m_key]
+    return jdata
