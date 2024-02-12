@@ -20,10 +20,8 @@
 #
 import os
 
-import arxml.port.arxml_port as arxml_port
 import utils.search as search
 
-# Temporary work-around
 import gui.car_os.code_gen as code_gen
 
 
@@ -160,16 +158,19 @@ def generate_sourcefile(port_src_path, pins, port_info):
 
 
 
-def generate_code(gui):
+def generate_code(gui, port_view):
     cwd = os.getcwd()
     if os.path.exists(cwd+"/car-os"):
         port_src_path = search.find_dir("Port", cwd+"/car-os/submodules/MCAL/")
     else:
         port_src_path = search.find_dir("Port", cwd+"/submodules/MCAL/")
 
-    pins, port_info, port_gen = arxml_port.parse_arxml(gui.arxml_file)
-    generate_headerfile(port_src_path, pins, port_info)
-    generate_sourcefile(port_src_path, pins, port_info)
-    generate_dtsi_file(port_src_path, pins, port_info)
-    code_gen.create_build_files(gui) # calling code_gen.create_build_files() is a work-around. This will be corrected later.
+    port_gen = port_view["PortGeneral"]
+    port_cfg = port_view["PortConfigSet"]
+    pins = len(port_cfg)
+
+    generate_headerfile(port_src_path, pins, port_cfg)
+    generate_sourcefile(port_src_path, pins, port_cfg)
+    generate_dtsi_file(port_src_path, pins, port_cfg)
+    code_gen.create_build_files(gui)
     

@@ -18,8 +18,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_LOW",
                 "PortPinMode": "PORT_PIN_MODE_LIN",
+                "PortPinInitialMode": "PORT_PIN_MODE_LIN",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_LIN"
+                "RM": "None"
             },
             {
                 "PortPinId": "5",
@@ -27,8 +28,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_LOW",
                 "PortPinMode": "PORT_PIN_MODE_LIN",
+                "PortPinInitialMode": "PORT_PIN_MODE_LIN",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_LIN"
+                "RM": "None"
             },
             {
                 "PortPinId": "25",
@@ -36,8 +38,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_LOW",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
+                "RM": "None"
             },
             {
                 "PortPinId": "0",
@@ -45,8 +48,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_LOW",
                 "PortPinMode": "PORT_PIN_MODE_SPI",
+                "PortPinInitialMode": "PORT_PIN_MODE_SPI",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_SPI"
+                "RM": "None"
             },
             {
                 "PortPinId": "1",
@@ -54,8 +58,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
+                "RM": "None"
             },
             {
                 "PortPinId": "2",
@@ -63,8 +68,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_LOW",
                 "PortPinMode": "PORT_PIN_MODE_SPI",
+                "PortPinInitialMode": "PORT_PIN_MODE_SPI",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_SPI"
+                "RM": "None"
             },
             {
                 "PortPinId": "3",
@@ -72,8 +78,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_LOW",
                 "PortPinMode": "PORT_PIN_MODE_SPI",
+                "PortPinInitialMode": "PORT_PIN_MODE_SPI",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_SPI"
+                "RM": "None"
             },
             {
                 "PortPinId": "16",
@@ -81,8 +88,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
+                "RM": "None"
             },
             {
                 "PortPinId": "17",
@@ -90,8 +98,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
+                "RM": "None"
             },
             {
                 "PortPinId": "18",
@@ -99,8 +108,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
+                "RM": "None"
             },
             {
                 "PortPinId": "19",
@@ -108,8 +118,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
+                "RM": "None"
             },
             {
                 "PortPinId": "20",
@@ -117,8 +128,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
+                "RM": "None"
             },
             {
                 "PortPinId": "21",
@@ -126,8 +138,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
+                "RM": "None"
             },
             {
                 "PortPinId": "22",
@@ -135,8 +148,9 @@
                 "PortPinDirectionChangeable": "FALSE",
                 "PortPinLevelValue": "PORT_PIN_LEVEL_HIGH",
                 "PortPinMode": "PORT_PIN_MODE_DIO",
+                "PortPinInitialMode": "PORT_PIN_MODE_DIO",
                 "PortPinModeChangeable": "FALSE",
-                "PortPinInitialMode": "PORT_PIN_MODE_DIO"
+                "RM": "None"
             }
         ]
     },

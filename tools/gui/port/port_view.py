@@ -69,7 +69,7 @@ def port_save_callback(gui):
     PortView["PortConfigSet"] = port_cfg
     gui.save()
 
-    port_cgen.generate_code(gui)
+    port_cgen.generate_code(gui, PortView)
 
 
 
