@@ -184,8 +184,6 @@ def new_file():
 def save_project():
     global Gui
 
-    os_view.backup_os_gui_before_save()
-
     filepath = Gui.caros_cfg_file
 
     # Export and File name clean up
@@ -212,7 +210,6 @@ def save_as_ajson():
 
     Gui.set_caros_cfg_filepath(saved_filename.name)
     Gui.main_view.tk_root.title(Gui.title + " [" + str(saved_filename.name).split("/")[-1] +"]")
-    os_view.backup_os_gui_before_save()
     ajson.export_os_cfgs_2_ajson(saved_filename.name, Gui)
 
 

@@ -610,61 +610,68 @@
         ],
         "OsAlarm": [
             {
-                "IsAutostart": "TRUE",
                 "Alarm Name": "WakeTaskA",
                 "COUNTER": "mSecCounter",
                 "Action-Type": "ACTIVATETASK",
                 "arg1": "Task_A",
+                "arg2": "",
+                "IsAutostart": "TRUE",
+                "ALARMTIME": "40",
+                "CYCLETIME": "500",
                 "APPMODE": [
                     "OSDEFAULTAPPMODE",
                     "MANUFACT_MODE"
-                ],
-                "ALARMTIME": "40",
-                "CYCLETIME": "500",
-                "OsAlarmAutostartType": "NOT YET SUPPORTED"
+                ]
             },
             {
-                "IsAutostart": "FALSE",
                 "Alarm Name": "WakeTaskB",
                 "COUNTER": "mSecCounter",
                 "Action-Type": "SETEVENT",
                 "arg1": "Task_B",
-                "arg2": "event1"
+                "arg2": "event1",
+                "IsAutostart": "FALSE",
+                "ALARMTIME": "",
+                "CYCLETIME": "",
+                "APPMODE": ""
             },
             {
-                "IsAutostart": "FALSE",
                 "Alarm Name": "uSecAlarm",
                 "COUNTER": "uSecCounter",
                 "Action-Type": "ALARMCALLBACK",
-                "arg1": "Alarm_uSecAlarm_callback"
+                "arg1": "Alarm_uSecAlarm_callback",
+                "arg2": "",
+                "IsAutostart": "FALSE",
+                "ALARMTIME": "",
+                "CYCLETIME": "",
+                "APPMODE": ""
             },
             {
-                "IsAutostart": "TRUE",
                 "Alarm Name": "WakeTaskD",
                 "COUNTER": "mSecCounter",
                 "Action-Type": "ACTIVATETASK",
                 "arg1": "Task_D",
-                "APPMODE": [
-                    "OSDEFAULTAPPMODE"
-                ],
+                "arg2": "",
+                "IsAutostart": "TRUE",
                 "ALARMTIME": "40",
                 "CYCLETIME": "1000",
-                "OsAlarmAutostartType": "NOT YET SUPPORTED"
+                "APPMODE": [
+                    "OSDEFAULTAPPMODE"
+                ]
             },
             {
-                "IsAutostart": "TRUE",
                 "Alarm Name": "ALARM_Ethernet",
                 "COUNTER": "mSecCounter",
                 "Action-Type": "ACTIVATETASK",
                 "arg1": "Ethernet_Tasks",
+                "arg2": "",
+                "IsAutostart": "TRUE",
+                "ALARMTIME": "500",
+                "CYCLETIME": "100",
                 "APPMODE": [
                     "OSDEFAULTAPPMODE",
                     "MANUFACT_MODE",
                     "HW_TEST_MODE"
-                ],
-                "ALARMTIME": "500",
-                "CYCLETIME": "100",
-                "OsAlarmAutostartType": "NOT YET SUPPORTED"
+                ]
             }
         ],
         "OsIsr": [

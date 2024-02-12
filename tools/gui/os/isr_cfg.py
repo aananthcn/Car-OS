@@ -70,6 +70,7 @@ class IsrTab:
     header_row = 3
     xsize = None
     ysize = None
+    gui = None
 
     active_dialog = None
     active_widget = None
@@ -117,10 +118,11 @@ class IsrTab:
         return isr
 
 
-    def draw(self, tab, xsize, ysize):
+    def draw(self, tab, gui, xsize, ysize):
         self.xsize = xsize
         self.ysize = ysize
         self.scrollw = window.ScrollableWindow(tab, self.xsize, self.ysize)
+        self.gui = gui
 
         #Number of modes - Label + Spinbox
         label = tk.Label(self.scrollw.mnf, text="No. of Tasks:")
@@ -228,6 +230,8 @@ class IsrTab:
                 self.sg_isrs[i]["CATEGORY"] = self.isrs_str[i].category.get()
             if len(self.isrs_str[i].priority.get()):
                 self.sg_isrs[i]["OsIsrInterruptPriority"] = self.isrs_str[i].priority.get()
+        if self.gui:
+            self.gui.save()
 
 
     def on_resource_dialog_close(self, isr_id):

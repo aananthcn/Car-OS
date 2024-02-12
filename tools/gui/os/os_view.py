@@ -56,32 +56,10 @@ ISRs = []
 OS_Cfgs = {}
 
 
-def backup_os_gui_before_save():
-    global OsTab, AmTab, CtrTab, ResTab, TskTab, AlmTab, IsrTab
-    global OsConfigViewActive
-
-    # Do not backup if the view is not active
-    if not OsConfigViewActive:
-        return
-
-    # Do the stack memory calculation before save
-    OsTab.update()
-
-    # Backup GUI strings to System Generator global data
-    OsTab.backup_data()
-    AmTab.backup_data()
-    CtrTab.backup_data()
-    ResTab.backup_data()
-    TskTab.backup_data()
-    AlmTab.backup_data()
-    IsrTab.backup_data()
-
-
 
 def os_config_close_event(view):
     global OsConfigViewActive
 
-    backup_os_gui_before_save()
     OsConfigViewActive = False
     view.destroy()
 
@@ -169,7 +147,7 @@ def show_os_config(gui):
     AlmTab.draw(al_tab, gui, width, height)
 
     IsrTab = gui_ir_tab.IsrTab(ISRs, ResTab)
-    IsrTab.draw(ir_tab, width, height)
+    IsrTab.draw(ir_tab, gui, width, height)
 
     # gui.main_view.child_window.bind("<<NotebookTabChanged>>", lambda event : show_os_tab_switch(event, gui))
     

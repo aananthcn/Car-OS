@@ -93,7 +93,6 @@ def save_as_arxml(gui):
 
     gui.set_caros_cfg_filepath(saved_filename.name)
     gui.main_view.tk_root.title(gui.title + " [" + str(saved_filename.name).split("/")[-1] +"]")
-    os_view.backup_os_gui_before_save()
     arxml.export_os_cfgs_2_arxml(saved_filename.name, gui)
 
 

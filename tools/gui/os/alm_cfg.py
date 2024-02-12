@@ -336,3 +336,5 @@ class AlarmTab:
 
     def save_data(self):
         self.backup_data()
+        if self.gui:
+            self.gui.save()
