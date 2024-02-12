@@ -61,6 +61,7 @@ def generate_code(path, IsrData):
     cf.write("\n/*  Interrupt Vector Handlers */\n")
     cf.write("void (*_IsrHandler[])(void) = {\n")
     for i in range(ivec_max+1):
+        match_found = None
         for isr in IsrData:
             match_found = False    
             if int(isr[ISR_Params[1]]) == i:

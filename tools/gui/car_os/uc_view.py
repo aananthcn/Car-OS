@@ -24,7 +24,7 @@ from tkinter import ttk
 
 import ajson.uc.ajson_uc as ajson_uc
 
-import gui.car_os.main_cgen as main_cgen
+import gui.car_os.code_gen as code_gen
 
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
@@ -187,7 +187,7 @@ class UcConfig_View:
         label.grid(row=6, column=0, sticky="e")
 
         # Save Button
-        # saveb = tk.Button(self.scrollw.mnf, width=10, text="Save Configs", command=lambda:main_cgen.create_source(self.gui),
+        # saveb = tk.Button(self.scrollw.mnf, width=10, text="Save Configs", command=lambda:code_gen.create_build_files(self.gui),
         saveb = tk.Button(self.scrollw.mnf, width=10, text="Save Configs", command=self.save_configs,
                     bg="#206020", fg='white')
         saveb.grid(row=7, column=1)
@@ -223,5 +223,5 @@ class UcConfig_View:
             self.gui.asr_blocks["uC"].update_label(self.gui, new_label)
 
         # generate code (i.e., update arxml and other artifacts)
-        main_cgen.create_source(self.gui)
+        code_gen.create_build_files(self.gui)
 

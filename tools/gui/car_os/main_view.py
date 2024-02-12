@@ -36,21 +36,13 @@ import ajson.core.lib as ajson
 
 
 import tkinter as tk
-from tkinter import messagebox
-# from tkinter import ttk
 from tkinter import filedialog
 
 import gui.os.os_view as os_view
 import gui.car_os.uc_view as uc_view
 import gui.car_os.asr_view as a_view
 
-import arxml.core.lib as lib
-
-
-# Temporary work-around -- for non OS modules, the code is generated from Mcu Code Generator
-import gui.car_os.main_cgen as main_cgen
-import gui.app.app_gen as app_gen
-
+import gui.car_os.code_gen as code_gen
 import gui.car_os.imp_exp as imp_exp
 
 
@@ -124,16 +116,15 @@ class Car_OS_Builder:
         if os.name == 'nt':
             self.main_view.tk_root.state("zoomed")
         else:
-            self.main_view.tk_root.wm_state("normal")
+            # self.main_view.tk_root.wm_state("normal")
+            self.main_view.tk_root.attributes('-zoomed', True)
 
-
+    # This method is for setting up the initial view with cfg file passed directly from command-line
     def init_view_setup(self, fpath, ftype):
         if ftype == None or fpath == None:
             return
-        elif ftype == "oil":
-            open_oil_file(fpath)
-        elif ftype == "arxml":
-            open_arxml_file(fpath)
+        elif ftype == "ajson":
+            open_ajson_file(fpath)
         else:
             print("Unsupported filetype argument provided!")
 
@@ -148,8 +139,7 @@ class Car_OS_Builder:
 
     def set_caros_cfg_filepath(self, filepath):
         self.caros_cfg_file = filepath
-        self.arxml_file = filepath # TODO: delete this line after A-JSON porting
-        lib.setget_ecuc_arpkg_name(filepath)
+
 
     def save(self):
         save_project()
@@ -164,12 +154,7 @@ class Car_OS_Builder:
 FileMenu = None
 
 # I/O stuffs
-OIL_FileName = None
 ProjectInfoFile = os.getcwd()+"/car-os/.project-cfg.json"
-if os.path.exists(os.getcwd()+"/car-os"):
-    ToolsPath = os.getcwd()+"/car-os/tools"
-else:
-    ToolsPath = os.getcwd()+"/tools"
 
 
 # UI Stuffs - View
@@ -206,46 +191,6 @@ def save_project():
     # Export and File name clean up
     ajson.save_project(Gui, filepath)
     Gui.main_view.tk_root.title(Gui.title + " [" + filepath.split("/")[-1] +"]")
-
-
-
-def generate_code():
-    global Gui
-
-    # root window
-    root = tk.Toplevel()
-    root.geometry('400x120')
-    root.title('Code Generation Progress')
-    root.grid()
-    # progressbar
-    pb = ttk.Progressbar(root, orient='horizontal', length=380)
-    # place the progressbar
-    pb.grid(column=0, row=0, columnspan=2, padx=10, pady=20)
-    pb.update()
-
-    # Generate code for OS Module
-    srcpath = ToolsPath+"/os_builder/src"
-    # os_rc = sg.generate_code_for_os(srcpath)
-    os_rc = os_view.generate_code_for_os(srcpath)
-    pb["value"] = 33
-    root.update_idletasks()
-    
-    # Generate code for other BSW Modules
-    bsw_rc = main_cgen.create_source(Gui)
-    pb["value"] = 66
-    root.update_idletasks()
-
-    # Generate code for Application
-    app_rc = app_gen.sync_n_create_source(Gui)
-    pb["value"] = 100
-    root.update_idletasks()
-
-    pb.stop()
-    root.destroy()
-    if os_rc == 0 and bsw_rc == 0 and app_rc == 0:
-        messagebox.showinfo(Gui.title, "Code Generated Successfully!")
-    else:
-        messagebox.showinfo(Gui.title, "Code Generation Failed!")
 
 
 
@@ -319,7 +264,8 @@ def open_ajson_file(fpath):
 # args: rv - root view
 #    
 def add_menus(rv, flst):
-    global FileMenu
+    global FileMenu, Gui
+
     Gui.main_view.tk_menu = tk.Menu(rv, background='#ff8000', foreground='black', activebackground='white', activeforeground='black')
     FileMenu = tk.Menu(Gui.main_view.tk_menu, tearoff=0)
 
@@ -353,7 +299,7 @@ def add_menus(rv, flst):
 
     # Tools (source code) menu and submenus
     tools = tk.Menu(Gui.main_view.tk_menu, tearoff=0)
-    tools.add_command(label="Generate Source", command=generate_code)
+    tools.add_command(label="Generate Source", command=lambda: code_gen.generate_code(Gui))
     tools.add_separator()
     tools.add_command(label="Import OIL File", command=lambda: imp_exp.open_oil_file(None, Gui))
     tools.add_command(label="Import ARXML File", command=lambda: imp_exp.open_arxml_file(None, Gui))

@@ -237,7 +237,7 @@ def generate_source_file(path, Alarms, Counters, Tasks, cf, hf):
     cf.write("#include \"sg_tasks.h\"\n")
     cf.write("#include \"sg_events.h\"\n")
 
-    cf.write("\n\n#define TRUE    true\n#define FALSE    false");
+    cf.write("\n\n#define TRUE    true\n#define FALSE   false");
     cf.write("\n\n/*   A P P M O D E S   F O R   A L A R M S   */\n")
 
     for alarm in Alarms:

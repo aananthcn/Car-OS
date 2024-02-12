@@ -26,7 +26,7 @@ from tkinter import ttk
 from tkinter import filedialog
 
 
-import gui.car_os.main_cgen as main_cgen
+import gui.car_os.code_gen as code_gen
 import gui.car_os.main_view as main_view
 import arxml.mcu.arxml_mcu as arxml_mcu
 
@@ -187,7 +187,7 @@ class ZephyrConfig_View:
 
         # generate code (mainly to update path_defs.mk)
         self.gui.zephyr_path = zephyr_insall_path
-        main_cgen.create_source(self.gui)
+        code_gen.create_build_files(self.gui)
 
 
     def zephyr_path_select(self):

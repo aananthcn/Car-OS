@@ -21,11 +21,27 @@
 import os
 import json
 
-import arxml.mcu.arxml_mcu as arxml_mcu
+import tkinter as tk
+from tkinter import ttk
+from tkinter import messagebox
+
+import gui.os.os_view as os_view
 import utils.search as search
 
+import gui.app.app_gen as app_gen
 
 
+###############################################################################
+# Globals
+if os.path.exists(os.getcwd()+"/car-os"):
+    ToolsPath = os.getcwd()+"/car-os/tools"
+else:
+    ToolsPath = os.getcwd()+"/tools"
+
+
+
+###############################################################################
+# Functions
 def generate_platform_header(gui):
     cwd = os.getcwd()
     if os.path.exists(cwd+"/car-os"):
@@ -112,7 +128,7 @@ def generate_link_lib_list(swc_paths):
     for dpath in swc_paths:
         fpath = dpath+"/makefile"
         if not os.path.exists(fpath):
-            print("Warning: Path \""+fpath+"\" doesn't exist. [main_cgen.py:114]");
+            print("Warning: Path \""+fpath+"\" doesn't exist. [code_gen.py:114]");
             continue
         with open(fpath, "r", encoding="utf-8") as mfile:
             lines = mfile.readlines()
@@ -125,7 +141,7 @@ def generate_link_lib_list(swc_paths):
 
 
 # returns non-zero in case of error
-def create_source(gui):
+def create_build_files(gui):
     cwd = os.getcwd().replace("\\", "/")
     if os.path.exists(cwd+"/car-os"):
         car_os_path = cwd+"/car-os"
@@ -238,10 +254,45 @@ def create_source(gui):
     # Generate micro & arch specifc header files
     generate_platform_header(gui)
 
-    # Update ARXML file
-    arxml_mcu.update_arxml(gui.arxml_file, gui.uc_info)
-    
     paths_mk.close()
     paths_cmake.close()
     
     return 0
+
+
+
+def generate_code(gui):
+    # root window
+    root = tk.Toplevel()
+    root.geometry('400x120')
+    root.title('Code Generation Progress')
+    root.grid()
+    # progressbar
+    pb = ttk.Progressbar(root, orient='horizontal', length=380)
+    # place the progressbar
+    pb.grid(column=0, row=0, columnspan=2, padx=10, pady=20)
+    pb.update()
+
+    # Generate code for OS Module
+    srcpath = ToolsPath+"/os_builder/src"
+    # os_rc = sg.generate_code_for_os(srcpath)
+    os_rc = os_view.generate_code_for_os(srcpath)
+    pb["value"] = 33
+    root.update_idletasks()
+    
+    # Generate code for other BSW Modules
+    bsw_rc = create_build_files(gui)
+    pb["value"] = 66
+    root.update_idletasks()
+
+    # Generate code for Application
+    app_rc = app_gen.sync_n_create_source(gui)
+    pb["value"] = 100
+    root.update_idletasks()
+
+    pb.stop()
+    root.destroy()
+    if os_rc == 0 and bsw_rc == 0 and app_rc == 0:
+        messagebox.showinfo(gui.title, "Code Generated Successfully!")
+    else:
+        messagebox.showinfo(gui.title, "Code Generation Failed!")

@@ -70,7 +70,6 @@ def save_project(gui_obj, filepath):
     ajson_soad.save_soad_configs(jdata, gui_obj)
     
 
-    print("Work in progress!")
     json.dump(jdata, jfile, indent=4)
     jfile.close()
 

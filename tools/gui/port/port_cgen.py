@@ -24,7 +24,7 @@ import arxml.port.arxml_port as arxml_port
 import utils.search as search
 
 # Temporary work-around
-import gui.car_os.main_cgen as main_cgen
+import gui.car_os.code_gen as code_gen
 
 
 def generate_dtsi_file(port_src_path, pins, port_info):
@@ -171,5 +171,5 @@ def generate_code(gui):
     generate_headerfile(port_src_path, pins, port_info)
     generate_sourcefile(port_src_path, pins, port_info)
     generate_dtsi_file(port_src_path, pins, port_info)
-    main_cgen.create_source(gui) # calling main_cgen.create_source() is a work-around. This will be corrected later.
+    code_gen.create_build_files(gui) # calling code_gen.create_build_files() is a work-around. This will be corrected later.
     

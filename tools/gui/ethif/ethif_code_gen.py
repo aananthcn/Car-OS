@@ -26,7 +26,7 @@ import utils.search as search
 # import gui.ethif.ethif_ctrlcfg as ethif_cc
 
 # Temporary work-around
-import gui.car_os.main_cgen as main_cgen
+import gui.car_os.code_gen as code_gen
 
 
 #EthIfGeneral
@@ -420,5 +420,5 @@ def generate_code(gui, ethif_configs):
 
     generate_headerfile(ethif_src_path, ethif_configs)
     generate_sourcefile(ethif_src_path, ethif_configs)
-    main_cgen.create_source(gui) # calling main_cgen.create_source() is a work-around. This will be corrected later.
+    code_gen.create_build_files(gui) # calling code_gen.create_build_files() is a work-around. This will be corrected later.
     

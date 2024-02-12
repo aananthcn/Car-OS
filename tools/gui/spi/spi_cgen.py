@@ -25,7 +25,7 @@ import os
 import utils.search as search
 
 # Temporary work-around
-import gui.car_os.main_cgen as main_cgen
+import gui.car_os.code_gen as code_gen
 
 
 SpiGeneralCfgType_str = "\n\ntypedef struct {\n\
@@ -546,5 +546,5 @@ def generate_code(gui, spi_configs):
         spi_src_path = search.find_dir("Spi", cwd+"/submodules/MCAL/")
     generate_headerfile(spi_src_path, spi_configs)
     generate_sourcefile(spi_src_path, spi_configs)
-    main_cgen.create_source(gui) # calling main_cgen.create_source() is a work-around. This will be corrected later.
+    code_gen.create_build_files(gui) # calling code_gen.create_build_files() is a work-around. This will be corrected later.
     

@@ -20,7 +20,7 @@
 #
 import tkinter as tk
 from tkinter import ttk
-
+import traceback
 
 import os_builder.scripts.sg_counter as sg_counter
 import os_builder.scripts.sg_tasks as sg_tasks
@@ -86,6 +86,21 @@ def os_config_close_event(view):
     view.destroy()
 
 
+
+def read_os_config_from_ajson():
+    global Counters, Alarms, Tasks, AppModes, ISRs, OS_Cfgs
+
+    os_configs = ajson_os.read_os_configs()
+
+    # transfer to the global structure
+    Counters = os_configs["OsCounter"]
+    Alarms = os_configs["OsAlarm"]
+    Tasks = os_configs["OsTask"]
+    AppModes = os_configs["OsModes"]
+    ISRs = os_configs["OsIsr"]
+    OS_Cfgs = os_configs["OsOs"]["OS_Cfgs"] # TODO: merge OS_Cfgs into OsOs
+
+
     
 def show_os_config(gui):
     global Counters, Alarms, Tasks, AppModes, ISRs, OS_Cfgs
@@ -132,16 +147,7 @@ def show_os_config(gui):
     del IsrTab
 
     # read OS configs from A-JSON file
-    os_configs = ajson_os.read_os_configs()
-
-    # transfer to the global structure
-    Counters = os_configs["OsCounter"]
-    Alarms = os_configs["OsAlarm"]
-    Tasks = os_configs["OsTask"]
-    AppModes = os_configs["OsModes"]
-    ISRs = os_configs["OsIsr"]
-    OS_Cfgs = os_configs["OsOs"]["OS_Cfgs"] # TODO: merge OS_Cfgs into OsOs
-
+    read_os_config_from_ajson()
 
     # create new GUI objects
     OsTab = gui_os_tab.OsTab(OS_Cfgs, Tasks)
@@ -169,8 +175,15 @@ def show_os_config(gui):
     
 
 
+# TODO: revisit the design of code_gen for OS from A-JSON only, but not from os_view
+
+# The above note means, the changes must be saved before code generation is started, 
+# which is inline with other modules where save button click generates code for them.
 def generate_code_for_os(path):
     global Counters, Alarms, Tasks, AppModes, ISRs, OS_Cfgs
+
+    # read OS configs from A-JSON file
+    read_os_config_from_ajson()
 
     try:
         sg_counter.generate_code(path, Counters)

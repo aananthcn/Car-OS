@@ -21,7 +21,7 @@
 import utils.search as search
 import os
 import gui.app.app_view as app_view
-import gui.car_os.main_cgen as main_cgen
+import gui.car_os.code_gen as code_gen
 
 
 # returns non-zero in case of error
@@ -34,4 +34,4 @@ def sync_n_create_source(gui):
 
 
 def create_source(app_name, gui):
-    main_cgen.create_source(gui)
+    code_gen.create_build_files(gui)

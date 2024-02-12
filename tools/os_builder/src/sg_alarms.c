@@ -7,7 +7,7 @@
 
 
 #define TRUE    true
-#define FALSE    false
+#define FALSE   false
 
 /*   A P P M O D E S   F O R   A L A R M S   */
 #define ALARM_WAKETASKA_APPMODES_MAX (2)
