@@ -38,7 +38,8 @@ import ajson.soad.ajson_soad as ajson_soad
 AJSON_Dump = None
 
 def save_project(gui_obj, filepath):
-    jfile = None
+    jfile = jdata = None
+
     if not gui_obj or not filepath:
         print("ERROR: save_project() invalid arguments!")
         return
@@ -49,8 +50,18 @@ def save_project(gui_obj, filepath):
         gui_obj.caros_cfg_file = filepath.split("car-os")[0]+"/car-os/cfg/ajson/"+filename 
     print("Info: Saving", gui_obj.caros_cfg_file, "...")
 
+    # take a copy of json file into RAM
+    with open(gui_obj.caros_cfg_file) as jfile:
+        jdata = json.load(jfile)
+        jfile.close()
+
+    # raise error if RAM area of A-JSON is empty
+    if not jdata:
+        print("Error: A-JSON file read failed. Can't save project!")
+        return
+
+    # reopen file as write only (to flush the previous content)
     jfile = open(gui_obj.caros_cfg_file, "w")
-    jdata = {}
 
     # transfer the data from View(s) to A-JSON file
     ajson_uc.save_uc_configs(jdata, gui_obj)

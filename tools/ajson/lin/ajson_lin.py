@@ -26,7 +26,10 @@ import gui.lin.lin_view as lin_view
 
 def save_lin_configs(jdata, gui_obj):
     m_key = "Lin"
-    jdata[m_key] = lin_view.LinView
+
+    if lin_view.LinView:
+        jdata[m_key] = lin_view.LinView
+
     return
 
 

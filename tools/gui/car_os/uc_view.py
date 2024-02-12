@@ -217,6 +217,9 @@ class UcConfig_View:
         self.gui.uc_info.micro = soc_name
         self.gui.uc_info.micro_arch = Uc_Arch[soc_name]
 
+        # save the newly micro into A-JSON file
+        self.gui.save()
+
         # since micro-controller is selected, let us update the arch. view
         new_label = uc_block_get_updated_label(self.gui)
         if new_label != None:

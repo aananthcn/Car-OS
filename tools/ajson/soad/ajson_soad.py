@@ -26,7 +26,10 @@ import gui.soad.soad_view as soad_view
 
 def save_soad_configs(jdata, gui_obj):
     m_key = "SoAd"
-    jdata[m_key] = soad_view.SoAdView
+
+    if soad_view.SoAdView:
+        jdata[m_key] = soad_view.SoAdView
+
     return
 
 

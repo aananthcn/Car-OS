@@ -26,7 +26,10 @@ import gui.eth.eth_view as eth_view
 
 def save_eth_configs(jdata, gui_obj):
     m_key = "Eth"
-    jdata[m_key] = eth_view.EthView
+
+    if eth_view.EthView:
+        jdata[m_key] = eth_view.EthView
+
     return
 
 

@@ -26,7 +26,10 @@ import gui.port.port_view as port_view
 
 def save_port_configs(jdata, gui_obj):
     m_key = "Port"
-    jdata[m_key] = port_view.PortView
+
+    if port_view.PortView:
+        jdata[m_key] = port_view.PortView
+
     return
 
 

@@ -26,7 +26,10 @@ import gui.ethif.ethif_view as ethif_view
 
 def save_ethif_configs(jdata, gui_obj):
     m_key = "EthIf"
-    jdata[m_key] = ethif_view.EthIfView
+
+    if ethif_view.EthIfView:
+        jdata[m_key] = ethif_view.EthIfView
+
     return
 
 

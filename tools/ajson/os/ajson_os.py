@@ -25,50 +25,65 @@ import gui.os.os_view as os_view
 
 def save_os_os_configs(jdata, gui_obj):
     m_key = "OsOs"
-    jdata[m_key] = {}
 
-    jdata[m_key]["OS_Cfgs"] = os_view.OS_Cfgs
-    jdata[m_key]["OsHooks"] = {} # TODO: The OS_Cfgs will be split into these 3 once the complete porting is done.
-    jdata[m_key]["OsHookStack"] = {}
-    jdata[m_key]["CarOsParams"] = {}
+    if os_view.OS_Cfgs:
+        jdata[m_key] = {}
+        jdata[m_key]["OS_Cfgs"] = os_view.OS_Cfgs
+        jdata[m_key]["OsHooks"] = {} # TODO: The OS_Cfgs will be split into these 3 once the complete porting is done.
+        jdata[m_key]["OsHookStack"] = {}
+        jdata[m_key]["CarOsParams"] = {}
 
     return
 
 
 def save_os_mode_configs(jdata, gui_obj):
     m_key = "OsModes"
-    jdata[m_key] = os_view.AppModes
+
+    if os_view.AppModes:
+        jdata[m_key] = os_view.AppModes
+
     return
 
 
 def save_os_counter_configs(jdata, gui_obj):
     m_key = "OsCounter"
-    jdata[m_key] = os_view.Counters
+
+    if os_view.Counters:
+        jdata[m_key] = os_view.Counters
+
     return
 
 
 def save_os_task_configs(jdata, gui_obj):
     m_key = "OsTask"
-    jdata[m_key] = os_view.Tasks
+
+    if os_view.Tasks:
+        jdata[m_key] = os_view.Tasks
+
     return
 
 
 def save_os_alarm_configs(jdata, gui_obj):
     m_key = "OsAlarm"
-    jdata[m_key] = os_view.Alarms
+
+    if os_view.Alarms:
+        jdata[m_key] = os_view.Alarms
+
     return
 
 
 def save_os_isr_configs(jdata, gui_obj):
     m_key = "OsIsr"
-    jdata[m_key] = os_view.ISRs
+
+    if os_view.ISRs:
+        jdata[m_key] = os_view.ISRs
 
     return
 
 
+
 def save_os_configs(jdata, gui_obj):
     m_key = "Os"
-    jdata[m_key] = {}
 
     save_os_os_configs(jdata[m_key], gui_obj)
     save_os_mode_configs(jdata[m_key], gui_obj)
@@ -76,6 +91,7 @@ def save_os_configs(jdata, gui_obj):
     save_os_task_configs(jdata[m_key], gui_obj)
     save_os_alarm_configs(jdata[m_key], gui_obj)
     save_os_isr_configs(jdata[m_key], gui_obj)
+
     return
 
 

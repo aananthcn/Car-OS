@@ -24,11 +24,13 @@ import ajson.core.lib as ajson
 
 def save_uc_configs(jdata, gui_obj):
     m_key = "uC"
-    jdata[m_key] = {}
 
-    jdata[m_key]["Micro"]      = gui_obj.uc_info.micro
-    jdata[m_key]["MicroArch"]  = gui_obj.uc_info.micro_arch
-    jdata[m_key]["MicroMaker"] = gui_obj.uc_info.micro_maker
+    if gui_obj.uc_info:
+        jdata[m_key] = {}
+        jdata[m_key]["Micro"]      = gui_obj.uc_info.micro
+        jdata[m_key]["MicroArch"]  = gui_obj.uc_info.micro_arch
+        jdata[m_key]["MicroMaker"] = gui_obj.uc_info.micro_maker
+
     return
 
 

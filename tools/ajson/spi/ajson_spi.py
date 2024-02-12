@@ -26,7 +26,10 @@ import gui.spi.spi_view as spi_view
 
 def save_spi_configs(jdata, gui_obj):
     m_key = "Spi"
-    jdata[m_key] = spi_view.SpiView
+
+    if spi_view.SpiView:
+        jdata[m_key] = spi_view.SpiView
+
     return
 
 

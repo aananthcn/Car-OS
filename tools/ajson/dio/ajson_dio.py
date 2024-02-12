@@ -26,7 +26,10 @@ import gui.dio.dio_view as dio_view
 
 def save_dio_configs(jdata, gui_obj):
     m_key = "Dio"
-    jdata[m_key] = dio_view.DioView
+
+    if dio_view.DioView:
+        jdata[m_key] = dio_view.DioView
+
     return
 
 
