@@ -174,12 +174,14 @@
         "DioChannelGroup": []
     },
     "Spi": {
-        "SpiDriver": {
-            "SpiMaxChannel": "1",
-            "SpiMaxJob": "1",
-            "SpiMaxSequence": "1",
-            "SpiMaxHwUnit": "1"
-        },
+        "SpiDriver": [
+            {
+                "SpiMaxChannel": 1,
+                "SpiMaxJob": 1,
+                "SpiMaxSequence": 1,
+                "SpiMaxHwUnit": 1
+            }
+        ],
         "SpiChannel": [
             {
                 "SpiChannelId": "0",
@@ -187,32 +189,32 @@
                 "SpiDataWidth": "8",
                 "SpiDefaultData": "0x0",
                 "SpiEbMaxLength": "2048",
-                "SpiIbNBuffers": "0",
+                "SpiIbNBuffers": 0,
                 "SpiTransferStart": "MSB"
             }
         ],
         "SpiExternalDevice": [
             {
-                "SpiBaudrate": "8000000.0",
-                "SpiCsIdentifier": "CS_Ethernet",
-                "SpiCsPolarity": "LOW",
-                "SpiCsSelection": "CS_VIA_GPIO",
-                "SpiDataShiftEdge": "LEADING",
-                "SpiEnableCs": "FALSE",
                 "SpiHwUnit": "spi0",
+                "SpiBaudrate": "8000000.0",
+                "SpiDataShiftEdge": "LEADING",
                 "SpiShiftClockIdleLevel": "LOW",
+                "SpiEnableCs": "FALSE",
+                "SpiCsIdentifier": "CS_Ethernet",
+                "SpiCsSelection": "CS_VIA_GPIO",
+                "DIO": "1",
+                "SpiCsPolarity": "LOW",
                 "SpiTimeClk2Cs": "0.0",
                 "SpiTimeCs2Clk": "0.000001",
                 "SpiTimeCs2Cs": "0.000001",
-                "DIO": "1",
                 "SpiFrameFormat": "MOTOROLA_SPI"
             }
         ],
         "SpiJob": [
             {
-                "SpiJobEndNotification": "NULL",
                 "SpiJobId": "0",
                 "SpiJobPriority": "0",
+                "SpiJobEndNotification": "NULL",
                 "SpiDeviceAssignment": "spi0",
                 "SpiChannelList": [
                     {
@@ -224,26 +226,28 @@
         ],
         "SpiSequence": [
             {
-                "SpiInterruptibleSequence": "FALSE",
-                "SpiSeqEndNotification": "NULL",
                 "SpiSequenceId": "0",
                 "SpiSequenceName": "SEQ_ETHERNET_BASIC_TX_RX",
+                "SpiInterruptibleSequence": "FALSE",
+                "SpiSeqEndNotification": "NULL",
                 "SpiJobAssignment": [
                     "0"
                 ]
             }
         ],
-        "SpiGeneral": {
-            "SpiCancelApi": "FALSE",
-            "SpiChannelBuffersAllowed": "IB",
-            "SpiDevErrorDetect": "FALSE",
-            "SpiHwStatusApi": "FALSE",
-            "SpiInterruptibleSeqAllowed": "FALSE",
-            "SpiLevelDelivered": "1",
-            "SpiMainFunctionPeriod": "0.01",
-            "SpiSupportConcurrentSyncTransmit": "FALSE",
-            "SpiVersionInfoApi": "FALSE"
-        }
+        "SpiGeneral": [
+            {
+                "SpiLevelDelivered": "1",
+                "SpiChannelBuffersAllowed": "IB",
+                "SpiInterruptibleSeqAllowed": "FALSE",
+                "SpiHwStatusApi": "FALSE",
+                "SpiCancelApi": "FALSE",
+                "SpiVersionInfoApi": "FALSE",
+                "SpiDevErrorDetect": "FALSE",
+                "SpiSupportConcurrentSyncTransmit": "FALSE",
+                "SpiMainFunctionPeriod": "0.01"
+            }
+        ]
     },
     "Lin": [
         {

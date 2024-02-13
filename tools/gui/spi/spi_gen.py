@@ -44,7 +44,7 @@ class SpiGeneralTab:
         self.configs = []
 
         # Create config string for AUTOSAR configs on this tab
-        spi_gen = view["SpiGeneral"]
+        spi_gen = view["SpiGeneral"][0]
         if spi_gen:
             self.configs.append(dappa.AsrCfgStr(self.cfgkeys, spi_gen))
         else:

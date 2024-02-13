@@ -66,15 +66,18 @@ def spi_config_close_event(gui, view):
 def spi_save_callback(gui):
     global SpiView
 
-    spi_configs = {}
+    # copy from Gui to Spi view 
     for tab in TabList:
-        spi_configs[tab.name] = tab.tab.configs
-        SpiView[tab.name] = tab.tab.configs.get()
+        spi_cfg = []
+        for cfg in tab.tab.configs:
+            spi_cfg.append(cfg.get())
+        SpiView[tab.name] = spi_cfg
 
     # save SpiView into A-JSON file
     gui.save()
 
-    spi_cgen.generate_code(gui, spi_configs)
+    # spi_cgen.generate_code(gui, spi_configs)
+    spi_cgen.generate_code(gui, SpiView)
 
 
     

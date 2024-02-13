@@ -21,10 +21,7 @@
 
 import os
 
-# import arxml.spi.arxml_spi as arxml_spi
 import utils.search as search
-
-# Temporary work-around
 import gui.car_os.code_gen as code_gen
 
 
@@ -45,7 +42,7 @@ SpiGeneralCfgType_str = "\n\ntypedef struct {\n\
 def define_ext_dev_enum_type(hf, ext_devs):
     hf.write("\ntypedef enum {\n")
     for dev in ext_devs:
-        hf.write("\tSPI_EXT_DEV_"+dev.datavar['SpiHwUnit']+",\n")
+        hf.write("\tSPI_EXT_DEV_"+dev['SpiHwUnit']+",\n")
     hf.write("\tSPI_EXT_DEV_MAX\n")
     hf.write("} SpiExtDevID_Type;\n\n")
 
@@ -155,7 +152,7 @@ def define_custom_spi_seq_enums(hf, spi_seqs):
     hf.write("\n\n/* NammaAUTOSAR's custom enum, which will make code more readable */\n")
     hf.write("typedef enum {\n")
     for seq in spi_seqs:
-        hf.write("\t"+str(seq.datavar["SpiSequenceName"]).upper()+",\n")
+        hf.write("\t"+str(seq["SpiSequenceName"]).upper()+",\n")
     hf.write("\tSEQ_ENUM_MAX\n")
     hf.write("} Spi_SequenceEnumType;\n")
 
@@ -186,10 +183,10 @@ def generate_headerfile(spi_src_path, spi_info):
     hf.write(SpiJob_str)
     hf.write(SpiSequence_str)
     
-    hf.write("\n#define SPI_DRIVER_MAX_CHANNEL   ("+str(spi_info["SpiDriver"][0].datavar["SpiMaxChannel"])+")\n")
-    hf.write("#define SPI_DRIVER_MAX_JOB       ("+str(spi_info["SpiDriver"][0].datavar["SpiMaxJob"])+")\n")
-    hf.write("#define SPI_DRIVER_MAX_SEQUENCE  ("+str(spi_info["SpiDriver"][0].datavar["SpiMaxSequence"])+")\n")
-    hf.write("#define SPI_DRIVER_MAX_HW_UNIT   ("+str(spi_info["SpiDriver"][0].datavar["SpiMaxHwUnit"])+")\n")
+    hf.write("\n#define SPI_DRIVER_MAX_CHANNEL   ("+str(spi_info["SpiDriver"][0]["SpiMaxChannel"])+")\n")
+    hf.write("#define SPI_DRIVER_MAX_JOB       ("+str(spi_info["SpiDriver"][0]["SpiMaxJob"])+")\n")
+    hf.write("#define SPI_DRIVER_MAX_SEQUENCE  ("+str(spi_info["SpiDriver"][0]["SpiMaxSequence"])+")\n")
+    hf.write("#define SPI_DRIVER_MAX_HW_UNIT   ("+str(spi_info["SpiDriver"][0]["SpiMaxHwUnit"])+")\n")
     hf.write(Spi_ConfigType_str)
     
     # define custom enum definition for SPI Sequences
@@ -249,14 +246,14 @@ def databits_tfrtype_for_spi_device(dev, spi_info):
     job_cfg = spi_info["SpiJob"]
     chn_cfg = spi_info["SpiChannel"]
     for job in job_cfg:
-        if dev.datavar["SpiHwUnit"] != job.datavar["SpiDeviceAssignment"]:
+        if dev["SpiHwUnit"] != job["SpiDeviceAssignment"]:
             continue
-        ch_list = job.datavar["SpiChannelList"]
+        ch_list = job["SpiChannelList"]
         for ch in ch_list:
             ch_idx = ch["SpiChannelIndex"]
-            if int(chn_cfg[int(ch_idx)].datavar["SpiDataWidth"]) < databits:
-                databits = int(chn_cfg[int(ch_idx)].datavar["SpiDataWidth"])
-            if chn_cfg[int(ch_idx)].datavar["SpiTransferStart"] != tfrstart:
+            if int(chn_cfg[int(ch_idx)]["SpiDataWidth"]) < databits:
+                databits = int(chn_cfg[int(ch_idx)]["SpiDataWidth"])
+            if chn_cfg[int(ch_idx)]["SpiTransferStart"] != tfrstart:
                 tfrstart = "SPI_TX_START_MSB"
     return databits, tfrstart
 
@@ -269,25 +266,25 @@ def gen_spi_device_configs(cf, spi_info):
         # start of device
         cf.write("\t{\n")
 
-        cf.write("\t\t.spi_hw_unit_id = SPI_EXT_DEV_"+dev.datavar['SpiHwUnit']+",\n")
-        cf.write("\t\t.spi_baudrate = "+str(int(float(dev.datavar['SpiBaudrate'])))+", /* bps or Hz */\n")
-        cf.write("\t\t.spi_data_shift_edge = SPI_EDGE_"+dev.datavar['SpiDataShiftEdge']+",\n")
-        cf.write("\t\t.spi_shftclk_idle_level = SPI_LEVEL_"+dev.datavar['SpiShiftClockIdleLevel']+",\n")
-        cf.write("\t\t.spi_enable_cs = "+dev.datavar['SpiEnableCs']+",\n")
-        cf.write("\t\t.spi_cs_id = \""+dev.datavar['SpiCsIdentifier']+"\",\n")
-        cf.write("\t\t.spi_cs_selection = "+dev.datavar['SpiCsSelection']+",\n")
-        if "GPIO" in dev.datavar['SpiCsSelection']:
-	        cf.write("\t\t.spi_cs_dio = "+dev.datavar['DIO']+",\n")
+        cf.write("\t\t.spi_hw_unit_id = SPI_EXT_DEV_"+dev['SpiHwUnit']+",\n")
+        cf.write("\t\t.spi_baudrate = "+str(int(float(dev['SpiBaudrate'])))+", /* bps or Hz */\n")
+        cf.write("\t\t.spi_data_shift_edge = SPI_EDGE_"+dev['SpiDataShiftEdge']+",\n")
+        cf.write("\t\t.spi_shftclk_idle_level = SPI_LEVEL_"+dev['SpiShiftClockIdleLevel']+",\n")
+        cf.write("\t\t.spi_enable_cs = "+dev['SpiEnableCs']+",\n")
+        cf.write("\t\t.spi_cs_id = \""+dev['SpiCsIdentifier']+"\",\n")
+        cf.write("\t\t.spi_cs_selection = "+dev['SpiCsSelection']+",\n")
+        if "GPIO" in dev['SpiCsSelection']:
+	        cf.write("\t\t.spi_cs_dio = "+dev['DIO']+",\n")
         else:
 	        cf.write("\t\t.spi_cs_dio = -1,\n")
-        cf.write("\t\t.spi_cs_polarity = SPI_LEVEL_"+dev.datavar['SpiCsPolarity']+",\n")
-        cf.write("\t\t.spi_usec_clk_2_cs = "+str(int(1000000.0*float(dev.datavar['SpiTimeClk2Cs'])))+",\n")
-        cf.write("\t\t.spi_usec_cs_2_clk = "+str(int(1000000.0*float(dev.datavar['SpiTimeCs2Clk'])))+",\n")
-        cf.write("\t\t.spi_usec_cs_2_cs = "+str(int(1000000.0*float(dev.datavar['SpiTimeCs2Cs'])))+",\n")
+        cf.write("\t\t.spi_cs_polarity = SPI_LEVEL_"+dev['SpiCsPolarity']+",\n")
+        cf.write("\t\t.spi_usec_clk_2_cs = "+str(int(1000000.0*float(dev['SpiTimeClk2Cs'])))+",\n")
+        cf.write("\t\t.spi_usec_cs_2_clk = "+str(int(1000000.0*float(dev['SpiTimeCs2Clk'])))+",\n")
+        cf.write("\t\t.spi_usec_cs_2_cs = "+str(int(1000000.0*float(dev['SpiTimeCs2Cs'])))+",\n")
         databits, tfrstart = databits_tfrtype_for_spi_device(dev, spi_info)
         cf.write("\t\t.spi_databits = "+str(databits)+",\n")
         cf.write("\t\t.spi_tfr_type = "+tfrstart+",\n")
-        cf.write("\t\t.spi_frame_fmt = "+dev.datavar['SpiFrameFormat']+"\n")
+        cf.write("\t\t.spi_frame_fmt = "+dev['SpiFrameFormat']+"\n")
 
         # end of device
         if i+1 == len(dev_cfg):
@@ -303,7 +300,7 @@ def gen_spi_device_configs(cf, spi_info):
         # start of device
         cf.write("\t{\n")
 
-        cf.write("\t\tDEVICE_DT_GET(DT_NODELABEL("+dev.datavar['SpiHwUnit']+"))\n")
+        cf.write("\t\tDEVICE_DT_GET(DT_NODELABEL("+dev['SpiHwUnit']+"))\n")
 
         # end of device
         if i+1 == len(dev_cfg):
@@ -319,7 +316,7 @@ def gen_spi_device_configs(cf, spi_info):
 
         databits, tfrstart = databits_tfrtype_for_spi_device(dev, spi_info)
         cf.write("\t\t.operation = (SPI_OP_MODE_MASTER | SPI_WORD_SET("+str(databits)+")),\n")
-        cf.write("\t\t.frequency = "+str(int(float(dev.datavar['SpiBaudrate'])))+",\n")
+        cf.write("\t\t.frequency = "+str(int(float(dev['SpiBaudrate'])))+",\n")
         cf.write("\t\t.cs = {\n")
         cf.write("\t\t\t.gpio = NULL, /* Car-OS's Spi driver will use Dio, do-nothing for Zephyr */\n")
         cf.write("\t\t\t.delay = 0\n")
@@ -336,10 +333,10 @@ def gen_spi_device_configs(cf, spi_info):
 
 
 def get_def_data_len(chn):
-    data = chn.datavar['SpiDefaultData']
+    data = chn['SpiDefaultData']
     # check for incorrect entry of default data
     if not data[:1].isdigit() and data != "NULL":
-        print("ERROR: Default Data for SpiChannel \""+chn.datavar["SpiChannelId"]+"\" is wrong! Data:", data)
+        print("ERROR: Default Data for SpiChannel \""+chn["SpiChannelId"]+"\" is wrong! Data:", data)
         return 0
     elif data == "NULL":
         return 0
@@ -350,44 +347,43 @@ def get_def_data_len(chn):
     return int(data_len)
 
 def get_def_data(chn):
-    def_data = chn.datavar['SpiDefaultData']
+    def_data = chn['SpiDefaultData']
     if "NULL" != def_data:
-        def_data = "SpiDefaultData_"+chn.datavar['SpiChannelId']
+        def_data = "SpiDefaultData_"+chn['SpiChannelId']
     return def_data
 
 def get_ib_buffer_len(chn):
-    ib_buf_len = str(int(int(chn.datavar['SpiDataWidth'])*int(chn.datavar['SpiIbNBuffers'] or 0)/8))
+    ib_buf_len = str(int(int(chn['SpiDataWidth'])*int(chn['SpiIbNBuffers'] or 0)/8))
     return ib_buf_len
 
 def get_ib_buffer_name(chn):
     s_buf_name = "NULL"
     d_buf_name = "NULL"
-    if "IB" in chn.datavar['SpiChannelType']:
-        s_buf_name = "SpiIB_BufferTx_Chn_"+chn.datavar['SpiChannelId']
-        d_buf_name = "SpiIB_BufferRx_Chn_"+chn.datavar['SpiChannelId']
+    if "IB" in chn['SpiChannelType']:
+        s_buf_name = "SpiIB_BufferTx_Chn_"+chn['SpiChannelId']
+        d_buf_name = "SpiIB_BufferRx_Chn_"+chn['SpiChannelId']
     return s_buf_name, d_buf_name
 
 def get_eb_buffer_len_p(chn):
     eb_buf_len_ptr = "NULL"
-    if "EB" in chn.datavar['SpiChannelType']:
-        eb_buf_len_ptr = "&SpiEB_BufferLen_Chn_"+chn.datavar['SpiChannelId']
+    if "EB" in chn['SpiChannelType']:
+        eb_buf_len_ptr = "&SpiEB_BufferLen_Chn_"+chn['SpiChannelId']
     return eb_buf_len_ptr
 
 def get_eb_buffer_p(chn):
     eb_buf_ptr_s = "NULL"
     eb_buf_ptr_d = "NULL"
-    if "EB" in chn.datavar['SpiChannelType']:
-        eb_buf_ptr_s = "&SpiEB_BufferTx_Chn_"+chn.datavar['SpiChannelId']
-        eb_buf_ptr_d = "&SpiEB_BufferRx_Chn_"+chn.datavar['SpiChannelId']
+    if "EB" in chn['SpiChannelType']:
+        eb_buf_ptr_s = "&SpiEB_BufferTx_Chn_"+chn['SpiChannelId']
+        eb_buf_ptr_d = "&SpiEB_BufferRx_Chn_"+chn['SpiChannelId']
     return eb_buf_ptr_s, eb_buf_ptr_d
 
 def gen_spi_channel_configs(cf, chn_cfg):
     for chn in chn_cfg:
-        chn.get()
-        def_data = chn.datavar['SpiDefaultData']
+        def_data = chn['SpiDefaultData']
         if def_data == "NULL":
             continue
-        cf.write("\nconst uint8 SpiDefaultData_"+chn.datavar['SpiChannelId']+"[] = {\n\t")
+        cf.write("\nconst uint8 SpiDefaultData_"+chn['SpiChannelId']+"[] = {\n\t")
         prefix = ""
         start = 0
         if "0x" == def_data[:2] or "0X" == def_data[:2]:
@@ -423,13 +419,13 @@ def gen_spi_channel_configs(cf, chn_cfg):
         # start of device
         cf.write("\t{\n")
 
-        cf.write("\t\t.spi_chan_id = "+chn.datavar['SpiChannelId']+",\n")
-        cf.write("\t\t.spi_chan_type = "+get_chan_type(chn.datavar['SpiChannelType'])+",\n")
-        cf.write("\t\t.spi_data_width = "+chn.datavar['SpiDataWidth']+", /* bits */\n")
+        cf.write("\t\t.spi_chan_id = "+chn['SpiChannelId']+",\n")
+        cf.write("\t\t.spi_chan_type = "+get_chan_type(chn['SpiChannelType'])+",\n")
+        cf.write("\t\t.spi_data_width = "+chn['SpiDataWidth']+", /* bits */\n")
         cf.write("\t\t.spi_default_data = "+get_def_data(chn)+",\n")
         cf.write("\t\t.spi_default_data_len = "+str(get_def_data_len(chn))+",\n")
-        cf.write("\t\t.spi_eb_max_len = "+str(int(chn.datavar['SpiEbMaxLength'] or 0))+",\n")
-        cf.write("\t\t.spi_ib_num_buf = "+str(int(chn.datavar['SpiIbNBuffers'] or 0))+",\n")
+        cf.write("\t\t.spi_eb_max_len = "+str(int(chn['SpiEbMaxLength'] or 0))+",\n")
+        cf.write("\t\t.spi_ib_num_buf = "+str(int(chn['SpiIbNBuffers'] or 0))+",\n")
         cf.write("\t\t.spi_ib_buf_len = "+get_ib_buffer_len(chn)+",\n")
         ib_buf_s, ib_buf_d = get_ib_buffer_name(chn)
         cf.write("\t\t.spi_ib_buf_s_ptr = "+ib_buf_s+",\n")
@@ -438,7 +434,7 @@ def gen_spi_channel_configs(cf, chn_cfg):
         cf.write("\t\t.spi_eb_buf_s_ptr = "+eb_buf_s+",\n")
         cf.write("\t\t.spi_eb_buf_d_ptr = "+eb_buf_d+",\n")
         cf.write("\t\t.spi_eb_buf_l_ptr = "+get_eb_buffer_len_p(chn)+",\n")
-        cf.write("\t\t.spi_tx_start = SPI_TX_START_"+chn.datavar['SpiTransferStart']+"\n")
+        cf.write("\t\t.spi_tx_start = SPI_TX_START_"+chn['SpiTransferStart']+"\n")
 
         # end of device
         if i+1 == len(chn_cfg):
@@ -451,8 +447,8 @@ def gen_spi_channel_configs(cf, chn_cfg):
 
 def gen_spi_job_configs(cf, job_cfg):
     for job in job_cfg:
-        cf.write("\nconst uint16 SpiChannelList_"+job.datavar['SpiJobId']+"[] = {\n\t")
-        ch_list = job.datavar['SpiChannelList']
+        cf.write("\nconst uint16 SpiChannelList_"+job['SpiJobId']+"[] = {\n\t")
+        ch_list = job['SpiChannelList']
         for ch in ch_list:
             cf.write(ch["SpiChannelIndex"]+", ")
         cf.write("\n};\n")
@@ -463,12 +459,12 @@ def gen_spi_job_configs(cf, job_cfg):
         # start of device
         cf.write("\t{\n")
 
-        cf.write("\t\t.spi_job_id = "+job.datavar['SpiJobId']+",\n")
-        cf.write("\t\t.spi_job_priority = "+job.datavar['SpiJobPriority']+",\n")
-        cf.write("\t\t.job_end_notification_fn = "+job.datavar['SpiJobEndNotification']+",\n")
-        cf.write("\t\t.spi_dev_assignment = SPI_EXT_DEV_"+job.datavar['SpiDeviceAssignment']+",\n")
-        cf.write("\t\t.spi_chan_list_size = "+str(len(job.datavar['SpiChannelList']))+",\n")
-        cf.write("\t\t.spi_chan_list = SpiChannelList_"+job.datavar['SpiJobId']+",\n")
+        cf.write("\t\t.spi_job_id = "+job['SpiJobId']+",\n")
+        cf.write("\t\t.spi_job_priority = "+job['SpiJobPriority']+",\n")
+        cf.write("\t\t.job_end_notification_fn = "+job['SpiJobEndNotification']+",\n")
+        cf.write("\t\t.spi_dev_assignment = SPI_EXT_DEV_"+job['SpiDeviceAssignment']+",\n")
+        cf.write("\t\t.spi_chan_list_size = "+str(len(job['SpiChannelList']))+",\n")
+        cf.write("\t\t.spi_chan_list = SpiChannelList_"+job['SpiJobId']+",\n")
 
         # end of device
         if i+1 == len(job_cfg):
@@ -481,8 +477,8 @@ def gen_spi_job_configs(cf, job_cfg):
 
 def gen_spi_seq_configs(cf, seq_cfg):
     for seq in seq_cfg:
-        cf.write("\nconst uint16 SpiJobAssignment_"+seq.datavar['SpiSequenceId']+"[] = {\n\t")
-        job_list = seq.datavar['SpiJobAssignment']
+        cf.write("\nconst uint16 SpiJobAssignment_"+seq['SpiSequenceId']+"[] = {\n\t")
+        job_list = seq['SpiJobAssignment']
         for job in job_list:
             cf.write(job+", ")
         cf.write("\n};\n")
@@ -493,11 +489,11 @@ def gen_spi_seq_configs(cf, seq_cfg):
         # start of device
         cf.write("\t{\n")
 
-        cf.write("\t\t.spi_seq_id = "+seq.datavar['SpiSequenceId']+",\n")
-        cf.write("\t\t.spi_seq_interruptible = "+seq.datavar['SpiInterruptibleSequence']+",\n")
-        cf.write("\t\t.seq_end_notification_fn = "+seq.datavar['SpiSeqEndNotification']+",\n")
-        cf.write("\t\t.spi_job_list_size = "+str(len(seq.datavar['SpiJobAssignment']))+",\n")
-        cf.write("\t\t.spi_job_list = SpiJobAssignment_"+seq.datavar['SpiSequenceId']+",\n")
+        cf.write("\t\t.spi_seq_id = "+seq['SpiSequenceId']+",\n")
+        cf.write("\t\t.spi_seq_interruptible = "+seq['SpiInterruptibleSequence']+",\n")
+        cf.write("\t\t.seq_end_notification_fn = "+seq['SpiSeqEndNotification']+",\n")
+        cf.write("\t\t.spi_job_list_size = "+str(len(seq['SpiJobAssignment']))+",\n")
+        cf.write("\t\t.spi_job_list = SpiJobAssignment_"+seq['SpiSequenceId']+",\n")
 
         # end of device
         if i+1 == len(seq_cfg):
@@ -526,7 +522,7 @@ def generate_sourcefile(spi_src_path, spi_info):
     cf.write("#include <Port_cfg.h>\n\n\n")
     cf.write("// This file is autogenerated, any hand modifications will be lost!\n\n")
 
-    gen_spi_general_configs(cf, spi_info["SpiGeneral"][0].datavar)
+    gen_spi_general_configs(cf, spi_info["SpiGeneral"][0])
     gen_spi_device_configs(cf, spi_info)
     gen_spi_channel_configs(cf, spi_info["SpiChannel"])
     gen_spi_job_configs(cf, spi_info["SpiJob"])
@@ -538,13 +534,13 @@ def generate_sourcefile(spi_src_path, spi_info):
 
 
 
-def generate_code(gui, spi_configs):
+def generate_code(gui, view):
     cwd = os.getcwd()
     if os.path.exists(cwd+"/car-os"):
         spi_src_path = search.find_dir("Spi", cwd+"/car-os/submodules/MCAL/")
     else:
         spi_src_path = search.find_dir("Spi", cwd+"/submodules/MCAL/")
-    generate_headerfile(spi_src_path, spi_configs)
-    generate_sourcefile(spi_src_path, spi_configs)
-    code_gen.create_build_files(gui) # calling code_gen.create_build_files() is a work-around. This will be corrected later.
+    generate_headerfile(spi_src_path, view)
+    generate_sourcefile(spi_src_path, view)
+    code_gen.create_build_files(gui)
     
