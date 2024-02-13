@@ -158,15 +158,15 @@ def generate_sourcefile(port_src_path, pins, port_info):
 
 
 
-def generate_code(gui, port_view):
+def generate_code(gui, view):
     cwd = os.getcwd()
     if os.path.exists(cwd+"/car-os"):
         port_src_path = search.find_dir("Port", cwd+"/car-os/submodules/MCAL/")
     else:
         port_src_path = search.find_dir("Port", cwd+"/submodules/MCAL/")
 
-    port_gen = port_view["PortGeneral"]
-    port_cfg = port_view["PortConfigSet"]
+    port_gen = view["PortGeneral"]
+    port_cfg = view["PortConfigSet"]
     pins = len(port_cfg)
 
     generate_headerfile(port_src_path, pins, port_cfg)

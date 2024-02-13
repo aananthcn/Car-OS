@@ -163,18 +163,15 @@
         },
         "DioConfig": [
             {
-                "DioChannelId": "25",
-                "DioPortId": "25"
+                "DioPortId": "25",
+                "DioChannelId": "25"
             },
             {
-                "DioChannelId": "1",
-                "DioPortId": "1"
+                "DioPortId": "1",
+                "DioChannelId": "1"
             }
         ],
-        "DioChannelGroup": [
-            {},
-            {}
-        ]
+        "DioChannelGroup": []
     },
     "Spi": {
         "SpiDriver": {

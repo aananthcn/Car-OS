@@ -87,7 +87,7 @@ def dio_save_callback(gui):
     DioView["DioChannelGroup"] = dio_grp
     gui.save()
 
-    dio_code_gen.generate_code(gui)
+    dio_code_gen.generate_code(gui, DioView)
 
 
 

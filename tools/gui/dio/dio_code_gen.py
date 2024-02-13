@@ -20,10 +20,8 @@
 #
 import os
 
-import arxml.dio.arxml_dio_parse as arxml_dio
 import utils.search as search
 
-# Temporary work-around
 import gui.car_os.code_gen as code_gen
 
 
@@ -71,14 +69,15 @@ def generate_sourcefile(dio_src_path, dio_info):
 
 
 
-def generate_code(gui):
+def generate_code(gui, view):
     cwd = os.getcwd()
     if os.path.exists(os.getcwd()+"/car-os"):
         dio_src_path = search.find_dir("Dio", cwd+"/car-os/submodules/MCAL/")
     else:
         dio_src_path = search.find_dir("Dio", cwd+"/submodules/MCAL/")
-    pins, dio_configs, dio_groups, dio_general = arxml_dio.parse_arxml(gui.arxml_file)
+
+    dio_configs = view["DioConfig"]
     generate_headerfile(dio_src_path, dio_configs)
     generate_sourcefile(dio_src_path, dio_configs)
-    code_gen.create_build_files(gui) # calling code_gen.create_build_files() is a work-around. This will be corrected later.
+    code_gen.create_build_files(gui)
     
