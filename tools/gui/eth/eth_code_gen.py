@@ -24,8 +24,6 @@ import os
 import utils.search as search
 
 import gui.eth.eth_ctrlcfg as eth_cc
-
-# Temporary work-around
 import gui.car_os.code_gen as code_gen
 
 
@@ -319,14 +317,15 @@ def generate_macphy_files(eth_src_path, eth_configs):
 
 
 
-def generate_code(gui, eth_configs):
+def generate_code(gui, view):
     cwd = os.getcwd()
     if os.path.exists(os.getcwd()+"/car-os"):
         eth_src_path = search.find_dir("Eth", cwd+"/car-os/submodules/MCAL/")
     else:
         eth_src_path = search.find_dir("Eth", cwd+"/submodules/MCAL/")
-    generate_headerfile(eth_src_path, eth_configs)
-    generate_sourcefile(eth_src_path, eth_configs)
-    generate_macphy_files(eth_src_path, eth_configs)
-    code_gen.create_build_files(gui) # calling code_gen.create_build_files() is a work-around. This will be corrected later.
+
+    generate_headerfile(eth_src_path, view)
+    generate_sourcefile(eth_src_path, view)
+    generate_macphy_files(eth_src_path, view)
+    code_gen.create_build_files(gui)
     

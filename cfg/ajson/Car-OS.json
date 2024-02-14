@@ -357,6 +357,47 @@
     ],
     "EthIf": [
         {
+            "EthIfGeneral": {
+                "EthIfMaxTrcvsTotal": "2",
+                "EthIfDevErrorDetect": "TRUE",
+                "EthIfEnableRxInterrupt": "FALSE",
+                "EthIfEnableTxInterrupt": "FALSE",
+                "EthIfVersionInfoApi": "FALSE",
+                "EthIfVersionInfoApiMacro": "FALSE",
+                "EthIfTrcvLinkStateChgMainReload": "1",
+                "EthIfMainFunctionPeriod": "0.01",
+                "EthIfPublicCddHeaderFile": [
+                    {
+                        "FileNo": 0,
+                        "Headerfile": "baba1.h"
+                    },
+                    {
+                        "FileNo": 1,
+                        "Headerfile": "baba2.h"
+                    }
+                ],
+                "EthIfRxIndicationIterations": "0",
+                "EthIfGetAndResetMeasurementDataApi": "FALSE",
+                "EthIfStartAutoNegotiation": "TRUE",
+                "EthIfGetBaudRate": "FALSE",
+                "EthIfGetCounterState": "FALSE",
+                "EthIfGlobalTimeSupport": "FALSE",
+                "EthIfWakeUpSupport": "TRUE",
+                "EthIfGetTransceiverWakeupModeApi": "FALSE",
+                "EthIfSwitchOffPortTimeDelay": "0.01",
+                "EthIfPortStartupActiveTime": "0.01",
+                "EthIfMainFunctionStatePeriod": "0.01",
+                "EthIfSetForwardingModeApi": "FALSE",
+                "EthIfVerifyConfigApi": "FALSE",
+                "EthIfSwitchManagementSupport": "FALSE",
+                "EthIfGetCtrlIdxList": "FALSE",
+                "EthIfGetVlanIdSupport": "FALSE",
+                "EthIfEnableWEthApi": "FALSE",
+                "EthIfEnableSignalQualityApi": "FALSE",
+                "EthIfSignalQualityCheckPeriod": "0.01",
+                "EthIfEnableSecurityEventReporting": "FALSE",
+                "EthIfSecurityEventRefs": "..."
+            },
             "EthIfConfigSet": {
                 "EthIfFrameOwnerConfig": [
                     {
@@ -378,9 +419,11 @@
                 ],
                 "EthIfTxConfirmationConfig": [
                     {
+                        "Idx": 0,
                         "EthIfTxConfirmationFunction": "NULL"
                     },
                     {
+                        "Idx": 1,
                         "EthIfTxConfirmationFunction": "NULL"
                     }
                 ],
@@ -395,19 +438,19 @@
                 "EthIfPhysController": [
                     {
                         "EthIfPhysControllerIdx": "0",
-                        "EthIfEthCtrlRef": "...",
-                        "EthIfWEthCtrlRef": "...",
+                        "EthIfPhysCtrlRxIngressFifoRef": "...",
                         "EthIfPhysCtrlRxMainFunctionPeriod": "0.1",
                         "EthIfPhysCtrlRxIndicationIterations": "0",
-                        "EthIfPhysCtrlRxIngressFifoRef": "..."
+                        "EthIfEthCtrlRef": "...",
+                        "EthIfWEthCtrlRef": "..."
                     },
                     {
                         "EthIfPhysControllerIdx": "1",
-                        "EthIfEthCtrlRef": "...",
-                        "EthIfWEthCtrlRef": "...",
+                        "EthIfPhysCtrlRxIngressFifoRef": "...",
                         "EthIfPhysCtrlRxMainFunctionPeriod": "0.1",
                         "EthIfPhysCtrlRxIndicationIterations": "0",
-                        "EthIfPhysCtrlRxIngressFifoRef": "..."
+                        "EthIfEthCtrlRef": "...",
+                        "EthIfWEthCtrlRef": "..."
                     }
                 ],
                 "EthIfController": [
@@ -440,47 +483,6 @@
                         "EthIfSwitchPortGroupIdx": "0",
                         "EthIfSwitchPortGroupRefSemantics": "ETHIF_SWITCH_PORT_GROUP_LINK_INFO",
                         "EthIfPortRef": "..."
-                    }
-                ]
-            },
-            "EthIfGeneral": {
-                "EthIfMaxTrcvsTotal": "2",
-                "EthIfDevErrorDetect": "TRUE",
-                "EthIfEnableRxInterrupt": "FALSE",
-                "EthIfEnableTxInterrupt": "FALSE",
-                "EthIfVersionInfoApi": "FALSE",
-                "EthIfVersionInfoApiMacro": "FALSE",
-                "EthIfTrcvLinkStateChgMainReload": "1",
-                "EthIfMainFunctionPeriod": "0.01",
-                "EthIfRxIndicationIterations": "0",
-                "EthIfGetAndResetMeasurementDataApi": "FALSE",
-                "EthIfStartAutoNegotiation": "TRUE",
-                "EthIfGetBaudRate": "FALSE",
-                "EthIfGetCounterState": "FALSE",
-                "EthIfGlobalTimeSupport": "FALSE",
-                "EthIfWakeUpSupport": "TRUE",
-                "EthIfGetTransceiverWakeupModeApi": "FALSE",
-                "EthIfSwitchOffPortTimeDelay": "0.01",
-                "EthIfPortStartupActiveTime": "0.01",
-                "EthIfMainFunctionStatePeriod": "0.01",
-                "EthIfSetForwardingModeApi": "FALSE",
-                "EthIfVerifyConfigApi": "FALSE",
-                "EthIfSwitchManagementSupport": "FALSE",
-                "EthIfGetCtrlIdxList": "FALSE",
-                "EthIfGetVlanIdSupport": "FALSE",
-                "EthIfEnableWEthApi": "FALSE",
-                "EthIfEnableSignalQualityApi": "FALSE",
-                "EthIfSignalQualityCheckPeriod": "0.01",
-                "EthIfEnableSecurityEventReporting": "FALSE",
-                "EthIfSecurityEventRefs": "...",
-                "EthIfPublicCddHeaderFile": [
-                    {
-                        "FileNo": 0,
-                        "Headerfile": "baba1.h"
-                    },
-                    {
-                        "FileNo": 1,
-                        "Headerfile": "baba2.h"
                     }
                 ]
             }

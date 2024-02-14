@@ -24,10 +24,7 @@ from tkinter import ttk
 import gui.ethif.ethif_gen as ethif_gen
 import gui.ethif.ethif_configset as ethif_cs
 
-# import arxml.ethif.arxml_ethif_parse as arxml_ethif_r
-# import arxml.ethif.arxml_ethif_write as arxml_ethif_w
 import ajson.ethif.ajson_ethif as ajson_ethif
-
 import gui.ethif.ethif_code_gen as ethif_cgen
 
 
@@ -74,10 +71,8 @@ def ethif_save_callback(gui):
     EthIfView.append(ethif_configs)
     gui.save()
 
-
-    return
     # generate code
-    ethif_cgen.generate_code(gui, ethif_configs)
+    ethif_cgen.generate_code(gui, EthIfView)
 
 
     
