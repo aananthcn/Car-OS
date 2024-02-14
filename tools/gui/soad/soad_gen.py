@@ -65,7 +65,7 @@ class SoAdGeneralView:
         self.configs = []
 
         if view:
-            gen_cfg = view["SoAdGeneral"]
+            gen_cfg = view["SoAdGeneral"][0]
         else:
             gen_cfg = None
 

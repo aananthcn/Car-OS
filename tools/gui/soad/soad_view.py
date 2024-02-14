@@ -61,25 +61,25 @@ def soad_config_close_event(gui, view):
 
 def soad_save_callback(gui):
     global SoAdView
-    soad_configs = {}
+
+    # soad_configs = {}
+    SoAdView.clear()
 
     # pull all configs from UI tabs
     for tab in TabList:
-	    # backup configs (i.e, pull from dispvar to datavar)
+        tab_cfgs = []
         for cfg in tab.tab.configs:
-            cfg.get()
+            tab_cfgs.append(cfg.get())
 
         # copy to configs to dict
-        soad_configs[tab.name] = tab.tab.configs
+        SoAdView[tab.name] = tab_cfgs
 
     # copy to SoadView in order to write into A-JSON file 
-    SoAdView = soad_configs
     gui.save()
 
-    return # TODO: implement code generation for SoAd and remove this
-
+    return # TODO: remove this after implmenting soad_cgen
     # generate code
-    soad_cgen.generate_code(gui, soad_configs)
+    soad_cgen.generate_code(gui, SoAdView)
 
 
     

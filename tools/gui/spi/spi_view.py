@@ -31,7 +31,7 @@ import gui.spi.spi_ext_dev as spi_exd
 import gui.spi.spi_drv as spi_drv
 
 import ajson.spi.ajson_spi as ajson_spi
-import gui.spi.spi_cgen as spi_cgen
+import gui.spi.spi_code_gen as spi_cgen
 
 
 TabList = []
@@ -76,7 +76,6 @@ def spi_save_callback(gui):
     # save SpiView into A-JSON file
     gui.save()
 
-    # spi_cgen.generate_code(gui, spi_configs)
     spi_cgen.generate_code(gui, SpiView)
 
 

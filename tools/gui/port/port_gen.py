@@ -24,7 +24,6 @@ from tkinter import ttk
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
 
-import gui.port.port_cgen as port_cgen
 
 
 

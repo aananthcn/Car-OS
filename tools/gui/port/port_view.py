@@ -23,7 +23,7 @@ from tkinter import ttk
 
 import gui.port.port_cfg as port_cfg
 import gui.port.port_gen as port_gen
-import gui.port.port_cgen as port_cgen
+import gui.port.port_code_gen as port_cgen
 
 import ajson.port.ajson_port as ajson_port
 

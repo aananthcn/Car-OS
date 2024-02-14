@@ -147,7 +147,7 @@ class SoAdConfigView:
         self.configs = []
 
         if view:
-            soadcfg = view["SoAdConfig"]
+            soadcfg = view["SoAdConfig"][0]
         else:
             soadcfg = None
 
