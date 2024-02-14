@@ -20,10 +20,7 @@
 #
 import os
 
-# import arxml.lin.arxml_lin as arxml_lin
 import utils.search as search
-
-# Temporary work-around
 import gui.car_os.code_gen as code_gen
 
 
@@ -67,22 +64,21 @@ def generate_sourcefile(lin_src_path, lin_configs):
 
     cf.write("\n\nconst Lin_ConfigType LinConfigs[LIN_DRIVER_MAX_CHANNEL] = {\n")
     for i, cfg in enumerate(lin_configs):
-        # print(cfg.datavar)
         cf.write("\t{\n")
         cf.write("\t\t/* Lin channel - "+str(i)+" */\n")
         cf.write("\t\t.general = {\n")
-        cf.write("\t\t\t.lin_index = "+ cfg.datavar["LinGeneral"]["LinIndex"] +",\n")
-        cf.write("\t\t\t.lin_dev_error_detect = "+ cfg.datavar["LinGeneral"]["LinDevErrorDetect"] +",\n")
-        cf.write("\t\t\t.lin_version_info_api = "+ cfg.datavar["LinGeneral"]["LinVersionInfoApi"] +",\n")
-        cf.write("\t\t\t.lin_timeout_sec = "+ cfg.datavar["LinGeneral"]["LinTimeoutDuration"] +"\n")
+        cf.write("\t\t\t.lin_index = "+ cfg["LinGeneral"]["LinIndex"] +",\n")
+        cf.write("\t\t\t.lin_dev_error_detect = "+ cfg["LinGeneral"]["LinDevErrorDetect"] +",\n")
+        cf.write("\t\t\t.lin_version_info_api = "+ cfg["LinGeneral"]["LinVersionInfoApi"] +",\n")
+        cf.write("\t\t\t.lin_timeout_sec = "+ cfg["LinGeneral"]["LinTimeoutDuration"] +"\n")
         cf.write("\t\t},\n")
         cf.write("\t\t.chn_cfg = {\n")
-        cf.write("\t\t\t.lin_chan_id = "+ cfg.datavar["LinGlobalConfig"]["LinChannelId"] +",\n")
-        cf.write("\t\t\t.lin_chan_baudrate = "+ cfg.datavar["LinGlobalConfig"]["LinChannelBaudRate"] +",\n")
-        cf.write("\t\t\t.lin_node_type = "+ cfg.datavar["LinGlobalConfig"]["LinNodeType"] +",\n")
-        cf.write("\t\t\t.lin_wakeup_support = "+ cfg.datavar["LinGlobalConfig"]["LinChannelWakeupSupport"] +",\n")
-        cf.write("\t\t\t.lin_wakeup_source = \""+ cfg.datavar["LinGlobalConfig"]["LinChannelEcuMWakeupSource"] +"\", /* This could be wrong! */\n")
-        cf.write("\t\t\t.lin_clock_ref = \""+ cfg.datavar["LinGlobalConfig"]["LinClockRef"] +"\", /* This could be wrong! */ \n")
+        cf.write("\t\t\t.lin_chan_id = "+ cfg["LinGlobalConfig"]["LinChannelId"] +",\n")
+        cf.write("\t\t\t.lin_chan_baudrate = "+ cfg["LinGlobalConfig"]["LinChannelBaudRate"] +",\n")
+        cf.write("\t\t\t.lin_node_type = "+ cfg["LinGlobalConfig"]["LinNodeType"] +",\n")
+        cf.write("\t\t\t.lin_wakeup_support = "+ cfg["LinGlobalConfig"]["LinChannelWakeupSupport"] +",\n")
+        cf.write("\t\t\t.lin_wakeup_source = \""+ cfg["LinGlobalConfig"]["LinChannelEcuMWakeupSource"] +"\", /* This could be wrong! */\n")
+        cf.write("\t\t\t.lin_clock_ref = \""+ cfg["LinGlobalConfig"]["LinClockRef"] +"\", /* This could be wrong! */ \n")
         cf.write("\t\t}\n")
         cf.write("\t},\n")
     cf.write("};\n")
@@ -113,13 +109,15 @@ def generate_headerfile(lin_src_path, lin_configs):
 
 
 
-def generate_code(gui, lin_configs):
+def generate_code(gui, view):
     cwd = os.getcwd()
     if os.path.exists(cwd+"/car-os"):
         lin_src_path = search.find_dir("Lin", cwd+"/car-os/submodules/MCAL/")
     else:
         lin_src_path = search.find_dir("Lin", cwd+"/submodules/MCAL/")
-    generate_headerfile(lin_src_path, lin_configs)
-    generate_sourcefile(lin_src_path, lin_configs)
-    code_gen.create_build_files(gui) # calling code_gen.create_build_files() is a work-around. This will be corrected later.
+
+    generate_headerfile(lin_src_path, view)
+    generate_sourcefile(lin_src_path, view)
+
+    code_gen.create_build_files(gui)
     

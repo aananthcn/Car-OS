@@ -251,6 +251,13 @@
     },
     "Lin": [
         {
+            "LinIndex": "0",
+            "LinGeneral": {
+                "LinIndex": "0",
+                "LinDevErrorDetect": "FALSE",
+                "LinVersionInfoApi": "FALSE",
+                "LinTimeoutDuration": "2"
+            },
             "LinGlobalConfig": {
                 "LinChannelId": "0",
                 "LinNodeType": "SLAVE",
@@ -259,15 +266,23 @@
                 "LinChannelEcuMWakeupSource": "test",
                 "LinClockRef": "test"
             },
-            "LinGeneral": {
-                "LinIndex": "0",
-                "LinDevErrorDetect": "FALSE",
-                "LinVersionInfoApi": "FALSE",
-                "LinTimeoutDuration": "2"
-            },
-            "LinIndex": "0"
+            "LinChannel": {
+                "LinChannelId": "0",
+                "LinNodeType": "SLAVE",
+                "LinChannelBaudRate": "1000",
+                "LinChannelWakeupSupport": "FALSE",
+                "LinChannelEcuMWakeupSource": "test",
+                "LinClockRef": "test"
+            }
         },
         {
+            "LinIndex": "1",
+            "LinGeneral": {
+                "LinIndex": "1",
+                "LinDevErrorDetect": "TRUE",
+                "LinVersionInfoApi": "TRUE",
+                "LinTimeoutDuration": "0"
+            },
             "LinGlobalConfig": {
                 "LinChannelId": "1",
                 "LinNodeType": "MASTER",
@@ -276,13 +291,14 @@
                 "LinChannelEcuMWakeupSource": "chumma",
                 "LinClockRef": "chumma"
             },
-            "LinGeneral": {
-                "LinIndex": "1",
-                "LinDevErrorDetect": "TRUE",
-                "LinVersionInfoApi": "TRUE",
-                "LinTimeoutDuration": "0"
-            },
-            "LinIndex": "1"
+            "LinChannel": {
+                "LinChannelId": "1",
+                "LinNodeType": "MASTER",
+                "LinChannelBaudRate": "1000",
+                "LinChannelWakeupSupport": "FALSE",
+                "LinChannelEcuMWakeupSource": "chumma",
+                "LinClockRef": "chumma"
+            }
         }
     ],
     "Eth": [

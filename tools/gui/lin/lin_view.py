@@ -65,9 +65,7 @@ def lin_save_callback(gui, lin_configs):
         LinView.append(lin_cfg)
     gui.save()
 
-    # arxml_lin_w.update_arxml(gui.arxml_file, lin_configs)
-    return
-    lin_cgen.generate_code(gui, lin_configs)
+    lin_cgen.generate_code(gui, LinView)
 
 
     
