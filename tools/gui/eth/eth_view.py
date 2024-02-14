@@ -63,7 +63,7 @@ def eth_save_callback(gui, eth_configs):
         EthView.append(eth_cfg.get())
     gui.save()
     
-    eth_cgen.generate_code(gui, eth_configs)
+    eth_cgen.generate_code(gui, EthView)
 
 
     
