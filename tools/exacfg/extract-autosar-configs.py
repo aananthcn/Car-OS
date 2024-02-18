@@ -64,8 +64,8 @@ class ConfigItem:
 
 
 row_separator = ["SWS Item"]
-col_separator = ["Parameter", "Module", "Container", "Parent", "Multiplicity", "Type"]
-valid_name_tokens = ["Module", "Parameter", "Container"]
+col_separator = ["Parameter", "Module", "Container", "Choice", "Parent", "Multiplicity", "Type"]
+valid_name_tokens = ["Module", "Parameter", "Container", "Choice"]
 
 
 
@@ -82,7 +82,7 @@ def is_line_valid_to_proceed(cfg, tokens):
 
 
 
-def is_cfg_ok_to_push(cfg):
+def is_ok_to_push_cfg(cfg):
     retval = False
 
     if not cfg:
@@ -161,7 +161,7 @@ with open(txt_file, encoding="utf8") as file:
             continue # continue to search for column separator
 
         # are we done with current cfg and wait for new row_separator event?
-        if is_cfg_ok_to_push(cfg):
+        if is_ok_to_push_cfg(cfg):
             cfg_objs.append(cfg)
             cfg = None
 
@@ -173,9 +173,12 @@ with open(txt_file, encoding="utf8") as file:
             if tokens[0] in valid_name_tokens:
                 if cfg.is_name_found():
                     continue
+                # cases: Parameter Name, Container Name, Module Name
                 if len(tokens) > 1:
                     if "Name" not in tokens[1]:
-                        continue
+                        # cases: Choice Container Name
+                        if "Choice" not in tokens[0]:
+                            continue
                 elif "Name" not in lines[i]: # the next line 
                         continue
 
@@ -197,6 +200,8 @@ with open(txt_file, encoding="utf8") as file:
                 elif tokens[0] == "Module":
                     cfg.modul_name = cfg_name
                 elif tokens[0] == "Container":
+                    cfg.cntnr_name = cfg_name
+                elif tokens[0] == "Choice":
                     cfg.cntnr_name = cfg_name
 
 
@@ -247,9 +252,5 @@ with open(txt_file, encoding="utf8") as file:
         cfg_objs.append(cfg) # finally push the last obj
     
 with open(csv_file, 'w') as f:
-    title = ""
-    for col in col_separator:
-        title += col + ","
-    print(title, file=f)
     for obj in cfg_objs:
         obj.print(f)
