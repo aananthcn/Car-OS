@@ -28,19 +28,19 @@ import gui.ethif.ethif_cddhdr as ethif_cddhdr
 
 
 
-class EthChildView:
-    view = None
-    name = None
-    xsize = None
-    ysize = None
-    frame = None
-    save_cb = None
+# class EthIfChildView:
+#     view = None
+#     name = None
+#     xsize = None
+#     ysize = None
+#     frame = None
+#     save_cb = None
     
-    def __init__(self, f, w, h, cb):
-        self.save_cb = cb
-        self.frame = f
-        self.xsize = w
-        self.ysize = h
+#     def __init__(self, f, w, h, cb):
+#         self.save_cb = cb
+#         self.frame = f
+#         self.xsize = w
+#         self.ysize = h
 
 
 

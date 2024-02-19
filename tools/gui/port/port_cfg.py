@@ -169,7 +169,7 @@ class PortConfigSetTab:
         genm = tk.Button(self.scrollw.mnf, width=10, text="Save Configs", command=self.save_data, bg="#206020", fg='white')
         genm.grid(row=0, column=2)
 
-        # Save Button
+        # Delete Button
         genm = tk.Button(self.scrollw.mnf, width=12, text="Delete items", command=self.delete_selected, bg="#602020", fg='white')
         genm.grid(row=0, column=3)
 

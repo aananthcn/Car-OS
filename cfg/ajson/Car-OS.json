@@ -928,5 +928,31 @@
                 ]
             }
         ]
+    },
+    "TcpIp": {
+        "TcpIpGeneral": [
+            {
+                "TcpIpBufferMemory": "1500",
+                "TcpIpMainFunctionPeriod": "0.1"
+            }
+        ],
+        "TcpIpLocalAddr": [
+            {
+                "TcpIpAddrId": "0",
+                "TcpIpDomainType": "TCPIP_AF_INET",
+                "TcpIpAddressType": "TCPIP_UNICAST",
+                "TcpIpAddrAssignment": {
+                    "TcpIpAssignmentLifetime": "TCPIP_FORGET",
+                    "TcpIpAssignmentMethod": "TCPIP_STATIC",
+                    "TcpIpAssignmentPriority": "1",
+                    "TcpIpAssignmentTrigger": "TCPIP_MANUAL"
+                },
+                "TcpIpStaticIpAddressConfig": {
+                    "TcpIpStaticIpAddress": "192.168.3.100",
+                    "TcpIpNetmask": "255.255.255.0",
+                    "TcpIpDefaultRouter": "192.168.3.1"
+                }
+            }
+        ]
     }
 }

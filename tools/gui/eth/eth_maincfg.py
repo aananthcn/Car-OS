@@ -221,7 +221,7 @@ class EthernetConfigMainView:
 
 
 
-    def on_eth_general_select_close(self, row):
+    def on_eth_general_close(self, row):
         # backup data
         self.configs[row].datavar["EthGeneral"] = self.active_view.view.configs[0].get()
 
@@ -241,7 +241,7 @@ class EthernetConfigMainView:
 
         # function to create dialog window
         self.active_dialog = tk.Toplevel() # create an instance of toplevel
-        self.active_dialog.protocol("WM_DELETE_WINDOW", lambda : self.on_eth_general_select_close(row))
+        self.active_dialog.protocol("WM_DELETE_WINDOW", lambda : self.on_eth_general_close(row))
         self.active_dialog.attributes('-topmost',True)
 
         # set the geometry
