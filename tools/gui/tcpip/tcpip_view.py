@@ -26,6 +26,7 @@ import gui.tcpip.tcpip_gen as tcpip_gen
 import gui.tcpip.tcpip_local_addr as local_addr
 
 import ajson.tcpip.ajson_tcpip as ajson_tcpip
+import gui.tcpip.tcpip_code_gen as tcpip_cgen
 
 
 TabList = []
@@ -77,7 +78,7 @@ def tcpip_save_callback(gui):
     # save TcpIpView into A-JSON file
     gui.save()
 
-    # tcpip_cgen.generate_code(gui, TcpIpView)
+    tcpip_cgen.generate_code(gui, TcpIpView)
 
 
 

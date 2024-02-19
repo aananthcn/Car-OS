@@ -20,7 +20,6 @@
 #
 import os
 
-# import arxml.lin.arxml_lin as arxml_lin
 import utils.search as search
 
 import gui.eth.eth_ctrlcfg as eth_cc
