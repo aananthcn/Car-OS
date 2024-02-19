@@ -39,6 +39,7 @@ def read_port_configs():
     jdata = {}
 
     if ajson.AJSON_Dump:
-        jdata = ajson.AJSON_Dump[m_key]
+        if m_key in ajson.AJSON_Dump:
+            jdata = ajson.AJSON_Dump[m_key]
 
     return jdata

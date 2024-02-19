@@ -32,6 +32,7 @@ import ajson.lin.ajson_lin as ajson_lin
 import ajson.eth.ajson_eth as ajson_eth
 
 import ajson.ethif.ajson_ethif as ajson_ethif
+import ajson.tcpip.ajson_tcpip as ajson_tcpip
 import ajson.soad.ajson_soad as ajson_soad
 
 
@@ -79,6 +80,7 @@ def save_project(gui_obj, filepath):
     # Service layer views
     ajson_os.save_os_configs(jdata, gui_obj)
     ajson_soad.save_soad_configs(jdata, gui_obj)
+    ajson_tcpip.save_tcpip_configs(jdata, gui_obj)
     
 
     json.dump(jdata, jfile, indent=4)
