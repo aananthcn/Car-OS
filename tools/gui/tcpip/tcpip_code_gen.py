@@ -81,7 +81,7 @@ TcpIpLocalAddr_str = "\ntypedef struct {\n\
     TcpIpAssignmentTrigger    addr_assn_trig;\n\
     uint16                    ip_addr[16]; /* supports both ipv6 and ipv4 */\n\
     uint16                    ip_netmask[16]; /* supports both ipv6 and ipv4 */\n\
-    uint16                    ip_default_router[16]; /* supports both ipv6 and ipv4 */\n\
+    uint16                    ip_dfroutr[16]; /* supports both ipv6 and ipv4 */\n\
 } TcpIpLocalAddr;\n\
 \n"
 
@@ -145,7 +145,7 @@ def generate_sourcefile(tcpip_src_path, tcpip_configs):
         cf.write("\t\t.addr_assn_trig = "+cfg["TcpIpAddrAssignment"]["TcpIpAssignmentTrigger"]+",\n")
         cf.write("\t\t.ip_addr = "+ip_to_string(cfg, "TcpIpStaticIpAddress")+",\n")
         cf.write("\t\t.ip_netmask = "+ip_to_string(cfg, "TcpIpNetmask")+",\n")
-        cf.write("\t\t.ip_default_router = "+ip_to_string(cfg, "TcpIpDefaultRouter")+"\n")
+        cf.write("\t\t.ip_dfroutr = "+ip_to_string(cfg, "TcpIpDefaultRouter")+"\n")
         cf.write("\t}\n")
     cf.write("};\n\n")
 
@@ -175,7 +175,8 @@ def generate_headerfile(tcpip_src_path, tcpip_configs):
 
     hf.write(TcpIpGeneralCfgType_str)
     hf.write(TcpIpLocalAddr_str)
-    hf.write("\n\n#define MAX_TCPIP_LOCAL_ADDRESS     ("+str(len(tcpip_configs["TcpIpLocalAddr"]))+")\n\n")
+    hf.write("\n#define MAX_TCPIP_LOCAL_ADDRESS     ("+str(len(tcpip_configs["TcpIpLocalAddr"]))+")\n")
+    hf.write("\nextern const TcpIpLocalAddr TcpIpLocalAddrConfigs[MAX_TCPIP_LOCAL_ADDRESS];\n\n\n")
 
     hf.write(TcpIp_ConfigType_str)
     hf.write("\nextern const TcpIp_ConfigType TcpIp_Config;\n")
