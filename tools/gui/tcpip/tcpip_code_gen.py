@@ -33,8 +33,8 @@ TcpIpGeneralCfgType_str = "\n\ntypedef struct {\n\
 \n"
 
 TcpIpDomainType_str = "\ntypedef enum {\n\
-    TCPIP_AF_INET,\n\
-    TCPIP_AF_INET6,\n\
+    TCPIP_AF_INET = 0x02,\n\
+    TCPIP_AF_INET6 = 0x1c,\n\
     TCPIP_MAX_DOMAIN_TYPE\n\
 } TcpIpDomainType;\n\
 \n"
