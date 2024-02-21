@@ -25,21 +25,28 @@
 [submodule "submodules/MCAL/Lin"]
 	path = submodules/MCAL/Lin
 	url = https://github.com/aananthcn/NammaLin.git
+	branch = main
 [submodule "submodules/MCAL/Eth"]
 	path = submodules/MCAL/Eth
 	url = https://github.com/aananthcn/NammaEth.git
+	branch = main
 [submodule "submodules/ECU-AL/EthIf"]
 	path = submodules/ECU-AL/EthIf
 	url = https://github.com/aananthcn/NammaEthIf.git
+	branch = main
 [submodule "submodules/ECU-AL/LinIf"]
 	path = submodules/ECU-AL/LinIf
 	url = https://github.com/aananthcn/NammaLinIf.git
+	branch = main
 [submodule "submodules/SL/TcpIp"]
 	path = submodules/SL/TcpIp
 	url = https://github.com/aananthcn/NammaTcpIp.git
+	branch = main
 [submodule "submodules/SL/SoAd"]
 	path = submodules/SL/SoAd
 	url = https://github.com/aananthcn/NammaSoAd.git
+	branch = main
 [submodule "submodules/SL/Dcm"]
 	path = submodules/SL/Dcm
 	url = https://github.com/aananthcn/NammaDcm.git
+	branch = main
