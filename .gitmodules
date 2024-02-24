@@ -50,3 +50,7 @@
 	path = submodules/SL/Dcm
 	url = https://github.com/aananthcn/NammaDcm.git
 	branch = main
+[submodule "submodules/SL/Com"]
+	path = submodules/SL/Com
+	url = https://github.com/aananthcn/NammaCOM.git
+	branch = main

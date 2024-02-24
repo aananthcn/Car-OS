@@ -49,8 +49,12 @@ def main():
             print(f"[{get_current_time()}] Sent: {message}")
 
             # Receive the response
-            response = client_socket.recv(1024).decode()
-            print(f"[{get_current_time()}] Received: {response}")
+            client_socket.settimeout(5.0)
+            try:
+                response = client_socket.recv(1024).decode()
+                print(f"[{get_current_time()}] Received: {response}")
+            except TimeoutError:
+                print("TimeoutError: timed out!")
 
             # Wait for X second
             time.sleep(2)
