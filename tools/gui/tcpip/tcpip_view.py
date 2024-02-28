@@ -24,6 +24,7 @@ from tkinter import ttk
 
 import gui.tcpip.tcpip_gen as tcpip_gen
 import gui.tcpip.tcpip_local_addr as local_addr
+import gui.tcpip.tcpip_skt_owner as skt_owner
 
 import ajson.tcpip.ajson_tcpip as ajson_tcpip
 import gui.tcpip.tcpip_code_gen as tcpip_cgen
@@ -101,7 +102,7 @@ def show_tcpip_tabs(gui):
     # Create a child window (tabbed view)
     view = tk.Toplevel()
     gui.main_view.child_window = view
-    width, height = set_view_geometry(gui, view, 80, 80)
+    width, height = set_view_geometry(gui, view, 95, 80)
     view.title("AUTOSAR TcpIp Configuration Tool")
     TcpIpConfigViewActive = True
     view.protocol("WM_DELETE_WINDOW", lambda: tcpip_config_close_event(gui, view))
@@ -110,10 +111,12 @@ def show_tcpip_tabs(gui):
     # Create tabs to configure TcpIp
     general_frame  = ttk.Frame(notebook)
     local_addr_frame  = ttk.Frame(notebook)
+    sock_owner_frame  = ttk.Frame(notebook)
 
     # Add tabs to configure TcpIp
     notebook.add(general_frame, text ='TcpIpGeneral')
     notebook.add(local_addr_frame, text ='TcpIpLocalAddr')
+    notebook.add(sock_owner_frame, text ='TcpIpSocketOwner')
     notebook.pack(expand = 1, fill ="both")
 
     # destroy old GUI objects
@@ -136,10 +139,16 @@ def show_tcpip_tabs(gui):
     local_addr_tab.name = "TcpIpLocalAddr"
     TabList.append(local_addr_tab)
 
+    sock_owner_tab = TcpIp_Tab(sock_owner_frame, width, height)
+    sock_owner_tab.tab = skt_owner.TcpIpSocketOwnerView(gui, TcpIpView)
+    sock_owner_tab.name = "TcpIpSocketOwner"
+    TabList.append(sock_owner_tab)
+
 
     # Draw all tabs
     tcpipgen_tab.tab.draw(tcpipgen_tab)
     local_addr_tab.tab.draw(local_addr_tab)
+    sock_owner_tab.tab.draw(sock_owner_tab)
 
 
 

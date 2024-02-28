@@ -77,6 +77,9 @@ class TcpIpLocalAddrView:
         if not view:
             return
 
+        if "TcpIpLocalAddr" not in view:
+            return
+
         for cfg in view["TcpIpLocalAddr"]:
             if not cfg:
                 self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs()))

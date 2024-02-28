@@ -953,6 +953,20 @@
                     "TcpIpDefaultRouter": "192.168.3.1"
                 }
             }
+        ],
+        "TcpIpSocketOwner": [
+            {
+                "TcpIpSocketOwnerId": "0",
+                "TcpIpSocketOwnerUpperLayerType": "SOAD",
+                "TcpIpSocketOwnerCopyTxDataName": "",
+                "TcpIpSocketOwnerHeaderFileName": "",
+                "TcpIpSocketOwnerLocalIpAddrAssignmentChgName": "",
+                "TcpIpSocketOwnerRxIndicationName": "",
+                "TcpIpSocketOwnerTcpAcceptedName": "",
+                "TcpIpSocketOwnerTcpConnectedName": "",
+                "TcpIpSocketOwnerTcpIpEventName": "",
+                "TcpIpSocketOwnerTxConfirmationName": ""
+            }
         ]
     }
 }

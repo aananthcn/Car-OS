@@ -18,8 +18,10 @@
  * THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-#ifndef COMSTACK_TYPES_H
-#define COMSTACK_TYPES_H
+#ifndef CAR_OS_COM_STACK_TYPES_H
+#define CAR_OS_COM_STACK_TYPES_H
+
+#include <stdint.h>
 
 
 typedef enum {
@@ -28,5 +30,27 @@ typedef enum {
         BUFREQ_E_BUSY,
         BUFREQ_E_OVFL
 } BufReq_ReturnType;
+
+
+
+typedef uint16_t PduIdType;
+typedef uint16_t PduLengthType;
+
+
+typedef struct {
+	uint8_t *SduDataPtr; /* Pointer to the SDU (i.e. payload data) of the PDU. */
+	uint8_t *MetaDataPtr; /* Pointer to the meta data (e.g. CAN ID, socket ID, diagnostic addresses) of the PDU */
+	PduLengthType SduLength;
+} PduInfoType;
+
+
+
+typedef enum {
+	TP_STMIN, /* Separation Time */
+	TP_BS, /* Block Size */
+	TP_BC /* The Band width control parameter used in FlexRay transport protocol module */
+} TPParameterType;
+
+
 
 #endif
