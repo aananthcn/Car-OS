@@ -108,8 +108,8 @@ def entryf(frame, view, key, index, row, col, width, state):
     return entry
 
 
-def combof(frame, view, key, index, row, col, width, values):
-    cmbsel = ttk.Combobox(frame, width=width, textvariable=view.configs[index].dispvar[key], state="readonly")
+def combof(frame, view, key, index, row, col, width, values, is_rw):
+    cmbsel = ttk.Combobox(frame, width=width, textvariable=view.configs[index].dispvar[key], state=is_rw)
     cmbsel['values'] = values
     view.configs[index].dispvar[key].set(view.configs[index].datavar[key])
     cmbsel.current()
@@ -153,8 +153,8 @@ def label(view, label, row, col, align):
 def entry(view, key, index, row, col, width, state):
     return entryf(view.scrollw.mnf, view, key, index, row, col, width, state)
 
-def combo(view, key, index, row, col, width, values):
-    return combof(view.scrollw.mnf, view, key, index, row, col, width, values)
+def combo(view, key, index, row, col, width, values, is_rw="readonly"):
+    return combof(view.scrollw.mnf, view, key, index, row, col, width, values, is_rw)
 
 def spinb(view, key, index, row, col, width, values):
     return spinbf(view.scrollw.mnf, view, key, index, row, col, width, values)

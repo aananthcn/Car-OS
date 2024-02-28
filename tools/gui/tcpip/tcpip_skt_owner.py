@@ -28,6 +28,8 @@ import gui.lib.asr_widget as dappa # dappa in Tamil means box
 import gui.tcpip.tcpip_addr_assign as addr_assign
 import gui.tcpip.tcpip_static_ip as static_ip
 
+import ajson.soad.ajson_soad as ajson_soad
+
 
 
 class TcpIpChildView:
@@ -74,6 +76,7 @@ class TcpIpSocketOwnerView:
     active_dialog = None
     active_widget = None
 
+    sock_con_list = []
 
     def __init__(self, gui, view):
         self.gui = gui
@@ -125,8 +128,10 @@ class TcpIpSocketOwnerView:
     def draw_dappa_row(self, i):
         dappa.label(self, "Config #", self.header_row+i, 0, "e")
         upl_type_cmbsel = ("SOAD", "CDD")
+        skt_conn_cmbsel = tuple(self.sock_con_list)
 
-        dappa.entry(self, "TcpIpSocketOwnerId", i, self.header_row+i, 1, 20, "readonly")
+        # dappa.entry(self, "TcpIpSocketOwnerId", i, self.header_row+i, 1, 20, "readonly")
+        dappa.combo(self, "TcpIpSocketOwnerId", i, self.header_row+i, 1, 20, skt_conn_cmbsel, is_rw="normal")
         dappa.combo(self, "TcpIpSocketOwnerUpperLayerType", i, self.header_row+i, 2, 30, upl_type_cmbsel)
         dappa.entry(self, "TcpIpSocketOwnerCopyTxDataName", i, self.header_row+i, 3, 33, "normal")
         dappa.entry(self, "TcpIpSocketOwnerHeaderFileName", i, self.header_row+i, 4, 34, "normal")
@@ -184,6 +189,15 @@ class TcpIpSocketOwnerView:
 
         # Table heading @2nd row, 1st column
         dappa.place_heading(self, 2, 1)
+
+        # regenerate socket connection list from SoAd view
+        soad_cfg = ajson_soad.read_soad_configs()
+        if soad_cfg:
+            soad_skt_grp = soad_cfg["SoAdConfig"][0]["SoAdSocketConnectionGroup"]
+            for skt_grp in soad_skt_grp:
+                skt_conn = skt_grp["SoAdSocketConnection"]
+                for conn in skt_conn:
+                    self.sock_con_list.append(conn["SoAdSocketId"])
 
         self.update()
 
