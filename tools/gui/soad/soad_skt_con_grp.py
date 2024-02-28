@@ -73,8 +73,9 @@ class SoAdChildView:
 
 
 class SoAdSocketConnectionGrpView:
-    n_soad_sktcn = 0
-    n_soad_sktcn_str = None
+    n_soad_sktcn_grp = 0
+    n_soad_sktcn_grp_str = None
+    n_sock_conns = 0 # this member will keep track of total sockets configured in SoAd
 
     gui = None
     tab_struct = None # passed from *_view.py file
@@ -102,20 +103,22 @@ class SoAdSocketConnectionGrpView:
     def __init__(self, gui, soad_cfgs):
         self.gui = gui
         self.configs = []
-        self.n_soad_sktcn = len(soad_cfgs)
-        self.max_soad_sktcn = 65536
-        self.n_soad_sktcn_str = tk.StringVar()
+        self.n_soad_sktcn_grp = len(soad_cfgs)
+        self.max_soad_sktcn_grp = 65536
+        self.n_soad_sktcn_grp_str = tk.StringVar()
 
         # Create config string for AUTOSAR configs on this tab
         if soad_cfgs:
             for i, cfg in enumerate(soad_cfgs):
                 self.configs.append(dappa.AsrCfgStr(self.cfgkeys, cfg))
-            self.n_soad_sktcn = len(self.configs)
+                if "SoAdSocketConnection" in cfg:
+                    self.n_sock_conns += len(cfg["SoAdSocketConnection"])
+            self.n_soad_sktcn_grp = len(self.configs)
 
 
     def __del__(self):
         del self.configs[:]
-        del self.n_soad_sktcn_str
+        del self.n_soad_sktcn_grp_str
 
 
 
@@ -202,7 +205,7 @@ class SoAdSocketConnectionGrpView:
 
     def update(self):
         # get dappas to be added or removed
-        self.n_soad_sktcn = int(self.n_soad_sktcn_str.get())
+        self.n_soad_sktcn_grp = int(self.n_soad_sktcn_grp_str.get())
 
         # Tune memory allocations based on number of rows or boxes
         n_dappa_rows = len(self.configs)
@@ -210,12 +213,12 @@ class SoAdSocketConnectionGrpView:
             for i in range(n_dappa_rows):
                 self.draw_dappa_row(i)
             self.init_view_done = True
-        elif self.n_soad_sktcn > n_dappa_rows:
-            for i in range(self.n_soad_sktcn - n_dappa_rows):
+        elif self.n_soad_sktcn_grp > n_dappa_rows:
+            for i in range(self.n_soad_sktcn_grp - n_dappa_rows):
                 self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs(n_dappa_rows+i)))
                 self.draw_dappa_row(n_dappa_rows+i)
-        elif n_dappa_rows > self.n_soad_sktcn:
-            for i in range(n_dappa_rows - self.n_soad_sktcn):
+        elif n_dappa_rows > self.n_soad_sktcn_grp:
+            for i in range(n_dappa_rows - self.n_soad_sktcn_grp):
                 # dappa.delete_dappa_row(self, (n_dappa_rows-1)+i)
                 self.delete_tab((n_dappa_rows-1)+i)
                 del self.configs[-1]
@@ -234,11 +237,11 @@ class SoAdSocketConnectionGrpView:
         top_frame.grid(row=0, column=0, sticky="w")
         
         #Number of modes - Label + Spinbox
-        label = tk.Label(top_frame, text="Sock Conns:")
+        label = tk.Label(top_frame, text="SockCon Grps:")
         label.grid(row=0, column=0, sticky="w")
-        spinb = tk.Spinbox(top_frame, width=6, textvariable=self.n_soad_sktcn_str, command=lambda : self.update(),
-                    values=tuple(range(0,self.max_soad_sktcn+1)))
-        self.n_soad_sktcn_str.set(self.n_soad_sktcn)
+        spinb = tk.Spinbox(top_frame, width=6, textvariable=self.n_soad_sktcn_grp_str, command=lambda : self.update(),
+                    values=tuple(range(0,self.max_soad_sktcn_grp+1)))
+        self.n_soad_sktcn_grp_str.set(self.n_soad_sktcn_grp)
         spinb.grid(row=0, column=1, sticky="w")
 
         # draw tabbed view
@@ -363,7 +366,7 @@ class SoAdSocketConnectionGrpView:
         soad_chview = SoAdChildView(self.active_dialog, width, height, None)
         self.active_dialog.title("SoAdSocketConnection")
         soad_chview.view = skt_conn.SoAdSocketConnView(self.gui, row,
-                                        self.configs[row].datavar["SoAdSocketConnection"])
+                            self.configs[row].datavar["SoAdSocketConnection"], self)
         soad_chview.name = "SoAdSocketConnection"
         self.active_view = soad_chview
         soad_chview.view.draw(soad_chview)

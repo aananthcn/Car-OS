@@ -76,12 +76,15 @@ class SoAdSocketConnView:
     active_dialog = None
     active_widget = None
 
+    skt_grp_class = None
 
-    def __init__(self, gui, index, sktc_cfgs):
+
+    def __init__(self, gui, index, sktc_cfgs, skt_grp):
         self.gui = gui
         self.configs = []
         self.n_skt = 0
         self.n_skt_str = tk.StringVar()
+        self.skt_grp_class = skt_grp
 
         # Create config string for AUTOSAR configs on this tab
         if sktc_cfgs:
@@ -107,7 +110,7 @@ class SoAdSocketConnView:
 
     def draw_dappa_row(self, i):
         dappa.label(self, "Sock #", self.header_row+i, 0, "e")
-        dappa.entry(self, "SoAdSocketId", i, self.header_row+i, 1, 15, "readonly")
+        dappa.entry(self, "SoAdSocketId", i, self.header_row+i, 1, 15, "normal")
         dappa.entry(self, "SoAdSocketRemoteIpAddress", i, self.header_row+i, 2, 32, "normal")
         dappa.spinb(self, "SoAdSocketRemotePort", i, self.header_row+i, 3, 20, tuple(range(0,65536)))
 
@@ -125,11 +128,14 @@ class SoAdSocketConnView:
             self.init_view_done = True
         elif self.n_skt > n_dappa_rows:
             for i in range(self.n_skt - n_dappa_rows):
-                self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs(n_dappa_rows+i)))
+                self.configs.insert(len(self.configs), dappa.AsrCfgStr(self.cfgkeys,
+                    self.create_empty_configs(self.skt_grp_class.n_sock_conns)))
+                self.skt_grp_class.n_sock_conns += 1
                 self.draw_dappa_row(n_dappa_rows+i)
         elif n_dappa_rows > self.n_skt:
             for i in range(n_dappa_rows - self.n_skt):
                 dappa.delete_dappa_row(self, (n_dappa_rows-1)+i)
+                self.skt_grp_class.n_sock_conns -= 1
                 del self.configs[-1]
 
         # Set the self.cv scrolling region

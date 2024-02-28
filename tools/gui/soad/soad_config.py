@@ -127,8 +127,7 @@ class SoAdConfigView:
     tab_struct = None # passed from *_view.py file
     scrollw = None
     configs = None # all UI configs (tkinter strings) are stored here.
-    cfgkeys = ["SoAdPduRoute", "SoAdRoutingGroup",
-               "SoAdSocketConnectionGroup", "SoAdSocketRoute"]
+    cfgkeys = ["SoAdSocketConnectionGroup", "SoAdSocketRoute", "SoAdPduRoute", "SoAdRoutingGroup"]
     
     n_header_objs = 0 #Objects / widgets that are part of the header and shouldn't be destroyed
     header_row = 3
@@ -177,17 +176,17 @@ class SoAdConfigView:
 
     def draw_dappas(self):
         # column = 2; label at 1
-        key = "SoAdPduRoute [" + str(len(self.configs[0].datavar["SoAdPduRoute"])) + "]"
-        dappa.buttong(self, "SoAdPduRoute", 0, 0, 2, 40, key, self.soad_pduroute_select)
-
-        key = "SoAdRoutingGroup [" + str(len(self.configs[0].datavar["SoAdRoutingGroup"])) + "]"
-        dappa.buttong(self, "SoAdRoutingGroup", 0, 1, 2, 40, key, self.soad_routing_grp_select)
-
         key = "SoAdSocketConnectionGroup [" + str(len(self.configs[0].datavar["SoAdSocketConnectionGroup"])) + "]"
-        dappa.buttong(self, "SoAdSocketConnectionGroup", 0, 2, 2, 40, key, self.soad_skt_con_grp_select)
+        dappa.buttong(self, "SoAdSocketConnectionGroup", 0, 0, 2, 40, key, self.soad_skt_con_grp_select)
 
         key = "SoAdSocketRoute [" + str(len(self.configs[0].datavar["SoAdSocketRoute"])) + "]"
-        dappa.buttong(self, "SoAdSocketRoute", 0, 3, 2, 40, key, self.soad_skt_route_select)
+        dappa.buttong(self, "SoAdSocketRoute", 0, 1, 2, 40, key, self.soad_skt_route_select)
+
+        key = "SoAdPduRoute [" + str(len(self.configs[0].datavar["SoAdPduRoute"])) + "]"
+        dappa.buttong(self, "SoAdPduRoute", 0, 2, 2, 40, key, self.soad_pduroute_select)
+
+        key = "SoAdRoutingGroup [" + str(len(self.configs[0].datavar["SoAdRoutingGroup"])) + "]"
+        dappa.buttong(self, "SoAdRoutingGroup", 0, 3, 2, 40, key, self.soad_routing_grp_select)
 
         # empty space
         label = tk.Label(self.scrollw.mnf, text="")
