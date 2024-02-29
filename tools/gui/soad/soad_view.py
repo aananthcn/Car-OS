@@ -27,7 +27,7 @@ import gui.soad.soad_bsw_mod as soad_bswm
 
 
 import ajson.soad.ajson_soad as ajson_soad
-# import gui.soad.soad_code_gen as soad_cgen
+import gui.soad.soad_code_gen as soad_cgen
 
 
 TabList = []
@@ -77,7 +77,6 @@ def soad_save_callback(gui):
     # copy to SoadView in order to write into A-JSON file 
     gui.save()
 
-    return # TODO: remove this after implmenting soad_cgen
     # generate code
     soad_cgen.generate_code(gui, SoAdView)
 

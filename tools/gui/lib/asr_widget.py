@@ -198,9 +198,9 @@ def entrygf(frame, view, key, index, row, col, width, state):
     labelf(frame, view, key, row, col, "e")
     return entryf(frame, view, key, index, row, col+1, width, state)
 
-def combogf(frame, view, key, index, row, col, width, values):
+def combogf(frame, view, key, index, row, col, width, values, is_rw="readonly"):
     labelf(frame, view, key, row, col, "e")
-    return combof(frame, view, key, index, row, col+1, width, values)
+    return combof(frame, view, key, index, row, col+1, width, values, is_rw)
 
 def spinbgf(frame, view, key, index, row, col, width, values):
     labelf(frame, view, key, row, col, "e")

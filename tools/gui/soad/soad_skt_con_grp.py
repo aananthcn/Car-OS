@@ -55,6 +55,8 @@ import gui.soad.soad_skt_protcl_tcp as skt_tcp
 import gui.soad.soad_skt_protcl_udp as skt_udp
 import gui.soad.soad_skt_connection as skt_conn
 
+import ajson.tcpip.ajson_tcpip as ajson_tcpip
+
 
 class SoAdChildView:
     view = None
@@ -99,6 +101,8 @@ class SoAdSocketConnectionGrpView:
     active_view = None
     save_cb = None
 
+    local_ip_list = [] # AUTOSAR is a mess, you need TcpIp info in SoAd (search for "mess")
+
 
     def __init__(self, gui, soad_cfgs):
         self.gui = gui
@@ -125,23 +129,23 @@ class SoAdSocketConnectionGrpView:
     def create_empty_configs(self, index):
         gen_dict = {}
 
-        gen_dict["SoAdPduHeaderEnable"]     = "FALSE"
-        gen_dict["SoAdSocketPathMTUEnable"] = "FALSE"
-        gen_dict["SoAdSocketAutomaticSoConSetup"]   = "FALSE"
-        gen_dict["SoAdSocketIpAddrAssignmentChgNotification"]   = "FALSE"
-        gen_dict["SoAdSocketLocalAddressRef"]   = "..."
-        gen_dict["SoAdSocketLocalPort"]   = "0"                     # 0 - 65535 (16 bit)
-        gen_dict["SoAdSocketSoConModeChgBswMNotification"]   = "FALSE"
-        gen_dict["SoAdSocketSoConModeChgNotification"]   = "FALSE"
-        gen_dict["SoAdSocketProtocolChoice"]   = "TCP"
-        gen_dict["SoAdSocketProtocol"]         = {}
+        gen_dict["SoAdPduHeaderEnable"]        = "FALSE"
+        gen_dict["SoAdSocketPathMTUEnable"]    = "FALSE"
+        gen_dict["SoAdSocketAutomaticSoConSetup"]      = "FALSE"
+        gen_dict["SoAdSocketIpAddrAssignmentChgNotification"] = "FALSE"
+        gen_dict["SoAdSocketLocalAddressRef"]  = "..."
+        gen_dict["SoAdSocketLocalPort"]        = "0"                     # 0 - 65535 (16 bit)
+        gen_dict["SoAdSocketSoConModeChgBswMNotification"]    = "FALSE"
+        gen_dict["SoAdSocketSoConModeChgNotification"] = "FALSE"
+        gen_dict["SoAdSocketProtocolChoice"]  = "TCP"
+        gen_dict["SoAdSocketProtocol"]        = {}
         gen_dict["SoAdSocketTpRxBufferMin"]   = "0"                 # 0 - 65535
         gen_dict["SoAdSocketFramePriority"]   = "0"                 # 0 - 7 (3 bit)
-        gen_dict["SoAdSocketMsgAcceptanceFilterEnabled"]   = "FALSE"
-        gen_dict["SoAdSocketSoConModeChgNotifUpperLayerRef"]   = "..."
-        gen_dict["SoAdSocketFlowLabel"]   = "0"                     # 0 - 1048575 (20 bit)
-        gen_dict["SoAdSocketDifferentiatedServicesField"]   = "0"   # 0 - 63
-        gen_dict["SoAdSocketConnection"]   = []
+        gen_dict["SoAdSocketMsgAcceptanceFilterEnabled"]      = "FALSE"
+        gen_dict["SoAdSocketSoConModeChgNotifUpperLayerRef"]  = "..."
+        gen_dict["SoAdSocketFlowLabel"]       = "0"                     # 0 - 1048575 (20 bit)
+        gen_dict["SoAdSocketDifferentiatedServicesField"]     = "0"   # 0 - 63
+        gen_dict["SoAdSocketConnection"]      = []
 
         return gen_dict
 
@@ -155,13 +159,14 @@ class SoAdSocketConnectionGrpView:
         skt_protcl_cmbsel = ("TCP", "UDP")
         bool_cmbsel = ("FALSE", "TRUE")
         ref_cmbsel = ("Ref1", "Ref2", "...")
+        loc_ip_sel = tuple(self.local_ip_list)
 
         # column 1
         dappa.combogf(tab_frame, self, "SoAdPduHeaderEnable", i,                    0, 1, 32, bool_cmbsel)
         dappa.combogf(tab_frame, self, "SoAdSocketPathMTUEnable", i,                1, 1, 32, bool_cmbsel)
         dappa.combogf(tab_frame, self, "SoAdSocketAutomaticSoConSetup", i,          2, 1, 32, bool_cmbsel)
         dappa.combogf(tab_frame, self, "SoAdSocketIpAddrAssignmentChgNotification", i, 3, 1, 32, bool_cmbsel)
-        dappa.combogf(tab_frame, self, "SoAdSocketLocalAddressRef", i,              4, 1, 32, ref_cmbsel)
+        dappa.combogf(tab_frame, self, "SoAdSocketLocalAddressRef", i,              4, 1, 32, loc_ip_sel)
         dappa.entrygf(tab_frame, self, "SoAdSocketLocalPort", i,                    5, 1, 35, "normal")
         dappa.combogf(tab_frame, self, "SoAdSocketSoConModeChgBswMNotification", i, 6, 1, 32, bool_cmbsel)
         dappa.combogf(tab_frame, self, "SoAdSocketSoConModeChgNotification", i,     7, 1, 32, bool_cmbsel)
@@ -177,7 +182,8 @@ class SoAdSocketConnectionGrpView:
         skpc.bind("<<ComboboxSelected>>", lambda evt, id = i : self.skt_protocol_changed(evt, id))
         text = self.configs[i].datavar["SoAdSocketProtocolChoice"]
         dappa.buttongf(tab_frame, self, "SoAdSocketProtocol", i,      7, 3, 29, text, self.soad_skt_protocol_select)
-        dappa.buttongf(tab_frame, self, "SoAdSocketConnection", i,    8, 3, 29, "SELECT", self.soad_skt_conn_select)
+        text = "Click to Edit ["+str(len(self.configs[i].datavar["SoAdSocketConnection"]))+"]"
+        dappa.buttongf(tab_frame, self, "SoAdSocketConnection", i,    8, 3, 29, text, self.soad_skt_conn_select)
 
 
 
@@ -250,9 +256,18 @@ class SoAdSocketConnectionGrpView:
         self.notebook = ttk.Notebook(noteb_frame)
         self.tab_frames = []
     
+        # regenerate socket connection list from SoAd view
+        tcpip_cfg = ajson_tcpip.read_tcpip_configs()
+        if tcpip_cfg:
+            tcpip_addr = tcpip_cfg["TcpIpLocalAddr"]
+            for local_addr in tcpip_addr:
+                ip_addr_id = local_addr["TcpIpAddrId"]
+                ip_addr = local_addr["TcpIpStaticIpAddressConfig"]["TcpIpStaticIpAddress"]
+                refs_str = "TcpIpAddrId_"+str(ip_addr_id)+"-"+ip_addr
+                self.local_ip_list.append(refs_str)
+
         # Update buttons frames idle tasks to let tkinter calculate buttons sizes
         self.scrollw.update()
-
 
         self.update()
 

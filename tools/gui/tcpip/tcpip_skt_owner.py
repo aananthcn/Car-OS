@@ -76,7 +76,7 @@ class TcpIpSocketOwnerView:
     active_dialog = None
     active_widget = None
 
-    sock_con_list = []
+    sock_con_list = [] # AUTOSAR is a mess, you need SoAd info in TcpIp (search for "mess")
 
     def __init__(self, gui, view):
         self.gui = gui

@@ -120,11 +120,11 @@ class TcpIpLocalAddrView:
         dappa.combo(self, "TcpIpAddressType", i, self.header_row+i, 3, 23, addr_type_cmbsel)
 
         cb = lambda id = i : self.tcpip_addr_assign_select(id)
-        text = "SELECT   ["+self.configs[i].datavar["TcpIpAddrAssignment"]["TcpIpAssignmentMethod"]+"]"
+        text = "Click to edit ["+self.configs[i].datavar["TcpIpAddrAssignment"]["TcpIpAssignmentMethod"]+"]"
         dappa.button(self, "TcpIpAddrAssignment", i, self.header_row+i, 4, 24, text, cb)
 
         cb = lambda id = i : self.tcpip_static_ip_select(id)
-        text = "SELECT   ["+self.configs[i].datavar["TcpIpStaticIpAddressConfig"]["TcpIpStaticIpAddress"]+"]"
+        text = "Click to edit  ["+self.configs[i].datavar["TcpIpStaticIpAddressConfig"]["TcpIpStaticIpAddress"]+"]"
         dappa.button(self, "TcpIpStaticIpAddressConfig", i, self.header_row+i, 5, 30, text, cb)
 
 
