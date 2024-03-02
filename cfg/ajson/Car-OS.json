@@ -887,7 +887,7 @@
                         "SoAdPduRouteDest": [
                             {
                                 "SoAdTxPduHeaderId": "0",
-                                "SoAdTxSocketConnOrSocketConnBundleRef": "...",
+                                "SoAdTxSocketConnOrSocketConnBundleRef": "SoConId_0-SoConGrp_0",
                                 "SoAdTxRoutingGroupRef": "...",
                                 "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
                                 "SoAdTxUdpTriggerTimeout": "10"

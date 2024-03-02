@@ -51,6 +51,43 @@ class SoAdTab:
 
 
 
+
+def get_consolidated_socket_connections():
+    global SoAdView
+
+    sock_conns = []
+
+    soad_skt_grp = SoAdView["SoAdConfig"][0]["SoAdSocketConnectionGroup"]
+    for g, skt_grp in enumerate(soad_skt_grp):
+        skt_conn = skt_grp["SoAdSocketConnection"]
+        for conn in skt_conn:
+            skt_con = {}
+            skt_con["SoAdSocketConnectionGroupId"] = str(g)
+            skt_con["TcpIpAddrId"] = skt_grp["SoAdSocketLocalAddressRef"].split("_")[-1].split("-")[0]
+            skt_con["SoAdSocketId"] = conn["SoAdSocketId"]
+            ip_addr = conn["SoAdSocketRemoteIpAddress"]
+            skt_con["SoAdSocketRemoteIpAddress"] = ip_addr
+            skt_con["SoAdSocketRemotePort"] = conn["SoAdSocketRemotePort"]
+
+            # ipv6 or ipv4?
+            if "." in ip_addr and len(ip_addr.split(".")) == 4:
+                skt_con["TcpIpDomainType"] = "TCPIP_AF_INET"
+            else:
+                skt_con["TcpIpDomainType"] = "TCPIP_AF_INET6"
+
+            # TCP or UDP?
+            if "TCP" == skt_grp["SoAdSocketProtocolChoice"]:
+                skt_con["SoAdSocketProtocolChoice"] = "TCPIP_IPPROTO_TCP"
+            else:
+                skt_con["SoAdSocketProtocolChoice"] = "TCPIP_IPPROTO_UDP"
+
+            sock_conns.append(skt_con)
+
+    return sock_conns
+
+
+
+
 def soad_config_close_event(gui, view):
     global SoAdConfigViewActive
 

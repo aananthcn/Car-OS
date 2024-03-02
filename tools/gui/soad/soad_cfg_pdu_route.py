@@ -130,8 +130,8 @@ class SoAdPduRouteView:
         dappa.combo(self, "SoAdTxUpperLayerType", i, self.header_row+i,         3, 19, tx_uplt_cmbsel)
         dappa.combo(self, "SoAdTxPduCollectionSemantics", i, self.header_row+i, 4, 30, pdu_col_semant)
         
-        key = "SoAdPduRouteDest [" + str(len(self.configs[i].datavar["SoAdPduRouteDest"])) + "]"
-        dappa.button(self, "SoAdPduRouteDest", i, self.header_row+i, 5, 20, key, self.soad_pdur_dest_select)
+        key = self.configs[i].datavar["SoAdPduRouteDest"][0]["SoAdTxSocketConnOrSocketConnBundleRef"]
+        dappa.button(self, "SoAdPduRouteDest", i, self.header_row+i, 5, 25, key, self.soad_pdur_dest_select)
 
 
     def update(self):
@@ -210,7 +210,7 @@ class SoAdPduRouteView:
         x = self.active_dialog.winfo_screenwidth()
         y = self.active_dialog.winfo_screenheight()
         width = 1050
-        height = 540
+        height = 150
         self.active_dialog.geometry("%dx%d+%d+%d" % (width, height, x/8, y/7))
         self.active_dialog.title("SoAdPduRouteDest")
 

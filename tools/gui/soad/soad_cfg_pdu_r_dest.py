@@ -24,6 +24,8 @@ from tkinter import ttk
 import gui.lib.window as window
 import gui.lib.asr_widget as dappa # dappa in Tamil means box
 
+import gui.soad.soad_view as soad_view
+
 
 
 # SoAdConfig container structure
@@ -79,12 +81,14 @@ class SoAdPduRouteDestView:
     active_view = None
     save_cb = None
 
+    socket_conns = []
+
 
     def __init__(self, gui, soad_cfgs):
         self.gui = gui
         self.configs = []
         self.n_soad_pdu_r_dest = 0
-        self.max_soad_pdu_r_dest = 65536
+        self.max_soad_pdu_r_dest = 1
         self.n_soad_pdu_r_dest_str = tk.StringVar()
 
         # Create config string for AUTOSAR configs on this tab
@@ -95,6 +99,12 @@ class SoAdPduRouteDestView:
             for i, cfg in enumerate(soad_cfgs):
                 self.configs.append(dappa.AsrCfgStr(self.cfgkeys, cfg))
             self.n_soad_pdu_r_dest = len(self.configs)
+
+        # create ref (SoConGrp_0-SoConId_0) list from socket connections
+        sock_conns = soad_view.get_consolidated_socket_connections()
+        for sock in sock_conns:
+            ref_str = "SoConId_"+str(sock["SoAdSocketId"])+"-"+"SoConGrp_"+str(sock["SoAdSocketConnectionGroupId"])
+            self.socket_conns.append(ref_str)
 
 
     def __del__(self):
@@ -119,11 +129,12 @@ class SoAdPduRouteDestView:
     def draw_dappa_row(self, i):
         bool_cmbsel = ("FALSE", "TRUE")
         ref_cmbsel = ("Ref1", "Ref2", "...")
+        socon_cmbsel = tuple(self.socket_conns)
         udp_trig_mode = ("TRIGGER_ALWAYS", "TRIGGER_NEVER")
 
         dappa.label(self, "PDU_R_Dest #", self.header_row+i,                 0, "e")
-        dappa.entry(self, "SoAdTxPduHeaderId", i, self.header_row+i,     1, 20, "readonly")
-        dappa.combo(self, "SoAdTxSocketConnOrSocketConnBundleRef", i, self.header_row+i, 2, 36, ref_cmbsel)
+        dappa.entry(self, "SoAdTxPduHeaderId", i, self.header_row+i,     1, 20, "normal")
+        dappa.combo(self, "SoAdTxSocketConnOrSocketConnBundleRef", i, self.header_row+i, 2, 36, socon_cmbsel)
         dappa.combo(self, "SoAdTxRoutingGroupRef", i, self.header_row+i, 3, 22, ref_cmbsel)
         dappa.combo(self, "SoAdTxUdpTriggerMode", i, self.header_row+i,  4, 22, udp_trig_mode)
         dappa.entry(self, "SoAdTxUdpTriggerTimeout", i, self.header_row+i,     5, 25, "normal")
@@ -172,44 +183,3 @@ class SoAdPduRouteDestView:
         dappa.place_heading(self, 2, 1)
 
         self.update()
-
-
-
-    def on_soad_pdur_dest_close(self):
-        # backup data
-        if self.active_view.view.configs:
-            self.configs[0].datavar["SoAdPduRoute"] = []  # ignore old data
-            for cfg in self.active_view.view.configs:
-                self.configs[0].datavar["SoAdPduRoute"].append(cfg.get())
-
-        # destroy view
-        del self.active_view
-        self.active_dialog.destroy()
-        del self.active_dialog
-
-
-    def soad_pdur_dest_select(self, row):
-        if self.active_dialog != None:
-            return
-
-        # function to create dialog window
-        self.active_dialog = tk.Toplevel() # create an instance of toplevel
-        self.active_dialog.protocol("WM_DELETE_WINDOW", lambda : self.on_soad_pdur_dest_close())
-        self.active_dialog.attributes('-topmost',True)
-
-        # set the geometry
-        x = self.active_dialog.winfo_screenwidth()
-        y = self.active_dialog.winfo_screenheight()
-        width = 850
-        height = 540
-        self.active_dialog.geometry("%dx%d+%d+%d" % (width, height, x/4, y/5))
-        self.active_dialog.title("SoAdPduRoute")
-
-        # create views and draw
-        gen_view = SoAdChildView(self.active_dialog, width, height, None)
-        gen_view.view = soad_fo.SoAdPduRouteView(self.gui,
-                                            self.configs[0].datavar["SoAdPduRoute"])
-        gen_view.name = "SoAdPduRoute"
-        self.active_view = gen_view
-        gen_view.view.draw(gen_view)
-
