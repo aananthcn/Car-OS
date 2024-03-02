@@ -129,8 +129,11 @@ class SoAdPduRouteView:
         dappa.combo(self, "SoAdTxPduRef", i, self.header_row+i, 2, 12, ref_cmbsel)
         dappa.combo(self, "SoAdTxUpperLayerType", i, self.header_row+i,         3, 19, tx_uplt_cmbsel)
         dappa.combo(self, "SoAdTxPduCollectionSemantics", i, self.header_row+i, 4, 30, pdu_col_semant)
-        
-        key = self.configs[i].datavar["SoAdPduRouteDest"][0]["SoAdTxSocketConnOrSocketConnBundleRef"]
+
+        if len(self.configs[i].datavar["SoAdPduRouteDest"]) > 0:
+            key = self.configs[i].datavar["SoAdPduRouteDest"][0]["SoAdTxSocketConnOrSocketConnBundleRef"]
+        else:
+            key = "Click to edit"
         dappa.button(self, "SoAdPduRouteDest", i, self.header_row+i, 5, 25, key, self.soad_pdur_dest_select)
 
 

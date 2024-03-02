@@ -887,10 +887,40 @@
                         "SoAdPduRouteDest": [
                             {
                                 "SoAdTxPduHeaderId": "0",
-                                "SoAdTxSocketConnOrSocketConnBundleRef": "SoConId_0-SoConGrp_0",
+                                "SoAdTxSocketConnOrSocketConnBundleRef": "SoConId_0-SoConGrp_0-TCP",
                                 "SoAdTxRoutingGroupRef": "...",
                                 "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
                                 "SoAdTxUdpTriggerTimeout": "10"
+                            }
+                        ]
+                    },
+                    {
+                        "SoAdTxPduId": "1",
+                        "SoAdTxPduRef": "...",
+                        "SoAdTxUpperLayerType": "IF",
+                        "SoAdTxPduCollectionSemantics": "SOAD_COLLECT_LAST_IS_BEST",
+                        "SoAdPduRouteDest": [
+                            {
+                                "SoAdTxPduHeaderId": "0",
+                                "SoAdTxSocketConnOrSocketConnBundleRef": "SoConId_1-SoConGrp_0-TCP",
+                                "SoAdTxRoutingGroupRef": "...",
+                                "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
+                                "SoAdTxUdpTriggerTimeout": "0"
+                            }
+                        ]
+                    },
+                    {
+                        "SoAdTxPduId": "2",
+                        "SoAdTxPduRef": "...",
+                        "SoAdTxUpperLayerType": "IF",
+                        "SoAdTxPduCollectionSemantics": "SOAD_COLLECT_LAST_IS_BEST",
+                        "SoAdPduRouteDest": [
+                            {
+                                "SoAdTxPduHeaderId": "0",
+                                "SoAdTxSocketConnOrSocketConnBundleRef": "SoConId_3-SoConGrp_1-UDP",
+                                "SoAdTxRoutingGroupRef": "...",
+                                "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
+                                "SoAdTxUdpTriggerTimeout": "0"
                             }
                         ]
                     }

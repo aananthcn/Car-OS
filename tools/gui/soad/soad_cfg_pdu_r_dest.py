@@ -101,9 +101,13 @@ class SoAdPduRouteDestView:
             self.n_soad_pdu_r_dest = len(self.configs)
 
         # create ref (SoConGrp_0-SoConId_0) list from socket connections
+        self.socket_conns.clear()
         sock_conns = soad_view.get_consolidated_socket_connections()
         for sock in sock_conns:
-            ref_str = "SoConId_"+str(sock["SoAdSocketId"])+"-"+"SoConGrp_"+str(sock["SoAdSocketConnectionGroupId"])
+            protocol = sock["SoAdSocketProtocolChoice"].split("_")[-1] # TCP or UDP
+            sockt_id = "SoConId_"+str(sock["SoAdSocketId"])
+            sk_grpid = "SoConGrp_"+str(sock["SoAdSocketConnectionGroupId"])
+            ref_str = sockt_id+"-"+sk_grpid+"-"+protocol
             self.socket_conns.append(ref_str)
 
 

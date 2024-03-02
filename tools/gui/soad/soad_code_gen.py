@@ -45,6 +45,24 @@ SoAd_ConfigType_str = "\ntypedef struct {\n\
 \n"
 
 
+SoAdTxUpperLayerType_str = "\ntypedef enum {\n\
+    SOAD_UPPER_LAYER_TYPE_IF,\n\
+    SOAD_UPPER_LAYER_TYPE_TP,\n\
+    SOAD_UPPER_LAYER_TYPE_MAX\n\
+} SoAdTxUpperLayerType;\n\
+\n"
+
+
+SoAdPduRouteType_str = "\ntypedef struct {\n\
+    uint16 tx_pdu_id;\n\
+    SoAdTxUpperLayerType ul_type;\n\
+    uint16 pdu_hdr_id;\n\
+    uint16 socon_id;\n\
+    uint16 socon_grp_id;\n\
+} SoAdPduRouteType;\n\
+\n"
+
+
 
 def ip_to_string(cfg, ip_str):
     ip_range = 0
@@ -101,6 +119,25 @@ def generate_sourcefile(soad_src_path, soad_configs, sock_conns):
         cf.write("\t},\n")
     cf.write("};\n\n")
 
+    # create SoAdPduRoute list
+    pdu_routes = soad_configs["SoAdConfig"][0]["SoAdPduRoute"]
+    cf.write("\nconst SoAdPduRouteType SoAdPduRouteConfigs[SOAD_TOTAL_PDU_ROUTES] = {\n")
+    for i, route in enumerate(pdu_routes):
+        cf.write("\t{\n")
+        cf.write("\t\t/* SoAd PDU Route - "+str(i)+" */\n")
+
+        cf.write("\t\t.tx_pdu_id    = "+route["SoAdTxPduId"]+",\n")
+        if "IF" in route["SoAdTxUpperLayerType"]:
+            cf.write("\t\t.ul_type      = SOAD_UPPER_LAYER_TYPE_IF,\n")
+        else:
+            cf.write("\t\t.ul_type      = SOAD_UPPER_LAYER_TYPE_TP,\n")
+
+        cf.write("\t\t.pdu_hdr_id   = "+route["SoAdPduRouteDest"][0]["SoAdTxPduHeaderId"]+",\n")
+        socon_grp = route["SoAdPduRouteDest"][0]["SoAdTxSocketConnOrSocketConnBundleRef"].split("-")
+        cf.write("\t\t.socon_id     = "+socon_grp[0].split("_")[-1]+",\n")
+        cf.write("\t\t.socon_grp_id = "+socon_grp[1].split("_")[-1]+",\n")
+        cf.write("\t},\n")
+    cf.write("};\n\n")
 
     cf.write("\nconst SoAd_ConfigType SoAd_Config = {\n")
     cf.write("\t.socon = &SoAdSocketConnectionConfigs\n")
@@ -119,7 +156,12 @@ def generate_headerfile(soad_src_path, soad_configs):
     hf.write("#include <TcpIp.h>\n\n")
 
 
+    hf.write(SoAdTxUpperLayerType_str)
+    hf.write(SoAdPduRouteType_str)
     hf.write(SoAdSocketConnectionType_str)
+
+    pdu_routes = soad_configs["SoAdConfig"][0]["SoAdPduRoute"]
+    hf.write("\n#define SOAD_TOTAL_PDU_ROUTES ("+str(len(pdu_routes))+")")
     sock_conns = soad_view.get_consolidated_socket_connections()
     hf.write("\n#define SOAD_TOTAL_SOCKET_CONNS ("+str(len(sock_conns))+")")
 
