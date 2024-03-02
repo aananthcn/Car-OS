@@ -724,7 +724,7 @@
                 "SoAdVersionInfoApi": "TRUE",
                 "SoAdIPv6AddressEnabled": "TRUE",
                 "SoAdMainFunctionPeriod": "0.02",
-                "SoAdSoConMax": "38",
+                "SoAdSoConMax": "20",
                 "SoAdRoutingGroupMax": "4",
                 "SoAdGetAndResetMeasurementDataApi": "TRUE",
                 "SoAdEnableSecurityEventReporting": "TRUE",
@@ -791,17 +791,17 @@
                         "SoAdSocketConnection": [
                             {
                                 "SoAdSocketId": "0",
-                                "SoAdSocketRemoteIpAddress": "192.168.3.1",
+                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
                                 "SoAdSocketRemotePort": "123"
                             },
                             {
                                 "SoAdSocketId": "1",
-                                "SoAdSocketRemoteIpAddress": "192.168.3.2",
+                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
                                 "SoAdSocketRemotePort": "124"
                             },
                             {
                                 "SoAdSocketId": "2",
-                                "SoAdSocketRemoteIpAddress": "192.168.3.3",
+                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
                                 "SoAdSocketRemotePort": "125"
                             }
                         ]
@@ -833,12 +833,12 @@
                         "SoAdSocketConnection": [
                             {
                                 "SoAdSocketId": "3",
-                                "SoAdSocketRemoteIpAddress": "192.168.3.4",
+                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
                                 "SoAdSocketRemotePort": "123"
                             },
                             {
                                 "SoAdSocketId": "4",
-                                "SoAdSocketRemoteIpAddress": "192.168.3.5",
+                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
                                 "SoAdSocketRemotePort": "234"
                             }
                         ]
@@ -848,79 +848,49 @@
                     {
                         "SoAdRxPduHeaderId": "0",
                         "SoAdRxSocketConnOrSocketConnBundleRef": "...",
-                        "SoAdSocketRouteDest": [
-                            {
-                                "SoAdRxPduId": "100",
-                                "SoAdRxUpperLayerType": "IF",
-                                "SoAdRxPduRef": "...",
-                                "SoAdRxRoutingGroupRef": "..."
-                            }
-                        ]
+                        "SoAdRxPduId": "100",
+                        "SoAdRxUpperLayerType": "IF",
+                        "SoAdRxPduRef": "...",
+                        "SoAdRxRoutingGroupRef": "..."
                     },
                     {
                         "SoAdRxPduHeaderId": "1",
                         "SoAdRxSocketConnOrSocketConnBundleRef": "...",
-                        "SoAdSocketRouteDest": [
-                            {
-                                "SoAdRxPduId": "20",
-                                "SoAdRxUpperLayerType": "TP",
-                                "SoAdRxPduRef": "...",
-                                "SoAdRxRoutingGroupRef": "..."
-                            }
-                        ]
+                        "SoAdRxPduId": "20",
+                        "SoAdRxUpperLayerType": "TP",
+                        "SoAdRxPduRef": "...",
+                        "SoAdRxRoutingGroupRef": "..."
                     },
                     {
                         "SoAdRxPduHeaderId": "2",
                         "SoAdRxSocketConnOrSocketConnBundleRef": "...",
-                        "SoAdSocketRouteDest": [
-                            {
-                                "SoAdRxPduId": "40",
-                                "SoAdRxUpperLayerType": "IF",
-                                "SoAdRxPduRef": "...",
-                                "SoAdRxRoutingGroupRef": "..."
-                            }
-                        ]
+                        "SoAdRxPduId": "40",
+                        "SoAdRxUpperLayerType": "IF",
+                        "SoAdRxPduRef": "...",
+                        "SoAdRxRoutingGroupRef": "..."
                     },
                     {
                         "SoAdRxPduHeaderId": "3",
                         "SoAdRxSocketConnOrSocketConnBundleRef": "...",
-                        "SoAdSocketRouteDest": [
-                            {
-                                "SoAdRxPduId": "60",
-                                "SoAdRxUpperLayerType": "IF",
-                                "SoAdRxPduRef": "...",
-                                "SoAdRxRoutingGroupRef": "..."
-                            }
-                        ]
+                        "SoAdRxPduId": "60",
+                        "SoAdRxUpperLayerType": "IF",
+                        "SoAdRxPduRef": "...",
+                        "SoAdRxRoutingGroupRef": "..."
                     }
                 ],
                 "SoAdPduRoute": [
                     {
                         "SoAdTxPduId": "0",
+                        "SoAdTxPduRef": "...",
                         "SoAdTxUpperLayerType": "IF",
                         "SoAdTxPduCollectionSemantics": "SOAD_COLLECT_LAST_IS_BEST",
-                        "SoAdTxPduRef": "...",
                         "SoAdPduRouteDest": [
                             {
                                 "SoAdTxPduHeaderId": "0",
-                                "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
-                                "SoAdTxUdpTriggerTimeout": "10",
                                 "SoAdTxSocketConnOrSocketConnBundleRef": "...",
-                                "SoAdTxRoutingGroupRef": "..."
-                            },
-                            {
-                                "SoAdTxPduHeaderId": "1",
+                                "SoAdTxRoutingGroupRef": "...",
                                 "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
-                                "SoAdTxUdpTriggerTimeout": "20",
-                                "SoAdTxSocketConnOrSocketConnBundleRef": "...",
-                                "SoAdTxRoutingGroupRef": "..."
-                            },
-                            {
-                                "SoAdTxPduHeaderId": "2",
-                                "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
-                                "SoAdTxUdpTriggerTimeout": "30",
-                                "SoAdTxSocketConnOrSocketConnBundleRef": "...",
-                                "SoAdTxRoutingGroupRef": "..."
+                                "SoAdTxUdpTriggerTimeout": "10"
                             }
                         ]
                     }

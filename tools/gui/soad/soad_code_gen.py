@@ -23,7 +23,6 @@
 import os
 
 import utils.search as search
-
 import gui.car_os.code_gen as code_gen
 
 
@@ -31,66 +30,13 @@ SoAdSocketConnectionType_str = "\n\ntypedef struct {\n\
     uint16 rem_skt_id;  /* remote socket id */\n\
     uint16 gen_skt_id;  /* the tool generated id, for verification purposes */\n\
     uint16 skt_grp_id;  /* remote socket group */\n\
-    uint16 loc_skt_id;  /* local socket id ref */\n\
+    uint16 tcpip_skt_id;  /* local socket id ref */\n\
     uint16 rem_ip[16];  /* remote ip (ipv6 or ipv4) */\n\
     uint16 rem_port;    /* remote port number */\n\
     TcpIp_ProtocolType protocol;\n\
-    TcpIpDomainType domain_type;\n\
 } SoAdSocketConnectionType;\n\
 \n"
 
-# SoAdDomainType_str = "\ntypedef enum {\n\
-#     TCPIP_AF_INET = 0x02,\n\
-#     TCPIP_AF_INET6 = 0x1c,\n\
-#     TCPIP_MAX_DOMAIN_TYPE\n\
-# } SoAdDomainType;\n\
-# \n"
-
-# SoAdAddressType_str = "\ntypedef enum {\n\
-#     TCPIP_UNICAST,\n\
-#     TCPIP_ANYCAST,\n\
-#     TCPIP_MULTCAST,\n\
-#     TCPIP_MAX_ADDR_TYPE\n\
-# } SoAdAddressType;\n\
-# \n"
-
-# SoAdAssignmentLifetime_str = "\ntypedef enum {\n\
-#     TCPIP_FORGET,\n\
-#     TCPIP_STORE,\n\
-#     TCPIP_MAX_ASSN_LIFETIME\n\
-# } SoAdAssignmentLifetime;\n\
-# \n"
-
-# SoAdAssignmentMethod_str = "\ntypedef enum {\n\
-#     TCPIP_STATIC,\n\
-#     TCPIP_DHCP,\n\
-#     TCPIP_LINKLOCAL,\n\
-#     TCPIP_IPV6_ROUTER,\n\
-#     TCPIP_LINKLOCAL_DOIP,\n\
-#     TCPIP_MAX_ASSN_METHOD\n\
-# } SoAdAssignmentMethod;\n\
-# \n"
-
-# SoAdAssignmentTrigger_str = "\ntypedef enum {\n\
-#     TCPIP_MANUAL,\n\
-#     TCPIP_AUTOMATIC,\n\
-#     TCPIP_MAX_ASSN_TRIGGER\n\
-# } SoAdAssignmentTrigger;\n\
-# \n"
-
-# SoAdLocalAddr_str = "\ntypedef struct {\n\
-#     uint16                    addr_id;\n\
-#     SoAdDomainType           domain_type;\n\
-#     SoAdAddressType          addr_type;\n\
-#     SoAdAssignmentLifetime   addr_assn_life;\n\
-#     SoAdAssignmentMethod     addr_assn_method;\n\
-#     uint8                     addr_assn_prio;\n\
-#     SoAdAssignmentTrigger    addr_assn_trig;\n\
-#     uint16                    ip_addr[16]; /* supports both ipv6 and ipv4 */\n\
-#     uint16                    ip_netmask[16]; /* supports both ipv6 and ipv4 */\n\
-#     uint16                    ip_dfroutr[16]; /* supports both ipv6 and ipv4 */\n\
-# } SoAdLocalAddr;\n\
-# \n"
 
 SoAd_ConfigType_str = "\ntypedef struct {\n\
     SoAdSocketConnectionType *socon;\n\
@@ -98,27 +44,34 @@ SoAd_ConfigType_str = "\ntypedef struct {\n\
 \n"
 
 
-# def ip_to_string(cfg, item):
-#     ip_range = 0
-#     ip_addr = None
-#     ret_str = "{"
-#     if cfg["SoAdDomainType"] == "TCPIP_AF_INET":
-#         ip_range = 4
-#         ip_addr = cfg["SoAdStaticIpAddressConfig"][item].split(".")
-#     else:
-#         ip_range = 16
-#         ip_addr = cfg["SoAdStaticIpAddressConfig"][item].split(":")
-#     for j in range(16):
-#         if j < ip_range:
-#             ret_str += str(ip_addr[j])
-#         else:
-#             ret_str += "0"
 
-#         # end of initializer
-#         if j < 15:
-#             ret_str += ", "
-#     ret_str += "}"
-#     return ret_str
+def ip_to_string(cfg, ip_str):
+    ip_range = 0
+    ip_addr = None
+    ret_str = "{"
+    if cfg["TcpIpDomainType"] == "TCPIP_AF_INET":
+        ip_range = 4
+        if cfg[ip_str] == "IPADDR_TYPE_ANY" or "ANY" in cfg[ip_str]:
+            ip_addr = [0, 0, 0, 0]
+        else:
+            ip_addr = cfg[ip_str].split(".")
+    else:
+        ip_range = 16
+        if cfg[ip_str] == "IPADDR_TYPE_ANY" or "ANY" in cfg[ip_str]:
+            ip_addr = [0, 0, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0]
+        else:
+            ip_addr = cfg[ip_str].split(":")
+    for j in range(16):
+        if j < ip_range:
+            ret_str += str(ip_addr[j])
+        else:
+            ret_str += "0"
+
+        # end of initializer
+        if j < 15:
+            ret_str += ", "
+    ret_str += "}"
+    return ret_str
 
 
 
@@ -154,6 +107,7 @@ def get_consolidated_socket_connections(soad_configs):
     return sock_conns
 
 
+
 def generate_sourcefile(soad_src_path, soad_configs, sock_conns):
     cf = open(soad_src_path+"/cfg/SoAd_cfg.c", "w")
     cf.write("#include <stddef.h>\n")
@@ -163,46 +117,21 @@ def generate_sourcefile(soad_src_path, soad_configs, sock_conns):
     soad_skt_grp = soad_configs["SoAdConfig"][0]["SoAdSocketConnectionGroup"]
 
     # create a group-unified socket conn. list (decision on 29-Feb-24 10:31 PM)
-    cf.write("\nconst SoAdSocketConnectionType SoAdSocketConnectionConfigs[MAX_SOCKET_CONNS] = {\n")
+    cf.write("\nconst SoAdSocketConnectionType SoAdSocketConnectionConfigs[MAX_REMOTE_SOCKET_CONNS] = {\n")
     for i, socon in enumerate(sock_conns):
         cf.write("\t{\n")
         cf.write("\t\t/* SoAd Socket Connection - "+str(i)+" */\n")
         cf.write("\t\t.rem_skt_id = "+socon["SoAdSocketId"]+",\n")
         cf.write("\t\t.gen_skt_id = "+str(i)+",\n")
         cf.write("\t\t.skt_grp_id = "+socon["SoAdSocketConnectionGroupId"]+",\n")
-        cf.write("\t\t.loc_skt_id = "+socon["TcpIpAddrId"]+",\n")
+        cf.write("\t\t.tcpip_skt_id = "+socon["TcpIpAddrId"]+",\n")
 
-        # cf.write("\t\t.rem_ip = "+socon["SoAdAddressType"]+",\n")
+        cf.write("\t\t.rem_ip = "+ip_to_string(socon, "SoAdSocketRemoteIpAddress")+",\n")
 
         cf.write("\t\t.rem_port = "+socon["SoAdSocketRemotePort"]+",\n")
         cf.write("\t\t.protocol = "+socon["SoAdSocketProtocolChoice"]+",\n")
-        cf.write("\t\t.domain_type = "+socon["TcpIpDomainType"]+"\n")
         cf.write("\t},\n")
     cf.write("};\n\n")
-
-
-    # cf.write("\n\nconst SoAdGeneralCfgType SoAdGeneralConfigs = {\n")
-    # cf.write("\t.mainfn_period_ms = "+str(int(1000*float(SoAdGeneral_cfg["SoAdMainFunctionPeriod"])))+",\n")
-    # cf.write("\t.soad_buffer_mem = "+str(SoAdGeneral_cfg["SoAdBufferMemory"])+"\n")
-    # cf.write("};\n")
-
-
-    # cf.write("\nconst SoAdLocalAddr SoAdLocalAddrConfigs[MAX_TCPIP_LOCAL_ADDRESS] = {\n")
-    # for i, cfg in enumerate(SoAdLocalAddr_cfg):
-    #     cf.write("\t{\n")
-    #     cf.write("\t\t/* SoAd local address - "+str(i)+" */\n")
-    #     cf.write("\t\t.addr_id = "+cfg["SoAdAddrId"]+",\n")
-    #     cf.write("\t\t.domain_type = "+cfg["SoAdDomainType"]+",\n")
-    #     cf.write("\t\t.addr_type = "+cfg["SoAdAddressType"]+",\n")
-    #     cf.write("\t\t.addr_assn_life = "+cfg["SoAdAddrAssignment"]["SoAdAssignmentLifetime"]+",\n")
-    #     cf.write("\t\t.addr_assn_method = "+cfg["SoAdAddrAssignment"]["SoAdAssignmentMethod"]+",\n")
-    #     cf.write("\t\t.addr_assn_prio = "+cfg["SoAdAddrAssignment"]["SoAdAssignmentPriority"]+",\n")
-    #     cf.write("\t\t.addr_assn_trig = "+cfg["SoAdAddrAssignment"]["SoAdAssignmentTrigger"]+",\n")
-    #     cf.write("\t\t.ip_addr = "+ip_to_string(cfg, "SoAdStaticIpAddress")+",\n")
-    #     cf.write("\t\t.ip_netmask = "+ip_to_string(cfg, "SoAdNetmask")+",\n")
-    #     cf.write("\t\t.ip_dfroutr = "+ip_to_string(cfg, "SoAdDefaultRouter")+"\n")
-    #     cf.write("\t}\n")
-    # cf.write("};\n\n")
 
 
     cf.write("\nconst SoAd_ConfigType SoAd_Config = {\n")
@@ -224,16 +153,10 @@ def generate_headerfile(soad_src_path, soad_configs):
 
     hf.write(SoAdSocketConnectionType_str)
     sock_conns = get_consolidated_socket_connections(soad_configs)
-    hf.write("\n#define MAX_SOCKET_CONNS ("+str(len(sock_conns))+")\n")
+    hf.write("\n#define SOAD_TOTAL_SOCKET_CONNS ("+str(len(sock_conns))+")")
 
-    # hf.write(SoAdAddressType_str)
-    # hf.write(SoAdAssignmentMethod_str)
-    # hf.write(SoAdAssignmentTrigger_str)
-    # hf.write(SoAdAssignmentLifetime_str)
-
-    # hf.write(SoAdGeneralCfgType_str)
-    # hf.write(SoAdLocalAddr_str)
-    # hf.write("\nextern const SoAdLocalAddr SoAdLocalAddrConfigs[MAX_TCPIP_LOCAL_ADDRESS];\n\n\n")
+    max_socks = soad_configs["SoAdGeneral"][0]["SoAdSoConMax"]
+    hf.write("\n#define SOAD_SOCK_CONNS_MAX_CFG ("+str(max_socks)+")\n\n")
 
     hf.write(SoAd_ConfigType_str)
     hf.write("\nextern const SoAd_ConfigType SoAd_Config;\n")

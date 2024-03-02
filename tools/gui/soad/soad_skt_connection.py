@@ -101,7 +101,7 @@ class SoAdSocketConnView:
         gen_dict = {}
         
         gen_dict["SoAdSocketId"]              = str(index)
-        gen_dict["SoAdSocketRemoteIpAddress"] = ""
+        gen_dict["SoAdSocketRemoteIpAddress"] = "IPADDR_TYPE_ANY"
         gen_dict["SoAdSocketRemotePort"]      = "0"
         
         return gen_dict

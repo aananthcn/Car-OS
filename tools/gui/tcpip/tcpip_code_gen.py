@@ -92,16 +92,24 @@ TcpIp_ConfigType_str = "\ntypedef struct {\n\
 \n"
 
 
+
 def ip_to_string(cfg, item):
     ip_range = 0
     ip_addr = None
+    ip_str = "TcpIpStaticIpAddressConfig"
     ret_str = "{"
     if cfg["TcpIpDomainType"] == "TCPIP_AF_INET":
         ip_range = 4
-        ip_addr = cfg["TcpIpStaticIpAddressConfig"][item].split(".")
+        if cfg[ip_str][item] == "IPADDR_TYPE_ANY" or "ANY" in cfg[ip_str][item]:
+            ip_addr = [0, 0, 0, 0]
+        else:
+            ip_addr = cfg[ip_str][item].split(".")
     else:
         ip_range = 16
-        ip_addr = cfg["TcpIpStaticIpAddressConfig"][item].split(":")
+        if cfg[ip_str] == "IPADDR_TYPE_ANY" or "ANY" in cfg[ip_str]:
+            ip_addr = [0, 0, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0]
+        else:
+            ip_addr = cfg[ip_str][item].split(":")
     for j in range(16):
         if j < ip_range:
             ret_str += str(ip_addr[j])
