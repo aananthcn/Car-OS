@@ -103,7 +103,7 @@ def generate_sourcefile(soad_src_path, soad_configs, sock_conns):
     soad_skt_grp = soad_configs["SoAdConfig"][0]["SoAdSocketConnectionGroup"]
 
     # create a group-unified socket conn. list (decision on 29-Feb-24 10:31 PM)
-    cf.write("\nconst SoAdSocketConnectionType SoAdSocketConnectionConfigs[MAX_REMOTE_SOCKET_CONNS] = {\n")
+    cf.write("\nconst SoAdSocketConnectionType SoAdSocketConnectionConfigs[SOAD_TOTAL_SOCKET_CONNS] = {\n")
     for i, socon in enumerate(sock_conns):
         cf.write("\t{\n")
         cf.write("\t\t/* SoAd Socket Connection - "+str(i)+" */\n")
@@ -169,7 +169,9 @@ def generate_headerfile(soad_src_path, soad_configs):
     hf.write("\n#define SOAD_SOCK_CONNS_MAX_CFG ("+str(max_socks)+")\n\n")
 
     hf.write(SoAd_ConfigType_str)
-    hf.write("\nextern const SoAd_ConfigType SoAd_Config;\n")
+    hf.write("\nextern const SoAd_ConfigType SoAd_Config;")
+    hf.write("\nextern const SoAdPduRouteType SoAdPduRouteConfigs[SOAD_TOTAL_PDU_ROUTES];")
+    hf.write("\nextern const SoAdSocketConnectionType SoAdSocketConnectionConfigs[SOAD_TOTAL_SOCKET_CONNS];\n")
 
 
     hf.write("\n\n#endif\n")
@@ -187,5 +189,4 @@ def generate_code(gui, view):
 
     sock_conns = generate_headerfile(soad_src_path, view)
     generate_sourcefile(soad_src_path, view, sock_conns)
-    return
     code_gen.create_build_files(gui)

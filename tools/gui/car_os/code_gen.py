@@ -214,6 +214,10 @@ def create_build_files(gui):
     paths_mk.write("TCPIP_PATH := "+tcpip_path+"\n")
     swc_paths.append(tcpip_path)
 
+    soad_path = search.find_dir("SoAd", submodules_path).replace("\\", "/")
+    paths_mk.write("SOAD_PATH := "+soad_path+"\n")
+    swc_paths.append(soad_path)
+
     os_path = search.find_dir("Os", submodules_path).replace("\\", "/")
     paths_mk.write("OS_PATH := "+os_path+"\n")
     os_builder_path = search.find_dir("os_builder", car_os_path).replace("\\", "/")

@@ -18,6 +18,7 @@ LIN_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Lin
 ETH_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Eth
 ETHIF_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/ECU-AL/EthIf
 TCPIP_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/TcpIp
+SOAD_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/SoAd
 OS_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/Os
 OS_BUILDER_PATH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/tools/os_builder
 
