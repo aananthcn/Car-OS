@@ -181,9 +181,11 @@ class SoAdSocketConnectionGrpView:
         skpc = dappa.combogf(tab_frame, self, "SoAdSocketProtocolChoice", i, 6, 3, 32, skt_protcl_cmbsel)
         skpc.bind("<<ComboboxSelected>>", lambda evt, id = i : self.skt_protocol_changed(evt, id))
         text = self.configs[i].datavar["SoAdSocketProtocolChoice"]
-        dappa.buttongf(tab_frame, self, "SoAdSocketProtocol", i,      7, 3, 29, text, self.soad_skt_protocol_select)
+        dappa.buttongf(tab_frame, self, "SoAdSocketProtocol", i,      7, 3, 29, text, 
+                lambda evt, id = i : self.soad_skt_protocol_select(evt, id))
         text = "Click to Edit ["+str(len(self.configs[i].datavar["SoAdSocketConnection"]))+"]"
-        dappa.buttongf(tab_frame, self, "SoAdSocketConnection", i,    8, 3, 29, text, self.soad_skt_conn_select)
+        dappa.buttongf(tab_frame, self, "SoAdSocketConnection", i,    8, 3, 29, text, 
+                lambda evt, id = i : self.soad_skt_conn_select(evt, id))
 
 
 
@@ -293,11 +295,15 @@ class SoAdSocketConnectionGrpView:
 
     def on_soad_skt_protocol_close(self, row):
         # backup data
+        # if self.active_view.view.configs:
+        #     # the socket protocol view has only one row / tabs
+        #     cfg_0 = self.active_view.view.configs[row].get() # get from UI --> datavar
+        #     self.configs[row].datavar["SoAdSocketProtocol"] = cfg_0
         if self.active_view.view.configs:
-            # the socket protocol view has only one row / tabs
-            cfg_0 = self.active_view.view.configs[0].get() # get from UI --> datavar
-            self.configs[0].datavar["SoAdSocketProtocol"] = cfg_0
-
+            self.configs[row].datavar["SoAdSocketProtocol"] = []  # ignore old data
+            for cfg in self.active_view.view.configs:
+                self.configs[row].datavar["SoAdSocketProtocol"].append(cfg.get())
+    
         # destroy view
         del self.active_view
         self.active_dialog.destroy()
@@ -309,7 +315,7 @@ class SoAdSocketConnectionGrpView:
         self.draw_dappa_row(row)
 
 
-    def soad_skt_protocol_select(self, row):
+    def soad_skt_protocol_select(self, event, row):
         if self.active_dialog != None:
             return
 
@@ -360,7 +366,7 @@ class SoAdSocketConnectionGrpView:
         self.draw_dappa_row(row)
 
 
-    def soad_skt_conn_select(self, row):
+    def soad_skt_conn_select(self, event, row):
         if self.active_dialog != None:
             return
 

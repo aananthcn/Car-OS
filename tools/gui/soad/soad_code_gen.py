@@ -31,10 +31,12 @@ SoAdSocketConnectionType_str = "\n\ntypedef struct {\n\
     uint16 rem_skt_id;  /* remote socket id */\n\
     uint16 gen_skt_id;  /* the tool generated id, for verification purposes */\n\
     uint16 skt_grp_id;  /* remote socket group */\n\
-    uint16 tcpip_skt_id;  /* local socket id ref */\n\
+    uint16 loc_ipaddr_id;  /* local socket id ref */\n\
+    uint16 loc_port;    /* from sock. group */\n\
     uint16 rem_ip[16];  /* remote ip (ipv6 or ipv4) */\n\
     uint16 rem_port;    /* remote port number */\n\
     TcpIp_ProtocolType protocol;\n\
+    boolean is_tcp_server;\n\
 } SoAdSocketConnectionType;\n\
 \n"
 
@@ -110,12 +112,14 @@ def generate_sourcefile(soad_src_path, soad_configs, sock_conns):
         cf.write("\t\t.rem_skt_id = "+socon["SoAdSocketId"]+",\n")
         cf.write("\t\t.gen_skt_id = "+str(i)+",\n")
         cf.write("\t\t.skt_grp_id = "+socon["SoAdSocketConnectionGroupId"]+",\n")
-        cf.write("\t\t.tcpip_skt_id = "+socon["TcpIpAddrId"]+",\n")
+        cf.write("\t\t.loc_ipaddr_id = "+socon["TcpIpAddrId"]+",\n")
+        cf.write("\t\t.loc_port = "+socon["SoAdSocketLocalPort"]+",\n")
 
         cf.write("\t\t.rem_ip = "+ip_to_string(socon, "SoAdSocketRemoteIpAddress")+",\n")
 
         cf.write("\t\t.rem_port = "+socon["SoAdSocketRemotePort"]+",\n")
         cf.write("\t\t.protocol = "+socon["SoAdSocketProtocolChoice"]+",\n")
+        cf.write("\t\t.is_tcp_server = "+socon["SoAdSocketTcpInitiate"]+",\n")
         cf.write("\t},\n")
     cf.write("};\n\n")
 

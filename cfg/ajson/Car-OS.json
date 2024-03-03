@@ -717,229 +717,6 @@
             }
         ]
     },
-    "SoAd": {
-        "SoAdGeneral": [
-            {
-                "SoAdDevErrorDetect": "TRUE",
-                "SoAdVersionInfoApi": "TRUE",
-                "SoAdIPv6AddressEnabled": "TRUE",
-                "SoAdMainFunctionPeriod": "0.02",
-                "SoAdSoConMax": "20",
-                "SoAdRoutingGroupMax": "4",
-                "SoAdGetAndResetMeasurementDataApi": "TRUE",
-                "SoAdEnableSecurityEventReporting": "TRUE",
-                "SoAdSecurityEventRefs": "..."
-            }
-        ],
-        "SoAdBswModules": [
-            {
-                "SoAdIf": "FALSE",
-                "SoAdIfTriggerTransmit": "FALSE",
-                "SoAdIfTxConfirmation": "FALSE",
-                "SoAdLocalIpAddrAssigmentChg": "FALSE",
-                "SoAdSoConModeChg": "FALSE",
-                "SoAdTp": "FALSE",
-                "SoAdUseCallerInfix": "FALSE",
-                "SoAdUseTypeInfix": "FALSE",
-                "SoAdBswModuleRef": "..."
-            },
-            {
-                "SoAdIf": "TRUE",
-                "SoAdIfTriggerTransmit": "FALSE",
-                "SoAdIfTxConfirmation": "TRUE",
-                "SoAdLocalIpAddrAssigmentChg": "FALSE",
-                "SoAdSoConModeChg": "TRUE",
-                "SoAdTp": "FALSE",
-                "SoAdUseCallerInfix": "TRUE",
-                "SoAdUseTypeInfix": "FALSE",
-                "SoAdBswModuleRef": "Ref2"
-            }
-        ],
-        "SoAdConfig": [
-            {
-                "SoAdSocketConnectionGroup": [
-                    {
-                        "SoAdPduHeaderEnable": "FALSE",
-                        "SoAdSocketPathMTUEnable": "FALSE",
-                        "SoAdSocketAutomaticSoConSetup": "FALSE",
-                        "SoAdSocketIpAddrAssignmentChgNotification": "FALSE",
-                        "SoAdSocketLocalAddressRef": "TcpIpAddrId_0-192.168.3.100",
-                        "SoAdSocketLocalPort": "1",
-                        "SoAdSocketSoConModeChgBswMNotification": "FALSE",
-                        "SoAdSocketSoConModeChgNotification": "FALSE",
-                        "SoAdSocketProtocol": {
-                            "SoAdSocketTcpRetransmissionTimeout": "0.001",
-                            "SoAdSocketTcpAutoConnectTimeout": "1",
-                            "SoAdSocketTcpInitiate": "FALSE",
-                            "SoAdSocketTcpNoDelay": "FALSE",
-                            "SoAdSocketTcpImmediateTpTxConfirmation": "FALSE",
-                            "SoAdSocketTcpTxQuota": "2",
-                            "SoAdSocketTcpKeepAlive": "FALSE",
-                            "SoAdSocketTcpKeepAliveProbesMax": "3",
-                            "SoAdSocketTcpKeepAliveInterval": "4",
-                            "SoAdSocketTcpKeepAliveTime": "7200",
-                            "SoAdSocketTCPOptionFilterRef": "...",
-                            "SoAdSocketTcpTlsConnectionRef": "..."
-                        },
-                        "SoAdSocketProtocolChoice": "TCP",
-                        "SoAdSocketTpRxBufferMin": "2",
-                        "SoAdSocketFramePriority": "3",
-                        "SoAdSocketMsgAcceptanceFilterEnabled": "FALSE",
-                        "SoAdSocketSoConModeChgNotifUpperLayerRef": "...",
-                        "SoAdSocketFlowLabel": "4",
-                        "SoAdSocketDifferentiatedServicesField": "5",
-                        "SoAdSocketConnection": [
-                            {
-                                "SoAdSocketId": "0",
-                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
-                                "SoAdSocketRemotePort": "123"
-                            },
-                            {
-                                "SoAdSocketId": "1",
-                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
-                                "SoAdSocketRemotePort": "124"
-                            },
-                            {
-                                "SoAdSocketId": "2",
-                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
-                                "SoAdSocketRemotePort": "125"
-                            }
-                        ]
-                    },
-                    {
-                        "SoAdPduHeaderEnable": "FALSE",
-                        "SoAdSocketPathMTUEnable": "FALSE",
-                        "SoAdSocketAutomaticSoConSetup": "FALSE",
-                        "SoAdSocketIpAddrAssignmentChgNotification": "FALSE",
-                        "SoAdSocketLocalAddressRef": "TcpIpAddrId_0-192.168.3.100",
-                        "SoAdSocketLocalPort": "0",
-                        "SoAdSocketSoConModeChgBswMNotification": "FALSE",
-                        "SoAdSocketSoConModeChgNotification": "FALSE",
-                        "SoAdSocketProtocol": {
-                            "SoAdSocketUdpListenOnly": "FALSE",
-                            "SoAdSocketUdpAliveSupervisionTimeout": "0",
-                            "SoAdSocketnPduUdpTxBufferMin": "0",
-                            "SoAdSocketUdpTriggerTimeout": "0",
-                            "SoAdSocketUdpStrictHeaderLenCheckEnabled": "FALSE",
-                            "SoAdSocketUdpChecksumEnabled": "TRUE"
-                        },
-                        "SoAdSocketProtocolChoice": "UDP",
-                        "SoAdSocketTpRxBufferMin": "0",
-                        "SoAdSocketFramePriority": "0",
-                        "SoAdSocketMsgAcceptanceFilterEnabled": "FALSE",
-                        "SoAdSocketSoConModeChgNotifUpperLayerRef": "...",
-                        "SoAdSocketFlowLabel": "0",
-                        "SoAdSocketDifferentiatedServicesField": "0",
-                        "SoAdSocketConnection": [
-                            {
-                                "SoAdSocketId": "3",
-                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
-                                "SoAdSocketRemotePort": "123"
-                            },
-                            {
-                                "SoAdSocketId": "4",
-                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
-                                "SoAdSocketRemotePort": "234"
-                            }
-                        ]
-                    }
-                ],
-                "SoAdSocketRoute": [
-                    {
-                        "SoAdRxPduHeaderId": "0",
-                        "SoAdRxSocketConnOrSocketConnBundleRef": "...",
-                        "SoAdRxPduId": "100",
-                        "SoAdRxUpperLayerType": "IF",
-                        "SoAdRxPduRef": "...",
-                        "SoAdRxRoutingGroupRef": "..."
-                    },
-                    {
-                        "SoAdRxPduHeaderId": "1",
-                        "SoAdRxSocketConnOrSocketConnBundleRef": "...",
-                        "SoAdRxPduId": "20",
-                        "SoAdRxUpperLayerType": "TP",
-                        "SoAdRxPduRef": "...",
-                        "SoAdRxRoutingGroupRef": "..."
-                    },
-                    {
-                        "SoAdRxPduHeaderId": "2",
-                        "SoAdRxSocketConnOrSocketConnBundleRef": "...",
-                        "SoAdRxPduId": "40",
-                        "SoAdRxUpperLayerType": "IF",
-                        "SoAdRxPduRef": "...",
-                        "SoAdRxRoutingGroupRef": "..."
-                    },
-                    {
-                        "SoAdRxPduHeaderId": "3",
-                        "SoAdRxSocketConnOrSocketConnBundleRef": "...",
-                        "SoAdRxPduId": "60",
-                        "SoAdRxUpperLayerType": "IF",
-                        "SoAdRxPduRef": "...",
-                        "SoAdRxRoutingGroupRef": "..."
-                    }
-                ],
-                "SoAdPduRoute": [
-                    {
-                        "SoAdTxPduId": "0",
-                        "SoAdTxPduRef": "...",
-                        "SoAdTxUpperLayerType": "IF",
-                        "SoAdTxPduCollectionSemantics": "SOAD_COLLECT_LAST_IS_BEST",
-                        "SoAdPduRouteDest": [
-                            {
-                                "SoAdTxPduHeaderId": "0",
-                                "SoAdTxSocketConnOrSocketConnBundleRef": "SoConId_0-SoConGrp_0-TCP",
-                                "SoAdTxRoutingGroupRef": "...",
-                                "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
-                                "SoAdTxUdpTriggerTimeout": "10"
-                            }
-                        ]
-                    },
-                    {
-                        "SoAdTxPduId": "1",
-                        "SoAdTxPduRef": "...",
-                        "SoAdTxUpperLayerType": "IF",
-                        "SoAdTxPduCollectionSemantics": "SOAD_COLLECT_LAST_IS_BEST",
-                        "SoAdPduRouteDest": [
-                            {
-                                "SoAdTxPduHeaderId": "0",
-                                "SoAdTxSocketConnOrSocketConnBundleRef": "SoConId_1-SoConGrp_0-TCP",
-                                "SoAdTxRoutingGroupRef": "...",
-                                "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
-                                "SoAdTxUdpTriggerTimeout": "0"
-                            }
-                        ]
-                    },
-                    {
-                        "SoAdTxPduId": "2",
-                        "SoAdTxPduRef": "...",
-                        "SoAdTxUpperLayerType": "IF",
-                        "SoAdTxPduCollectionSemantics": "SOAD_COLLECT_LAST_IS_BEST",
-                        "SoAdPduRouteDest": [
-                            {
-                                "SoAdTxPduHeaderId": "0",
-                                "SoAdTxSocketConnOrSocketConnBundleRef": "SoConId_3-SoConGrp_1-UDP",
-                                "SoAdTxRoutingGroupRef": "...",
-                                "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
-                                "SoAdTxUdpTriggerTimeout": "0"
-                            }
-                        ]
-                    }
-                ],
-                "SoAdRoutingGroup": [
-                    {
-                        "SoAdRoutingGroupId": "0",
-                        "SoAdRoutingGroupIsEnabledAtInit": "FALSE",
-                        "SoAdRoutingGroupTxTriggerable": "FALSE"
-                    },
-                    {
-                        "SoAdRoutingGroupId": "1",
-                        "SoAdRoutingGroupIsEnabledAtInit": "TRUE",
-                        "SoAdRoutingGroupTxTriggerable": "TRUE"
-                    }
-                ]
-            }
-        ]
-    },
     "TcpIp": {
         "TcpIpGeneral": [
             {
@@ -977,6 +754,211 @@
                 "TcpIpSocketOwnerTcpConnectedName": "",
                 "TcpIpSocketOwnerTcpIpEventName": "",
                 "TcpIpSocketOwnerTxConfirmationName": ""
+            }
+        ]
+    },
+    "SoAd": {
+        "SoAdGeneral": [
+            {
+                "SoAdDevErrorDetect": "FALSE",
+                "SoAdVersionInfoApi": "FALSE",
+                "SoAdIPv6AddressEnabled": "FALSE",
+                "SoAdMainFunctionPeriod": "0.01",
+                "SoAdSoConMax": "0",
+                "SoAdRoutingGroupMax": "0",
+                "SoAdGetAndResetMeasurementDataApi": "FALSE",
+                "SoAdEnableSecurityEventReporting": "FALSE",
+                "SoAdSecurityEventRefs": "..."
+            }
+        ],
+        "SoAdBswModules": [],
+        "SoAdConfig": [
+            {
+                "SoAdSocketConnectionGroup": [
+                    {
+                        "SoAdPduHeaderEnable": "FALSE",
+                        "SoAdSocketPathMTUEnable": "FALSE",
+                        "SoAdSocketAutomaticSoConSetup": "FALSE",
+                        "SoAdSocketIpAddrAssignmentChgNotification": "FALSE",
+                        "SoAdSocketLocalAddressRef": "TcpIpAddrId_0-192.168.3.100",
+                        "SoAdSocketLocalPort": "10",
+                        "SoAdSocketSoConModeChgBswMNotification": "FALSE",
+                        "SoAdSocketSoConModeChgNotification": "FALSE",
+                        "SoAdSocketProtocol": [
+                            {
+                                "SoAdSocketTcpRetransmissionTimeout": "0.001",
+                                "SoAdSocketTcpAutoConnectTimeout": "0",
+                                "SoAdSocketTcpInitiate": "FALSE",
+                                "SoAdSocketTcpNoDelay": "FALSE",
+                                "SoAdSocketTcpImmediateTpTxConfirmation": "FALSE",
+                                "SoAdSocketTcpTxQuota": "0",
+                                "SoAdSocketTcpKeepAlive": "FALSE",
+                                "SoAdSocketTcpKeepAliveProbesMax": "0",
+                                "SoAdSocketTcpKeepAliveInterval": "0",
+                                "SoAdSocketTcpKeepAliveTime": "7200",
+                                "SoAdSocketTCPOptionFilterRef": "...",
+                                "SoAdSocketTcpTlsConnectionRef": "..."
+                            }
+                        ],
+                        "SoAdSocketProtocolChoice": "TCP",
+                        "SoAdSocketTpRxBufferMin": "0",
+                        "SoAdSocketFramePriority": "0",
+                        "SoAdSocketMsgAcceptanceFilterEnabled": "FALSE",
+                        "SoAdSocketSoConModeChgNotifUpperLayerRef": "...",
+                        "SoAdSocketFlowLabel": "0",
+                        "SoAdSocketDifferentiatedServicesField": "0",
+                        "SoAdSocketConnection": [
+                            {
+                                "SoAdSocketId": "0",
+                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
+                                "SoAdSocketRemotePort": "100"
+                            },
+                            {
+                                "SoAdSocketId": "1",
+                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
+                                "SoAdSocketRemotePort": "101"
+                            }
+                        ]
+                    },
+                    {
+                        "SoAdPduHeaderEnable": "FALSE",
+                        "SoAdSocketPathMTUEnable": "FALSE",
+                        "SoAdSocketAutomaticSoConSetup": "FALSE",
+                        "SoAdSocketIpAddrAssignmentChgNotification": "FALSE",
+                        "SoAdSocketLocalAddressRef": "TcpIpAddrId_0-192.168.3.100",
+                        "SoAdSocketLocalPort": "11",
+                        "SoAdSocketSoConModeChgBswMNotification": "FALSE",
+                        "SoAdSocketSoConModeChgNotification": "FALSE",
+                        "SoAdSocketProtocol": [
+                            {
+                                "SoAdSocketUdpListenOnly": "FALSE",
+                                "SoAdSocketUdpAliveSupervisionTimeout": "0",
+                                "SoAdSocketnPduUdpTxBufferMin": "0",
+                                "SoAdSocketUdpTriggerTimeout": "0",
+                                "SoAdSocketUdpStrictHeaderLenCheckEnabled": "FALSE",
+                                "SoAdSocketUdpChecksumEnabled": "TRUE"
+                            }
+                        ],
+                        "SoAdSocketProtocolChoice": "UDP",
+                        "SoAdSocketTpRxBufferMin": "0",
+                        "SoAdSocketFramePriority": "0",
+                        "SoAdSocketMsgAcceptanceFilterEnabled": "FALSE",
+                        "SoAdSocketSoConModeChgNotifUpperLayerRef": "...",
+                        "SoAdSocketFlowLabel": "0",
+                        "SoAdSocketDifferentiatedServicesField": "0",
+                        "SoAdSocketConnection": [
+                            {
+                                "SoAdSocketId": "2",
+                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
+                                "SoAdSocketRemotePort": "102"
+                            }
+                        ]
+                    },
+                    {
+                        "SoAdPduHeaderEnable": "FALSE",
+                        "SoAdSocketPathMTUEnable": "FALSE",
+                        "SoAdSocketAutomaticSoConSetup": "FALSE",
+                        "SoAdSocketIpAddrAssignmentChgNotification": "FALSE",
+                        "SoAdSocketLocalAddressRef": "TcpIpAddrId_0-192.168.3.100",
+                        "SoAdSocketLocalPort": "12",
+                        "SoAdSocketSoConModeChgBswMNotification": "FALSE",
+                        "SoAdSocketSoConModeChgNotification": "FALSE",
+                        "SoAdSocketProtocol": [
+                            {
+                                "SoAdSocketTcpRetransmissionTimeout": "0.001",
+                                "SoAdSocketTcpAutoConnectTimeout": "0",
+                                "SoAdSocketTcpInitiate": "TRUE",
+                                "SoAdSocketTcpNoDelay": "FALSE",
+                                "SoAdSocketTcpImmediateTpTxConfirmation": "FALSE",
+                                "SoAdSocketTcpTxQuota": "0",
+                                "SoAdSocketTcpKeepAlive": "FALSE",
+                                "SoAdSocketTcpKeepAliveProbesMax": "0",
+                                "SoAdSocketTcpKeepAliveInterval": "0",
+                                "SoAdSocketTcpKeepAliveTime": "7200",
+                                "SoAdSocketTCPOptionFilterRef": "...",
+                                "SoAdSocketTcpTlsConnectionRef": "..."
+                            }
+                        ],
+                        "SoAdSocketProtocolChoice": "TCP",
+                        "SoAdSocketTpRxBufferMin": "0",
+                        "SoAdSocketFramePriority": "0",
+                        "SoAdSocketMsgAcceptanceFilterEnabled": "FALSE",
+                        "SoAdSocketSoConModeChgNotifUpperLayerRef": "...",
+                        "SoAdSocketFlowLabel": "0",
+                        "SoAdSocketDifferentiatedServicesField": "0",
+                        "SoAdSocketConnection": [
+                            {
+                                "SoAdSocketId": "3",
+                                "SoAdSocketRemoteIpAddress": "IPADDR_TYPE_ANY",
+                                "SoAdSocketRemotePort": "103"
+                            }
+                        ]
+                    }
+                ],
+                "SoAdSocketRoute": [],
+                "SoAdPduRoute": [
+                    {
+                        "SoAdTxPduId": "0",
+                        "SoAdTxPduRef": "...",
+                        "SoAdTxUpperLayerType": "IF",
+                        "SoAdTxPduCollectionSemantics": "SOAD_COLLECT_LAST_IS_BEST",
+                        "SoAdPduRouteDest": [
+                            {
+                                "SoAdTxPduHeaderId": "0",
+                                "SoAdTxSocketConnOrSocketConnBundleRef": "SoConId_0-SoConGrp_0-TCP",
+                                "SoAdTxRoutingGroupRef": "...",
+                                "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
+                                "SoAdTxUdpTriggerTimeout": "0"
+                            }
+                        ]
+                    },
+                    {
+                        "SoAdTxPduId": "1",
+                        "SoAdTxPduRef": "...",
+                        "SoAdTxUpperLayerType": "IF",
+                        "SoAdTxPduCollectionSemantics": "SOAD_COLLECT_LAST_IS_BEST",
+                        "SoAdPduRouteDest": [
+                            {
+                                "SoAdTxPduHeaderId": "0",
+                                "SoAdTxSocketConnOrSocketConnBundleRef": "SoConId_1-SoConGrp_0-TCP",
+                                "SoAdTxRoutingGroupRef": "...",
+                                "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
+                                "SoAdTxUdpTriggerTimeout": "0"
+                            }
+                        ]
+                    },
+                    {
+                        "SoAdTxPduId": "2",
+                        "SoAdTxPduRef": "...",
+                        "SoAdTxUpperLayerType": "IF",
+                        "SoAdTxPduCollectionSemantics": "SOAD_COLLECT_LAST_IS_BEST",
+                        "SoAdPduRouteDest": [
+                            {
+                                "SoAdTxPduHeaderId": "0",
+                                "SoAdTxSocketConnOrSocketConnBundleRef": "SoConId_2-SoConGrp_1-UDP",
+                                "SoAdTxRoutingGroupRef": "...",
+                                "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
+                                "SoAdTxUdpTriggerTimeout": "0"
+                            }
+                        ]
+                    },
+                    {
+                        "SoAdTxPduId": "3",
+                        "SoAdTxPduRef": "...",
+                        "SoAdTxUpperLayerType": "IF",
+                        "SoAdTxPduCollectionSemantics": "SOAD_COLLECT_LAST_IS_BEST",
+                        "SoAdPduRouteDest": [
+                            {
+                                "SoAdTxPduHeaderId": "0",
+                                "SoAdTxSocketConnOrSocketConnBundleRef": "SoConId_3-SoConGrp_2-TCP",
+                                "SoAdTxRoutingGroupRef": "...",
+                                "SoAdTxUdpTriggerMode": "TRIGGER_ALWAYS",
+                                "SoAdTxUdpTriggerTimeout": "0"
+                            }
+                        ]
+                    }
+                ],
+                "SoAdRoutingGroup": []
             }
         ]
     }

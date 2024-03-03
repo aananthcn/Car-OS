@@ -56,6 +56,8 @@ def get_consolidated_socket_connections():
     global SoAdView
 
     sock_conns = []
+    if "SoAdConfig" not in SoAdView:
+        return sock_conns
 
     soad_skt_grp = SoAdView["SoAdConfig"][0]["SoAdSocketConnectionGroup"]
     for g, skt_grp in enumerate(soad_skt_grp):
@@ -68,6 +70,11 @@ def get_consolidated_socket_connections():
             ip_addr = conn["SoAdSocketRemoteIpAddress"]
             skt_con["SoAdSocketRemoteIpAddress"] = ip_addr
             skt_con["SoAdSocketRemotePort"] = conn["SoAdSocketRemotePort"]
+            skt_con["SoAdSocketLocalPort"] = skt_grp["SoAdSocketLocalPort"]
+            if "TCP" in skt_grp["SoAdSocketProtocolChoice"]:
+                skt_con["SoAdSocketTcpInitiate"] = skt_grp["SoAdSocketProtocol"][0]["SoAdSocketTcpInitiate"]
+            else:
+                skt_con["SoAdSocketTcpInitiate"] = "FALSE"
 
             # ipv6 or ipv4?
             if "." in ip_addr and len(ip_addr.split(".")) == 4:
