@@ -77,7 +77,7 @@ def get_consolidated_socket_connections():
                 skt_con["SoAdSocketTcpInitiate"] = "FALSE"
 
             # ipv6 or ipv4?
-            if "." in ip_addr and len(ip_addr.split(".")) == 4:
+            if "ANY" in ip_addr or ("." in ip_addr and len(ip_addr.split(".")) == 4):
                 skt_con["TcpIpDomainType"] = "TCPIP_AF_INET"
             else:
                 skt_con["TcpIpDomainType"] = "TCPIP_AF_INET6"

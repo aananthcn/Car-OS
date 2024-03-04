@@ -33,10 +33,11 @@ LIBLIN := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Lin/libLin.a
 LIBETH := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/MCAL/Eth/libEth.a
 LIBETHIF := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/ECU-AL/EthIf/libEthIf.a
 LIBTCPIP := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/TcpIp/libTcpIp.a
+LIBSOAD := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/SoAd/libSoAd.a
 LIBOS := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/SL/Os/libOs.a
 LIBCAR_OS_TESTAPP := E:/labs/zephyr-lab/Car-OS.Zephyr/car-os/submodules/AL/Car_Os_TestApp/libCar_OS_TestApp.a
 
 
 # Link Archive Object List
 LA_OBJS :=  $(LIBMCU) $(LIBECUM) $(LIBPORT) $(LIBDIO) $(LIBSPI) $(LIBLIN) $(LIBETH) \
-	    $(LIBETHIF) $(LIBTCPIP) $(LIBOS) $(LIBCAR_OS_TESTAPP)
+	    $(LIBETHIF) $(LIBTCPIP) $(LIBSOAD) $(LIBOS) $(LIBCAR_OS_TESTAPP)

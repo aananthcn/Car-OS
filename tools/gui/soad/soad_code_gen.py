@@ -33,9 +33,10 @@ SoAdSocketConnectionType_str = "\n\ntypedef struct {\n\
     uint16 skt_grp_id;  /* remote socket group */\n\
     uint16 loc_ipaddr_id;  /* local socket id ref */\n\
     uint16 loc_port;    /* from sock. group */\n\
-    uint16 rem_ip[16];  /* remote ip (ipv6 or ipv4) */\n\
+    uint16 rem_ip[8];  /* remote ip (ipv6 or ipv4) */\n\
     uint16 rem_port;    /* remote port number */\n\
     TcpIp_ProtocolType protocol;\n\
+    TcpIpDomainType ip_version;\n\
     boolean is_tcp_server;\n\
 } SoAdSocketConnectionType;\n\
 \n"
@@ -71,25 +72,25 @@ def ip_to_string(cfg, ip_str):
     ip_addr = None
     ret_str = "{"
     if cfg["TcpIpDomainType"] == "TCPIP_AF_INET":
-        ip_range = 4
+        ip_range = 4   # 4 x 8-bit bytes
         if cfg[ip_str] == "IPADDR_TYPE_ANY" or "ANY" in cfg[ip_str]:
             ip_addr = [0, 0, 0, 0]
         else:
             ip_addr = cfg[ip_str].split(".")
     else:
-        ip_range = 16
+        ip_range = 8   # 8 x 16-bit short words
         if cfg[ip_str] == "IPADDR_TYPE_ANY" or "ANY" in cfg[ip_str]:
-            ip_addr = [0, 0, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0]
+            ip_addr = [0, 0, 0, 0,  0, 0, 0, 0]
         else:
             ip_addr = cfg[ip_str].split(":")
-    for j in range(16):
+    for j in range(8):
         if j < ip_range:
             ret_str += str(ip_addr[j])
         else:
             ret_str += "0"
 
         # end of initializer
-        if j < 15:
+        if j < 7:
             ret_str += ", "
     ret_str += "}"
     return ret_str
@@ -120,6 +121,7 @@ def generate_sourcefile(soad_src_path, soad_configs, sock_conns):
         cf.write("\t\t.rem_port = "+socon["SoAdSocketRemotePort"]+",\n")
         cf.write("\t\t.protocol = "+socon["SoAdSocketProtocolChoice"]+",\n")
         cf.write("\t\t.is_tcp_server = "+socon["SoAdSocketTcpInitiate"]+",\n")
+        cf.write("\t\t.ip_version = "+socon["TcpIpDomainType"]+",\n")
         cf.write("\t},\n")
     cf.write("};\n\n")
 

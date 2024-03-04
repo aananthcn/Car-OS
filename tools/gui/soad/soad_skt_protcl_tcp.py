@@ -88,7 +88,7 @@ class SoAdSocketTcpView:
         if not tcp_cfg:
             self.configs.append(dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs()))
         else:
-            self.configs.append(dappa.AsrCfgStr(self.cfgkeys, tcp_cfg))
+            self.configs.append(dappa.AsrCfgStr(self.cfgkeys, tcp_cfg[0]))
 
 
     def __del__(self):

@@ -79,7 +79,7 @@ class SoAdSocketUdpView:
         if not udp_cfg:
             self.configs.append(dappa.AsrCfgStr(self.cfgkeys, self.create_empty_configs()))
         else:
-            self.configs.append(dappa.AsrCfgStr(self.cfgkeys, udp_cfg))
+            self.configs.append(dappa.AsrCfgStr(self.cfgkeys, udp_cfg[0]))
 
     def __del__(self):
         del self.configs[:]

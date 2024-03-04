@@ -79,9 +79,9 @@ TcpIpLocalAddr_str = "\ntypedef struct {\n\
     TcpIpAssignmentMethod     addr_assn_method;\n\
     uint8                     addr_assn_prio;\n\
     TcpIpAssignmentTrigger    addr_assn_trig;\n\
-    uint16                    ip_addr[16]; /* supports both ipv6 and ipv4 */\n\
-    uint16                    ip_netmask[16]; /* supports both ipv6 and ipv4 */\n\
-    uint16                    ip_dfroutr[16]; /* supports both ipv6 and ipv4 */\n\
+    uint16                    ip_addr[8]; /* supports both ipv6 and ipv4 */\n\
+    uint16                    ip_netmask[8]; /* supports both ipv6 and ipv4 */\n\
+    uint16                    ip_dfroutr[8]; /* supports both ipv6 and ipv4 */\n\
 } TcpIpLocalAddr;\n\
 \n"
 
@@ -105,19 +105,19 @@ def ip_to_string(cfg, item):
         else:
             ip_addr = cfg[ip_str][item].split(".")
     else:
-        ip_range = 16
+        ip_range = 8
         if cfg[ip_str] == "IPADDR_TYPE_ANY" or "ANY" in cfg[ip_str]:
-            ip_addr = [0, 0, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0,  0, 0, 0, 0]
+            ip_addr = [0, 0, 0, 0,  0, 0, 0, 0]
         else:
             ip_addr = cfg[ip_str][item].split(":")
-    for j in range(16):
+    for j in range(8):
         if j < ip_range:
             ret_str += str(ip_addr[j])
         else:
             ret_str += "0"
 
         # end of initializer
-        if j < 15:
+        if j < 7:
             ret_str += ", "
     ret_str += "}"
     return ret_str
